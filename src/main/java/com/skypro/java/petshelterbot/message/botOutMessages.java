@@ -2,12 +2,22 @@ package com.skypro.java.petshelterbot.message;
 
 public class botOutMessages {
     //Консультация с новым пользователем
-    private static final String newUserMessage1 = "Бот приветствует пользователя. ";
-    private static final String newUserMessage2 = "Бот может рассказать о приюте.  ";
-    private static final String newUserMessage3 = "Бот может выдать расписание работы приюта и адрес, схему проезда. ";
-    private static final String newUserMessage4 = " Бот может выдать общие рекомендации о технике безопасности на   территории приюта. ";
-    private static final String newUserMessage5 = "Бот может принять и записать контактные данные для связи. ";
-    private static final String newUserMessage6 = " Если бот не может ответить на вопросы клиента, то можно позвать волонтера.";
+    private static final String newUserMessage1 = "Здравствуй дорой друг." +
+            "Ты попал в самый уникальный приют  в мире," +
+            "у тебя есть уникальная возможность совершить добрый поступок," +
+            "и стать обладателем домашнего питомца ";
+    private static final String newUserMessage2 = "Наш приют содержит более 1000 питомцев," +
+            "которые каждый день получают самую лушую заботу в мире," +
+            "ещё наш приют обладает сервисом  помощи нашим подопечным," +
+            "прислать можно на номер 8 (54545)-5858-67858 ";
+    private static final String newUserMessage3 = "Наш приют работает каждый день с 8:00 до 20:00.Мы находимся г Москва, ул Приютная,1 проезд, строение 2 ";
+    private static final String newUserMessage4 = "На территории приюта действуют следующие правила," +
+            "1 Нельзя курить " +
+            "2 Нельзя распивать алкогольные напитки " +
+            "3 Нельзя мусорить " +
+            "4 Нельзя сувать руки к животным";
+    private static final String newUserMessage5 = "Перед тем как  вы возьмёте питомца вы должны оставить свои контакные данные ";
+    private static final String newUserMessage6 = "Если вы не получили нужную информацию можете обратиться к волонтёру ";
 
     //Консультация с потенциальным хозяином животного из приюта
     private static final String potentialAnimalOwnerMessage7 = "Бот приветствует пользователя.  ";
