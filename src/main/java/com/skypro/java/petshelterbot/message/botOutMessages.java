@@ -9,7 +9,7 @@ public class botOutMessages {
     private static final String newUserMessage2 = "Наш приют содержит более 1000 питомцев," +
             "которые каждый день получают самую лушую заботу в мире," +
             "ещё наш приют обладает сервисом  помощи нашим подопечным," +
-            "прислать можно на номер 8 (54545)-5858-67858 ";
+            "прислать Вашу помощь  можно на номер 8 (54545)-5858-67858 ";
     private static final String newUserMessage3 = "Наш приют работает каждый день с 8:00 до 20:00.Мы находимся г Москва, ул Приютная,1 проезд, строение 2 ";
     private static final String newUserMessage4 = "На территории приюта действуют следующие правила," +
             "1 Нельзя курить " +
@@ -20,18 +20,31 @@ public class botOutMessages {
     private static final String newUserMessage6 = "Если вы не получили нужную информацию можете обратиться к волонтёру ";
 
     //Консультация с потенциальным хозяином животного из приюта
-    private static final String potentialAnimalOwnerMessage7 = "Бот приветствует пользователя.  ";
-    private static final String potentialAnimalOwnerMessage8 = "Бот может выдать правила знакомства с собакой до того, как можно забрать ее из приюта. ";
-    private static final String potentialAnimalOwnerMessage9 = "Бот может выдать список документов, необходимых для того, чтобы взять собаку из приюта. ";
-    private static final String potentialAnimalOwnerMessage10 = "Бот может выдать список рекомендаций по транспортировке животного. ";
-    private static final String potentialAnimalOwnerMessage11 = "Бот может выдать список рекомендаций по обустройству дома для щенка. ";
-    private static final String potentialAnimalOwnerMessage12 = "Бот может выдать список рекомендаций по обустройству дома для взрослой собаки.  ";
-    private static final String potentialAnimalOwnerMessage13 = "Бот может выдать список рекомендаций по обустройству дома для собаки с ограниченными возможностями (зрение, передвижение).  ";
-    private static final String potentialAnimalOwnerMessage14 = "Бот может выдать советы кинолога по первичному общению с собакой. ";
-    private static final String potentialAnimalOwnerMessage15 = "Бот может выдать рекомендации по проверенным кинологам для дальнейшего обращения к ним. ";
-    private static final String potentialAnimalOwnerMessage16 = " Бот может выдать список причин, почему могут отказать и не дать забрать собаку из приюта. ";
-    private static final String potentialAnimalOwnerMessage17 = " Бот может принять и записать контактные данные для связи.";
-    private static final String potentialAnimalOwnerMessage18 = "Если бот не может ответить на вопросы клиента, то можно позвать волонтера. ";
+    private static final String potentialAnimalOwnerMessage7 = "Вы находитесь в меню инфы про то как стать владельцем питомца";
+    private static final String potentialAnimalOwnerMessage8 = "Правила знакомства с собакой,прежде чем взять питомца из приюта " +
+            "Вам нужно познакомиться с питомцем и привыкнуть друг к другу " +
+            "для этого необходимо, каждый день посещять приют" +
+            "и кормить питомца всякими вкусняшками   ";
+    private static final String potentialAnimalOwnerMessage9 = "Список документов, необходимых для того, чтобы взять собаку из приюта." +
+            "1 Паспорт " +
+            "2 Рекомендации от 5 лучших друзей";
+    private static final String potentialAnimalOwnerMessage10 = " Рекомендаций по транспортировке животного." +
+            "1 Обязательно питомца нужно вести в клетке или на повадке  ";
+    private static final String potentialAnimalOwnerMessage11 = "Список рекомендаций по обустройству дома для щенка." +
+            "1 поставить миску" +
+            "2 добавить место для сна" +
+            "3 положить кость  ";
+    private static final String potentialAnimalOwnerMessage12 = "Список рекомендаций по обустройству дома для взрослой собаки. " +
+            "1 Крепкая цепь " +
+            "2 Большая конура " +
+            "3 Много еды ";
+    private static final String potentialAnimalOwnerMessage13 = "Бот может выдать список рекомендаций по обустройству " +
+            "дома для собаки с ограниченными возможностями (зрение, передвижение).  ";
+    private static final String potentialAnimalOwnerMessage14 = " Советы кинолога по первичному общению с собакой. ";
+    private static final String potentialAnimalOwnerMessage15 = " Выдать рекомендации по проверенным кинологам для дальнейшего обращения к ним. ";
+    private static final String potentialAnimalOwnerMessage16 = " Выдать список причин, почему могут отказать и не дать забрать собаку из приюта. ";
+    private static final String potentialAnimalOwnerMessage17 = " Вам нужно оставить номер для дальнейших контактов 8(87978)-90-90-7979 ";
+    private static final String potentialAnimalOwnerMessage18 = " Если вы не получили нужную информацию можете обратиться к волонтёру ";
 
     //Ведение питомца
     private static final String petManagementMessage19 = " Бот может прислать форму ежедневного отчета. ";
