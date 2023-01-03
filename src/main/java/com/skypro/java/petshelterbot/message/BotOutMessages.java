@@ -28,9 +28,9 @@ public class BotOutMessages {
     public static final String PET_MANAGEMENT_ONLY_PHOTO = "Вы прислали  только фото, нужно прислать ещё писменный отчёт.  ";
     public static final String PET_MANAGEMENT_ONLY_REPORT = "Вы прислали только отчёт,нужно добавить ещё и фото.  ";
     public static final String PET_MANAGEMENT_CAUION_ON_REPORT = "!!!!!!!Предупреждаем Вас о том ,что  вы плохо  заполняете отчёт  (делает волонтер):!!!!!!!\n" + "  " + "Дорогой усыновитель, мы заметили, что ты заполняешь отчет не так подробно, как необходимо. Пожалуйста, подойди ответственнее " + "к  этому занятию. В противном случае волонтеры приюта будут обязаны самолично проверять условия содержания собаки";
-    public static final String petManagementMessage24 = "Вы успешно прошли  испытательный срок, Поздравляем Вас!!!!! теперь на Вас большая ответственность не подведите.";
-    public static final String petManagementMessage25 = " Вам назначенн дополнительный испытательный срок " + "столько дней" + " " + "вам назначенно.";
-    public static final String petManagementMessage26 = " Вы не справелись извините,сделайте выводы и подумайте над поведением.";
+    public static final String PET_MANAGEMENT_FINAL = "Вы успешно прошли  испытательный срок, Поздравляем Вас!!!!! теперь на Вас большая ответственность не подведите.";
+    public static final String PET_MANAGEMENT_DOP_TIME = " Вам назначенн дополнительный испытательный срок " + "столько дней" + " " + "вам назначенно.";
+    public static final String PET_MANAGEMENT_DID_NOT_COPE = " Вы не справелись извините,сделайте выводы и подумайте над поведением.";
     // NEW_USER_MESSAGE_VOLONTEER позвать волонтёра
 
 
