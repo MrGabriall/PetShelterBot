@@ -63,6 +63,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
                 case SEND_REPORT:
                     sendMessage(chatId, "BotMessages.SEND_REPORT_MESSAGE");
+                    break;
                 case CALL_VOLUNTEER:
                     sendMessage(chatId, "BotMessages.CALL_VOLUNTEER_MESSAGE");
                     break;
