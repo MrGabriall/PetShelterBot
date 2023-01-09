@@ -43,3 +43,18 @@ create table volunteer(
                       last_name TEXT,
                       first_name TEXT
 );
+
+
+-- changeSet nadillustrator:6
+alter table owner rename column passport_number to phone_number;
+
+-- changeSet nadillustrator:7
+alter table owner add column pet_id INT8;
+
+-- changeSet nadillustrator:8
+insert into owner(user_id, last_name, first_name, phone_number, number_of_report_days, volunteer_id, pet_id)
+values (185364843, 'Popova', 'Nadia', 322223222, 30, 322232232, 1);
+
+-- changeSet nadillustrator:9
+insert into pet(name, date_of_adoption)
+values ('Fly', '2023-01-08 21:30:00.000000');

@@ -22,9 +22,12 @@ import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
 public class TelegramBot extends TelegramLongPollingBot {
 
     private final BotConfig config;
+    private final ReportService reportService;
 
-    public TelegramBot(BotConfig config) {
+
+    public TelegramBot(BotConfig config, ReportService reportService) {
         this.config = config;
+        this.reportService = reportService;
     }
 
     @PostConstruct
@@ -99,6 +102,13 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case CALL_VOLUNTEER -> sendMessage(chatId, "BotMessages.CALL_VOLUNTEER_MESSAGE");
                 default -> sendMessage(chatId, UNKNOWN_COMMAND);
             }
+        }
+        /**
+         * nadillustrator
+         * Checks if the Message contains Photo+Caption and passes the update to the ReportService to process the report.
+         */
+        if(update.hasMessage() && update.getMessage().hasPhoto() && update.getMessage().getCaption() != null) {
+            reportService.saveReport(update);
         }
     }
 
