@@ -1,6 +1,7 @@
 package com.skypro.java.petshelterbot.bot;
 
 import com.skypro.java.petshelterbot.config.BotConfig;
+import com.skypro.java.petshelterbot.repository.VolunteerRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -19,11 +20,14 @@ import static com.skypro.java.petshelterbot.command.BotCommands.*;
 
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
-
+    private final VolunteerRepository volunteerRepository;
     private final BotConfig config;
 
-    public TelegramBot(BotConfig config) {
+
+    public TelegramBot(BotConfig config, VolunteerRepository volunteerRepository) {
         this.config = config;
+
+        this.volunteerRepository = volunteerRepository;
     }
 
     @PostConstruct
@@ -44,12 +48,14 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-
         if (update.hasMessage() && update.getMessage().hasText()) {
 
             String commandText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
             String userName = update.getMessage().getChat().getUserName();
+
+            System.err.println("chatId = [" + update.getMessage().getChatId() + "]");
+
 
             switch (commandText) {
                 case START:
@@ -69,6 +75,18 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
                 default:
                     sendMessage(chatId, UNKNOWN_COMMAND);
+                    /////////////////////////////////////////////////////
+                    if (commandText.equals("/volunteer")) {
+                        SendMessage newMess = new SendMessage();
+                        newMess.setChatId(chatId);
+                        newMess.setText("вызываю волонтёра");
+                        executeMessage(newMess);
+
+                        volunteerCall(chatId, stringVolunteerShowId());
+
+
+                    }
+                    /////////////////////////////////////////////////////
             }
         }
     }
@@ -90,9 +108,8 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     private void sendMessage(long chatId, String messageToSend) {
         SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
+        message.setChatId(chatId);//вопрос зачем приводить
         message.setText(messageToSend);
-
         executeMessage(message);
     }
 
@@ -149,4 +166,40 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         return startKeyBoard;
     }
+
+
+    /**
+     * Test
+     * метод волонтёр
+     *
+     * @param idChat
+     * @param volunteerShowId нужно удалить
+     */
+    private void volunteerCall(long idChat, long volunteerShowId) {
+        SendMessage newMess = new SendMessage();
+        newMess.setChatId(idChat);
+        newMess.setText("[ вызов метода волонтёр ] я волонтёр слушаю вас моё id = " + volunteerShowId);
+        executeMessage(newMess);
+        System.out.println(" Вызов метода volunteerCall = " + volunteerShowId);
+
+    }
+
+    ///////////////////////////////////////////////
+
+    /**
+     * метод списка user_id
+     */
+    private long stringVolunteerShowId() {
+        long index = 0;
+        String message = null;
+        for (String s : volunteerRepository.stringVolunteerId()) {
+            message = s;
+            index = Long.valueOf(s);
+            System.out.println("index = [" + index + "]");
+        }
+        System.err.println("message test = " + message);
+        return index;
+
+    }
+
 }
