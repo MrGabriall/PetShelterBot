@@ -17,7 +17,7 @@ public class Report {
     private Pet pet;
     @OneToOne
     @JoinColumn(name = "user_id")
-    private Owner user;
+    private Owner owner;
     @Column(name = "pet_diet")
 	private String petDiet;
     @Column(name = "health_and_condition")
@@ -28,11 +28,11 @@ public class Report {
     @JoinColumn(name = "photo_id", referencedColumnName = "id")
     private Photo photo;
 
-    public Report(LocalDateTime incomingReportTime, Pet pet, Owner user, String petDiet,
+    public Report(LocalDateTime incomingReportTime, Pet pet, Owner owner, String petDiet,
                   String healthAndCondition, String behavioralChanges, Photo photo) {
         this.incomingReportTime = incomingReportTime;
         this.pet = pet;
-        this.user = user;
+        this.owner = owner;
         this.petDiet = petDiet;
         this.healthAndCondition = healthAndCondition;
         this.behavioralChanges = behavioralChanges;
@@ -50,12 +50,12 @@ public class Report {
         this.pet = pet;
     }
 
-    public Owner getUser() {
-        return user;
+    public Owner getOwner() {
+        return owner;
     }
 
-    public void setUser(Owner user) {
-        this.user = user;
+    public void setOwner(Owner user) {
+        this.owner = user;
     }
 
     public Long getId() {
@@ -110,12 +110,12 @@ public class Report {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Report report)) return false;
-        return Objects.equals(id, report.id) && Objects.equals(incomingReportTime, report.incomingReportTime) && Objects.equals(pet, report.pet) && Objects.equals(user, report.user) && Objects.equals(petDiet, report.petDiet) && Objects.equals(healthAndCondition, report.healthAndCondition) && Objects.equals(behavioralChanges, report.behavioralChanges) && Objects.equals(photo, report.photo);
+        return Objects.equals(id, report.id) && Objects.equals(incomingReportTime, report.incomingReportTime) && Objects.equals(pet, report.pet) && Objects.equals(owner, report.owner) && Objects.equals(petDiet, report.petDiet) && Objects.equals(healthAndCondition, report.healthAndCondition) && Objects.equals(behavioralChanges, report.behavioralChanges) && Objects.equals(photo, report.photo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, incomingReportTime, pet, user, petDiet, healthAndCondition, behavioralChanges, photo);
+        return Objects.hash(id, incomingReportTime, pet, owner, petDiet, healthAndCondition, behavioralChanges, photo);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class Report {
                 "id=" + id +
                 ", incomingReportTime=" + incomingReportTime +
                 ", pet=" + pet +
-                ", user=" + user +
+                ", user=" + owner +
                 ", petDiet='" + petDiet + '\'' +
                 ", healthAndCondition='" + healthAndCondition + '\'' +
                 ", behavioralChanges='" + behavioralChanges + '\'' +

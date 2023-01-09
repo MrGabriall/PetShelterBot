@@ -1,6 +1,7 @@
 package com.skypro.java.petshelterbot.bot;
 
 import com.skypro.java.petshelterbot.config.BotConfig;
+import com.skypro.java.petshelterbot.service.ReportService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -16,14 +17,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.skypro.java.petshelterbot.command.BotCommands.*;
+import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
 
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
     private final BotConfig config;
+    private final ReportService reportService;
 
-    public TelegramBot(BotConfig config) {
+
+    public TelegramBot(BotConfig config, ReportService reportService) {
         this.config = config;
+        this.reportService = reportService;
     }
 
     @PostConstruct
@@ -62,7 +67,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     sendMessage(chatId, "BotMessages.HOW_TO_ADOPT_MESSAGE");
                     break;
                 case SEND_REPORT:
-                    sendMessage(chatId, "BotMessages.SEND_REPORT_MESSAGE");
+                    sendMessage(chatId, EXAMPLE_CORRECT_REPORT_MESSAGE);
                     break;
                 case CALL_VOLUNTEER:
                     sendMessage(chatId, "BotMessages.CALL_VOLUNTEER_MESSAGE");
@@ -70,6 +75,13 @@ public class TelegramBot extends TelegramLongPollingBot {
                 default:
                     sendMessage(chatId, UNKNOWN_COMMAND);
             }
+        }
+        /**
+         * nadillustrator
+         * Checks if the Message contains Photo+Caption and passes the update to the ReportService to process the report.
+         */
+        if(update.hasMessage() && update.getMessage().hasPhoto() && update.getMessage().getCaption() != null) {
+            reportService.saveReport(update);
         }
     }
 
@@ -88,7 +100,7 @@ public class TelegramBot extends TelegramLongPollingBot {
      * @param chatId value from update
      * @param messageToSend message from BotMessages
      */
-    private void sendMessage(long chatId, String messageToSend) {
+    public void sendMessage(long chatId, String messageToSend) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText(messageToSend);

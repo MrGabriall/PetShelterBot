@@ -19,22 +19,27 @@ public class Owner {
     private String lastName;
     @Column(name = "first_name")
     private String firstName;
-    @Column(name = "passport_number")
-    private Integer passportNumber;
+    @Column(name = "phone_number")
+    private String phoneNumber;
     @Column(name = "number_of_report_days")
     private Integer numberOfReportDays;
     @ManyToOne
     @JoinColumn(name = "volunteer_id")
     private Volunteer volunteer;
 
-    public Owner(Long userId, String lastName, String firstName, Integer passportNumber,
-                 Integer numberOfReportDays, Volunteer volunteer) {
+    @OneToOne
+    @JoinColumn(name = "pet_id")
+    private Pet pet;
+
+    public Owner(Long userId, String lastName, String firstName, String phoneNumber,
+                 Integer numberOfReportDays, Volunteer volunteer, Pet pet) {
         this.userId = userId;
         this.lastName = lastName;
         this.firstName = firstName;
-        this.passportNumber = passportNumber;
+        this.phoneNumber = phoneNumber;
         this.numberOfReportDays = numberOfReportDays;
         this.volunteer = volunteer;
+        this.pet = pet;
     }
 
     public Owner() {
@@ -64,12 +69,12 @@ public class Owner {
         this.firstName = firstName;
     }
 
-    public Integer getPassportNumber() {
-        return passportNumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPassportNumber(Integer passportNumber) {
-        this.passportNumber = passportNumber;
+    public void setPhoneNumber(String passportNumber) {
+        this.phoneNumber = passportNumber;
     }
 
     public Integer getNumberOfReportDays() {
@@ -96,34 +101,37 @@ public class Owner {
         this.id = id;
     }
 
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Owner user)) return false;
-        return Objects.equals(id, user.id)
-                && Objects.equals(userId, user.userId)
-                && Objects.equals(lastName, user.lastName)
-                && Objects.equals(firstName, user.firstName)
-                && Objects.equals(passportNumber, user.passportNumber)
-                && Objects.equals(numberOfReportDays, user.numberOfReportDays)
-                && Objects.equals(volunteer, user.volunteer);
+        if (!(o instanceof Owner owner)) return false;
+        return Objects.equals(id, owner.id) && Objects.equals(userId, owner.userId) && Objects.equals(lastName, owner.lastName) && Objects.equals(firstName, owner.firstName) && Objects.equals(phoneNumber, owner.phoneNumber) && Objects.equals(numberOfReportDays, owner.numberOfReportDays) && Objects.equals(volunteer, owner.volunteer) && Objects.equals(pet, owner.pet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, lastName, firstName, passportNumber, numberOfReportDays, volunteer);
+        return Objects.hash(id, userId, lastName, firstName, phoneNumber, numberOfReportDays, volunteer, pet);
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Owner{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", passportNumber=" + passportNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", numberOfReportDays=" + numberOfReportDays +
                 ", volunteer=" + volunteer +
+                ", pet=" + pet +
                 '}';
     }
 }

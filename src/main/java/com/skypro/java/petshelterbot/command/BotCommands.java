@@ -13,5 +13,5 @@ public class BotCommands {
     public static final String CALL_VOLUNTEER = "Позвать волонтера";
     public static final String SEND_REPORT = "Отправить отчет о питомце";
 
-    public static final String UNKNOWN_COMMAND = "Неизвестная комманда";
+    public static final String UNKNOWN_COMMAND = "Неизвестная команда";
 }

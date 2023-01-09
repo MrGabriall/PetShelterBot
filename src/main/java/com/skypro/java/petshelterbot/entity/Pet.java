@@ -17,6 +17,7 @@ public class Pet {
     @Column(name = "date_of_adoption")
     private LocalDate dateOfAdoption;
 
+
     public Pet(String name, LocalDate dateOfAdoption) {
         this.name = name;
         this.dateOfAdoption = dateOfAdoption;
