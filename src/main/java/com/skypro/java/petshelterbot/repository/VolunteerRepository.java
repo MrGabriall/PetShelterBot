@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
+
     @Query(value = "select user_id from  volunteer", nativeQuery = true)
     List<String> stringVolunteerId();
 

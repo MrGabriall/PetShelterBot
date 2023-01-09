@@ -184,8 +184,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
-    ///////////////////////////////////////////////
-
     /**
      * метод списка user_id
      */
