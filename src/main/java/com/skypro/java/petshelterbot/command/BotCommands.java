@@ -15,9 +15,6 @@ public class BotCommands {
     public static final String CALL_VOLUNTEER = "Позвать волонтера";
     public static final String SEND_REPORT = "Отправить отчет о питомце";
 
-    public static final String INFO = "Информация о приюте";
-    public static final String HOW_TO_ADOPT = "Как взять животное из приюта";
-
     public static final String TO_MAIN_MENU = "В главное меню";
     public static final String ABOUT_SHELTER = "О Приюте";
     public static final String SHELTER_ADDRESS = "Адрес приюта";

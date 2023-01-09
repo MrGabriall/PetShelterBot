@@ -1,6 +1,7 @@
 package com.skypro.java.petshelterbot.bot;
 
 import com.skypro.java.petshelterbot.config.BotConfig;
+import com.skypro.java.petshelterbot.service.ReportService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
