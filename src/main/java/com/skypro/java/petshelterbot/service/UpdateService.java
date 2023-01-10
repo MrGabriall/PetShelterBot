@@ -8,6 +8,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import static com.skypro.java.petshelterbot.command.BotCommands.*;
 import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
 
+/**
+ * Describes methods to processing updates & incoming commands
+ */
+
 @Service
 public class UpdateService {
 
@@ -19,6 +23,11 @@ public class UpdateService {
         this.reportService = reportService;
     }
 
+    /**
+     * Processing updates
+     * @param update from bot
+     * @return SendMessage
+     */
     public SendMessage handleUpdate(Update update) {
         SendMessage messageToSend = null;
         if (update.hasMessage() && update.getMessage().hasText()) {
@@ -30,6 +39,11 @@ public class UpdateService {
         return messageToSend;
     }
 
+    /**
+     * Processing incoming messages
+     * @param message from update
+     * @return SendMessage
+     */
     private SendMessage handleInputMessage(Message message) {
         String commandText = message.getText();
         long chatId = message.getChatId();

@@ -11,14 +11,30 @@ import java.util.List;
 import static com.skypro.java.petshelterbot.command.BotCommands.*;
 import static com.skypro.java.petshelterbot.message.BotOutMessages.NEW_USER_HELLO;
 
+/**
+ * Describes methods to processing messages
+ */
+
 @Service
 public class MessageService {
 
+    /**
+     * Send Welcome message
+     * @param chatId value from update
+     * @param name   userName value from update
+     * @return SendMessage w/ Start keyboard
+     */
     public SendMessage startCommandReceived(long chatId, String name) {
         String messageToSend = "Привет, " + name + "! " + NEW_USER_HELLO;
         return sendReplyMessage(chatId, messageToSend, generateMenuKeyBoard(INFO, HOW_TO_ADOPT, CALL_VOLUNTEER, SEND_REPORT));
     }
 
+    /**
+     * Send any message
+     * @param chatId chatId value from update
+     * @param messageToSend message from BotMessages
+     * @return SendMessage
+     */
     public SendMessage sendMessage(long chatId, String messageToSend) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
@@ -27,6 +43,13 @@ public class MessageService {
         return message;
     }
 
+    /**
+     * Send any message w/ reply markup keyboard
+     * @param chatId chatId value from update
+     * @param messageToSend message from BotMessages
+     * @param keyboardMarkup keyboardMarkup selected keyboard
+     * @return SendMessage
+     */
     public SendMessage sendReplyMessage(long chatId, String messageToSend, ReplyKeyboardMarkup keyboardMarkup) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
@@ -36,6 +59,11 @@ public class MessageService {
         return message;
     }
 
+    /**
+     * Generates a reply keyboard from String varargs
+     * @param buttons String values with text for menu buttons, @NotNull
+     * @return ReplyKeyboardMarkup - menu keyboard
+     */
     public ReplyKeyboardMarkup generateMenuKeyBoard(String... buttons) {
 
         ReplyKeyboardMarkup menuKeyBoard = new ReplyKeyboardMarkup();
