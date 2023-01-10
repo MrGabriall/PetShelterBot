@@ -2,7 +2,7 @@ package com.skypro.java.petshelterbot.message;
 
 public class BotOutMessages {
     //Консультация с новым пользователем
-    public static final String NEW_USER_HELLO = "Здравствуй дорогой друг." + "У тебя есть уникальная возможность совершить добрый поступок,"
+    public static final String NEW_USER_HELLO = "У тебя есть уникальная возможность совершить добрый поступок,"
                                     + " и стать обладателем домашнего питомца. ";
     public static final String NEW_USER_INFO_START = "Наш приют содержит более множество питомцев,"
                                     + "которые каждый день получают самую лучшую заботу в мире,"
