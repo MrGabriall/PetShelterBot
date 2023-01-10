@@ -6,6 +6,7 @@ The class describes the commands that the bot can process
 
 public class BotCommands {
 
+
     public static final String START = "/start";
     public static final String SELECT_OPTION = "Выберите пункт меню";
     public static final String UNKNOWN_COMMAND = "Неизвестная комманда";
