@@ -24,9 +24,9 @@ public class UpdateService {
         if (update.hasMessage() && update.getMessage().hasText()) {
             messageToSend = handleInputMessage(update.getMessage());
         }
-//        if(update.hasMessage() && update.getMessage().hasPhoto() && update.getMessage().getCaption() != null) {
-//            reportService.saveReport(update);
-//        }
+        if(update.hasMessage() && update.getMessage().hasPhoto() && update.getMessage().getCaption() != null) {
+            messageToSend = reportService.saveReport(update);
+        }
         return messageToSend;
     }
 

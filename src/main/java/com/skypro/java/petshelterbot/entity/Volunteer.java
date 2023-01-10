@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+/**
+ * @author nadillustrator
+ * A class describing the volunteers who work at the shelter. The database is filled in by a volunteer.
+ */
 public class Volunteer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

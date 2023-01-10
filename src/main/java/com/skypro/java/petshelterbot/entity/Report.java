@@ -1,10 +1,15 @@
 package com.skypro.java.petshelterbot.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+/**
+ * @author nadillustrator
+ * A class that describes the daily report. The database is filled in by user.
+ */
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,14 +24,15 @@ public class Report {
     @JoinColumn(name = "user_id")
     private Owner owner;
     @Column(name = "pet_diet")
-	private String petDiet;
+    private String petDiet;
     @Column(name = "health_and_condition")
-	private String healthAndCondition;
+    private String healthAndCondition;
     @Column(name = "behavioral_changes")
-	private String behavioralChanges;
+    private String behavioralChanges;
     @OneToOne
     @JoinColumn(name = "photo_id", referencedColumnName = "id")
     private Photo photo;
+
 
     public Report(LocalDateTime incomingReportTime, Pet pet, Owner owner, String petDiet,
                   String healthAndCondition, String behavioralChanges, Photo photo) {
