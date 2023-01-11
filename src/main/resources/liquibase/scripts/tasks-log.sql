@@ -58,3 +58,22 @@ values (185364843, 'Popova', 'Nadia', 322223222, 30, 322232232, 1);
 -- changeSet nadillustrator:9
 insert into pet(name, date_of_adoption)
 values ('Fly', '2023-01-08 21:30:00.000000');
+
+-- changeSet nadillustrator:10
+create table user_state(
+                          id SERIAL,
+                          user_id INT8,
+                          state TEXT
+);
+
+-- changeSet nadillustrator:11
+alter table owner rename column user_id to chat_id;
+
+-- changeSet nadillustrator:12
+alter table user_state rename column user_id to chat_id;
+
+-- changeSet nadillustrator:13
+alter table owner alter column phone_number type text;
+
+-- changeSet nadillustrator:14
+alter table report add column is_correct BOOLEAN;

@@ -1,10 +1,15 @@
 package com.skypro.java.petshelterbot.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+/**
+ * @author nadillustrator
+ * A class that describes the daily report. The database is filled in by user.
+ */
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +24,20 @@ public class Report {
     @JoinColumn(name = "user_id")
     private Owner owner;
     @Column(name = "pet_diet")
-	private String petDiet;
+    private String petDiet;
     @Column(name = "health_and_condition")
-	private String healthAndCondition;
+    private String healthAndCondition;
     @Column(name = "behavioral_changes")
-	private String behavioralChanges;
+    private String behavioralChanges;
     @OneToOne
     @JoinColumn(name = "photo_id", referencedColumnName = "id")
     private Photo photo;
+    @Column(name = "is_correct")
+    private Boolean isCorrect;
+
 
     public Report(LocalDateTime incomingReportTime, Pet pet, Owner owner, String petDiet,
-                  String healthAndCondition, String behavioralChanges, Photo photo) {
+                  String healthAndCondition, String behavioralChanges, Photo photo, Boolean isCorrect) {
         this.incomingReportTime = incomingReportTime;
         this.pet = pet;
         this.owner = owner;
@@ -37,6 +45,7 @@ public class Report {
         this.healthAndCondition = healthAndCondition;
         this.behavioralChanges = behavioralChanges;
         this.photo = photo;
+        this.isCorrect = isCorrect;
     }
 
     public Report() {
@@ -106,16 +115,24 @@ public class Report {
         this.photo = photo;
     }
 
+    public Boolean getCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(Boolean correct) {
+        isCorrect = correct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Report report)) return false;
-        return Objects.equals(id, report.id) && Objects.equals(incomingReportTime, report.incomingReportTime) && Objects.equals(pet, report.pet) && Objects.equals(owner, report.owner) && Objects.equals(petDiet, report.petDiet) && Objects.equals(healthAndCondition, report.healthAndCondition) && Objects.equals(behavioralChanges, report.behavioralChanges) && Objects.equals(photo, report.photo);
+        return Objects.equals(id, report.id) && Objects.equals(incomingReportTime, report.incomingReportTime) && Objects.equals(pet, report.pet) && Objects.equals(owner, report.owner) && Objects.equals(petDiet, report.petDiet) && Objects.equals(healthAndCondition, report.healthAndCondition) && Objects.equals(behavioralChanges, report.behavioralChanges) && Objects.equals(photo, report.photo) && Objects.equals(isCorrect, report.isCorrect);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, incomingReportTime, pet, owner, petDiet, healthAndCondition, behavioralChanges, photo);
+        return Objects.hash(id, incomingReportTime, pet, owner, petDiet, healthAndCondition, behavioralChanges, photo, isCorrect);
     }
 
     @Override
@@ -124,11 +141,12 @@ public class Report {
                 "id=" + id +
                 ", incomingReportTime=" + incomingReportTime +
                 ", pet=" + pet +
-                ", user=" + owner +
+                ", owner=" + owner +
                 ", petDiet='" + petDiet + '\'' +
                 ", healthAndCondition='" + healthAndCondition + '\'' +
                 ", behavioralChanges='" + behavioralChanges + '\'' +
                 ", photo=" + photo +
+                ", isCorrect=" + isCorrect +
                 '}';
     }
 }
