@@ -75,3 +75,5 @@ alter table user_state rename column user_id to chat_id;
 -- changeSet nadillustrator:13
 alter table owner alter column phone_number type text;
 
+-- changeSet nadillustrator:14
+alter table report add column is_correct BOOLEAN;

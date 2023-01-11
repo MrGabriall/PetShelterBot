@@ -12,9 +12,9 @@ import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
 public class UpdateService {
 
     private final MessageService messageService;
-    private final ReportService reportService;
+    private final OwnerReportService reportService;
 
-    public UpdateService(MessageService messageService, ReportService reportService) {
+    public UpdateService(MessageService messageService, OwnerReportService reportService) {
         this.messageService = messageService;
         this.reportService = reportService;
     }
