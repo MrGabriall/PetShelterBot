@@ -1,7 +1,6 @@
 package com.skypro.java.petshelterbot.entity;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,15 +13,15 @@ public class Volunteer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "chat_id")
+    private Long chatId;
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "first_name")
     private String firstName;
 
-    public Volunteer(Long userId, String lastName, String firstName) {
-        this.userId = userId;
+    public Volunteer(Long chatId, String lastName, String firstName) {
+        this.chatId = chatId;
         this.lastName = lastName;
         this.firstName = firstName;
     }
@@ -30,12 +29,12 @@ public class Volunteer {
     public Volunteer() {
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getChatId() {
+        return chatId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
     }
 
     public String getLastName() {
@@ -67,21 +66,21 @@ public class Volunteer {
         if (this == o) return true;
         if (!(o instanceof Volunteer volunteer)) return false;
         return Objects.equals(id, volunteer.id)
-                && Objects.equals(userId, volunteer.userId)
+                && Objects.equals(chatId, volunteer.chatId)
                 && Objects.equals(lastName, volunteer.lastName)
                 && Objects.equals(firstName, volunteer.firstName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, lastName, firstName);
+        return Objects.hash(id, chatId, lastName, firstName);
     }
 
     @Override
     public String toString() {
         return "Volunteer{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", chatId=" + chatId +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 '}';
