@@ -1,9 +1,8 @@
 package com.skypro.java.petshelterbot.entity;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +13,7 @@ public class Pet {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
+
     @Column(name = "date_of_adoption")
     private LocalDate dateOfAdoption;
 
@@ -53,7 +53,8 @@ public class Pet {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Pet pet)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
         return Objects.equals(id, pet.id) && Objects.equals(name, pet.name) && Objects.equals(dateOfAdoption, pet.dateOfAdoption);
     }
 

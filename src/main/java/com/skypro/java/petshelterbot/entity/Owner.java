@@ -1,7 +1,7 @@
 package com.skypro.java.petshelterbot.entity;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -112,7 +112,8 @@ public class Owner {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Owner owner)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        Owner owner = (Owner) o;
         return Objects.equals(id, owner.id) && Objects.equals(userId, owner.userId) && Objects.equals(lastName, owner.lastName) && Objects.equals(firstName, owner.firstName) && Objects.equals(phoneNumber, owner.phoneNumber) && Objects.equals(numberOfReportDays, owner.numberOfReportDays) && Objects.equals(volunteer, owner.volunteer) && Objects.equals(pet, owner.pet);
     }
 

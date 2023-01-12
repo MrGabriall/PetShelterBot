@@ -1,6 +1,7 @@
 package com.skypro.java.petshelterbot.entity;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -109,7 +110,8 @@ public class Report {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Report report)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        Report report = (Report) o;
         return Objects.equals(id, report.id) && Objects.equals(incomingReportTime, report.incomingReportTime) && Objects.equals(pet, report.pet) && Objects.equals(owner, report.owner) && Objects.equals(petDiet, report.petDiet) && Objects.equals(healthAndCondition, report.healthAndCondition) && Objects.equals(behavioralChanges, report.behavioralChanges) && Objects.equals(photo, report.photo);
     }
 

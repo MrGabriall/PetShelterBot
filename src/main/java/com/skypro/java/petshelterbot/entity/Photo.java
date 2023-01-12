@@ -1,8 +1,7 @@
 package com.skypro.java.petshelterbot.entity;
 
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -41,7 +40,7 @@ public class Photo {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Photo)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Photo photo = (Photo) o;
         return Objects.equals(id, photo.id) && Objects.equals(fileId, photo.fileId);
     }
