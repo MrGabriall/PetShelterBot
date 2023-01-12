@@ -1,7 +1,6 @@
 package com.skypro.java.petshelterbot.entity;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -21,7 +20,7 @@ public class Report {
     @JoinColumn(name = "pet_id")
     private Pet pet;
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "owner_id")
     private Owner owner;
     @Column(name = "pet_diet")
     private String petDiet;
