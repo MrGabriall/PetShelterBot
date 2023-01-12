@@ -37,9 +37,8 @@ public class MessageService {
      */
     public SendMessage sendMessage(long chatId, String messageToSend) {
         SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
+        message.setChatId(chatId);
         message.setText(messageToSend);
-
         return message;
     }
 
@@ -84,4 +83,5 @@ public class MessageService {
         menuKeyBoard.setSelective(true);
         return menuKeyBoard;
     }
+
 }

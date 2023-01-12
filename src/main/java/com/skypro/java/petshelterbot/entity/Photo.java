@@ -1,11 +1,14 @@
 package com.skypro.java.petshelterbot.entity;
 
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+/**
+ * @author nadillustrator
+ * The class responsible for storing photos from user reports. The database is filled in by user.
+ */
 public class Photo {
 
     @Id

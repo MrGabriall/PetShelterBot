@@ -1,20 +1,20 @@
 package com.skypro.java.petshelterbot.entity;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 /**
- * Назвала сущность Owner потому что с User есть проблемы в postgre. Нельзя создать таблицу с таким именем.
+ * @author nadillustrator
+ * The class that describes a dog owner who is on probation. The database is filled in by a volunteer.
  */
 public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "chat_id")
+    private Long chatId;
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "first_name")
@@ -31,9 +31,9 @@ public class Owner {
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
-    public Owner(Long userId, String lastName, String firstName, String phoneNumber,
+    public Owner(Long chatId, String lastName, String firstName, String phoneNumber,
                  Integer numberOfReportDays, Volunteer volunteer, Pet pet) {
-        this.userId = userId;
+        this.chatId = chatId;
         this.lastName = lastName;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
@@ -45,12 +45,12 @@ public class Owner {
     public Owner() {
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getChatId() {
+        return chatId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setChatId(Long userId) {
+        this.chatId = userId;
     }
 
     public String getLastName() {
@@ -113,19 +113,19 @@ public class Owner {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Owner owner)) return false;
-        return Objects.equals(id, owner.id) && Objects.equals(userId, owner.userId) && Objects.equals(lastName, owner.lastName) && Objects.equals(firstName, owner.firstName) && Objects.equals(phoneNumber, owner.phoneNumber) && Objects.equals(numberOfReportDays, owner.numberOfReportDays) && Objects.equals(volunteer, owner.volunteer) && Objects.equals(pet, owner.pet);
+        return Objects.equals(id, owner.id) && Objects.equals(chatId, owner.chatId) && Objects.equals(lastName, owner.lastName) && Objects.equals(firstName, owner.firstName) && Objects.equals(phoneNumber, owner.phoneNumber) && Objects.equals(numberOfReportDays, owner.numberOfReportDays) && Objects.equals(volunteer, owner.volunteer) && Objects.equals(pet, owner.pet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, lastName, firstName, phoneNumber, numberOfReportDays, volunteer, pet);
+        return Objects.hash(id, chatId, lastName, firstName, phoneNumber, numberOfReportDays, volunteer, pet);
     }
 
     @Override
     public String toString() {
         return "Owner{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", chatId=" + chatId +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

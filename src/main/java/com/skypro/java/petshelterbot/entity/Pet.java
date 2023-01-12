@@ -1,12 +1,16 @@
 package com.skypro.java.petshelterbot.entity;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
+/**
+ * @author nadillustrator
+ * Class of registration of dogs, which were taken by the owner. The database is filled in by a volunteer.
+ */
 public class Pet {
 
     @Id
