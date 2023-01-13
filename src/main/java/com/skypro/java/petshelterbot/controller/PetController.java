@@ -2,8 +2,7 @@ package com.skypro.java.petshelterbot.controller;
 
 import com.skypro.java.petshelterbot.entity.Pet;
 import com.skypro.java.petshelterbot.service.PetService;
-import com.skypro.java.petshelterbot.service.ReportService;
-import jakarta.ws.rs.Path;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +22,10 @@ public class PetController {
     public PetController(PetService petService) {
         this.petService = petService;
     }
-
+    /**
+     * Method of creating Pet {@link Pet@createPet}
+     * @return Return value of Pet
+     */
     @PostMapping(path = "/createPet")
     public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
         Pet newPet = petService.createPet(pet);
@@ -33,6 +35,10 @@ public class PetController {
         return ResponseEntity.ok(newPet);
     }
 
+    /**
+     * Method of reading Pet {@link Pet@readPet}
+     * @return Return value of Pet
+     */
     @GetMapping(path = "/getPet")
     public ResponseEntity<Pet> readPet(@RequestParam("id") Long id) {
         Pet newPet = petService.getById(id);
@@ -42,6 +48,10 @@ public class PetController {
         return ResponseEntity.ok(newPet);
     }
 
+    /**
+     * Method of updating Pet {@link Pet@updatePet}
+     * @return Return value of Pet
+     */
     @PutMapping(path = "/updatePet")
     public ResponseEntity<Pet> updatePet(@RequestBody Pet pet) {
         Pet newPet = petService.updatePet(pet);
@@ -51,6 +61,10 @@ public class PetController {
         return ResponseEntity.ok(newPet);
     }
 
+    /**
+     * Method of deleting Pet {@link Pet@deletePet}
+     * @return Return Nothing
+     */
     @DeleteMapping(path = "/deletePet")
     public ResponseEntity deletePet(@PathVariable Long id) {
         petService.deletePet(id);
