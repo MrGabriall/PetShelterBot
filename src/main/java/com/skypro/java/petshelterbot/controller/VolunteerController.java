@@ -3,6 +3,7 @@ package com.skypro.java.petshelterbot.controller;
 import com.skypro.java.petshelterbot.entity.Volunteer;
 import com.skypro.java.petshelterbot.service.VolunteerService;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -166,7 +167,8 @@ public class VolunteerController {
                     description = "All volunteeer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
+
                     )
             ),
             @ApiResponse(
@@ -174,7 +176,7 @@ public class VolunteerController {
                     description = "wrong parameter volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
                     )
 
             )
