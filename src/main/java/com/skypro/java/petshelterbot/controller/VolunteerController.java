@@ -50,14 +50,14 @@ public class VolunteerController {
 
                     ),
                     @ApiResponse(
-                    responseCode = "500",
-                    description = "wrong parameter volunteer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer.class)
-                    )
+                            responseCode = "500",
+                            description = "wrong parameter volunteer",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
 
-            )
+                    )
 
 
             })
@@ -81,14 +81,14 @@ public class VolunteerController {
                     ),
                     @ApiResponse(
                             responseCode = "500",
-                    description = "wrong parameter volunteer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer.class)
-                    )
+                            description = "wrong parameter volunteer",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
 
-            )
-    })
+                    )
+            })
     /**
      * @putmapping
      * @return - volunteer
@@ -116,7 +116,7 @@ public class VolunteerController {
 
                     ),
                     @ApiResponse(
-                    responseCode = "500",
+                            responseCode = "500",
                             description = "wrong parameter volunteer",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -173,7 +173,7 @@ public class VolunteerController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "All volunteeer",
+                            description = "all volunteer",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
@@ -181,15 +181,15 @@ public class VolunteerController {
                             )
                     ),
                     @ApiResponse(
-                    responseCode = "500",
-                    description = "wrong parameter volunteer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
-                    )
+                            responseCode = "500",
+                            description = "wrong parameter volunteer",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
+                            )
 
-            )
-    })
+                    )
+            })
     @GetMapping("/showVolunteer")
     public List showVolunteer() {
         return volunteerService.showVolunteer();
