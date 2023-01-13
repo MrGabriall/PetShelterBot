@@ -30,8 +30,10 @@ public class VolunteerService {
 
     /**
      * method create volunteer in database
+     * {@link org.springframework.data.jpa.repository.JpaRepository#save(Object)}
+     *
      * @param volunteer - volunteer
-     * @return new obj volunterr
+     * @return new obj volunteer
      */
     public Volunteer create(Volunteer volunteer) {
         logger.info("method [create]");
@@ -40,6 +42,7 @@ public class VolunteerService {
 
     /**
      * method read volunteer from database
+     * {@link org.springframework.data.jpa.repository.JpaRepository#findById(Object)}
      * @param id - volunteer
      * @return obj volunteer
      */
@@ -50,6 +53,7 @@ public class VolunteerService {
 
     /**
      * method update volunteer in database
+     * {@link org.springframework.data.jpa.repository.JpaRepository#save(Object)}
      * @param volunteer - volunteer
      * @return obj new volunteer
      */
@@ -60,6 +64,7 @@ public class VolunteerService {
 
     /**
      * method delete volunteer from database
+     * {@link org.springframework.data.jpa.repository.JpaRepository#deleteById(Object)}
      * @param id - volunteer
      * @return void
      */
@@ -71,6 +76,7 @@ public class VolunteerService {
 
     /**
      * method of getting the field value from database
+     * {@link VolunteerRepository#showVolunteer()}
      * @return all list Volunteer
      */
     public List showVolunteer() {
