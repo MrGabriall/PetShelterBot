@@ -12,17 +12,30 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+/**
+ * class REST API volunteer controller
+ *
+ * @author KiriukhinD
+ */
 @RestController
 @RequestMapping("/volunteer")
 public class VolunteerController {
     private final VolunteerService volunteerService;
 
+    /**
+     * constructor new obj search volunteerRepository
+     *
+     * @param volunteerService -  new volunteerservice
+     * @see Volunteer#Volunteer()
+     */
     VolunteerController(VolunteerService volunteerService) {
         this.volunteerService = volunteerService;
     }
 
-
+    /**
+     * @return new obj volunteer
+     * @postmapping - controller
+     */
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -34,26 +47,9 @@ public class VolunteerController {
             )
     })
 
-
     @PostMapping("/create")
     public Volunteer create(@RequestBody Volunteer volunteer) {
         return volunteerService.create(volunteer);
-    }
-
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "read volunteer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
-                    )
-            )
-    })
-    @GetMapping("/read/{id}")
-    public Volunteer read(@PathVariable long id) {
-        return volunteerService.read(id);
-
     }
 
     @ApiResponses({
@@ -66,7 +62,10 @@ public class VolunteerController {
                     )
             )
     })
-
+    /**
+     * @putmapping
+     * @return - volunteer
+     */
     @PutMapping("/update/{id}")
     public ResponseEntity<Volunteer> update(@RequestBody Volunteer volunteer) {
         Volunteer volunteer1 = volunteerService.update(volunteer);
@@ -94,6 +93,32 @@ public class VolunteerController {
 
     }
 
+    /**
+     * @return id - obj volunteer
+     * @getmapping - controller
+     */
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "read volunteer",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = Volunteer[].class)
+                    )
+            )
+    })
+
+    @GetMapping("/read/{id}")
+    public Volunteer read(@PathVariable long id) {
+        return volunteerService.read(id);
+
+    }
+
+    /**
+     * @return list volunteer
+     * @getmapping - controller
+     */
+
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -104,7 +129,6 @@ public class VolunteerController {
                     )
             )
     })
-
     @GetMapping("/showVolunteer")
     public List showVolunteer() {
         return volunteerService.showVolunteer();

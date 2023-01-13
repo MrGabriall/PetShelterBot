@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * class Volunteer
+ *
  * @author KiriukhinD
  */
 @Service
@@ -18,7 +20,8 @@ public class VolunteerService {
     Logger logger = LoggerFactory.getLogger(VolunteerService.class);
 
     /**
-     * @param volunteerRepository
+     * constructor new obj search volunteerRepository
+     * @param volunteerRepository -  new volunteerRepository
      * @see Volunteer#Volunteer()
      */
     VolunteerService(VolunteerRepository volunteerRepository) {
@@ -26,9 +29,8 @@ public class VolunteerService {
     }
 
     /**
-     * method create volunteer
-     *
-     * @param volunteer
+     * method create volunteer in database
+     * @param volunteer - volunteer
      * @return new obj volunterr
      */
     public Volunteer create(Volunteer volunteer) {
@@ -37,9 +39,8 @@ public class VolunteerService {
     }
 
     /**
-     * method read volunteer
-     *
-     * @param id
+     * method read volunteer from database
+     * @param id - volunteer
      * @return obj volunteer
      */
     public Volunteer read(long id) {
@@ -48,9 +49,8 @@ public class VolunteerService {
     }
 
     /**
-     * method update volunteer
-     *
-     * @param volunteer
+     * method update volunteer in database
+     * @param volunteer - volunteer
      * @return obj new volunteer
      */
     public Volunteer update(Volunteer volunteer) {
@@ -59,10 +59,9 @@ public class VolunteerService {
     }
 
     /**
-     * method delete volunteer
-     *
-     * @param id
-     * @return
+     * method delete volunteer from database
+     * @param id - volunteer
+     * @return void
      */
     public ResponseEntity<Volunteer> delete(long id) {
         logger.info("method [delete]");
@@ -71,8 +70,7 @@ public class VolunteerService {
     }
 
     /**
-     * method of getting the field value
-     *
+     * method of getting the field value from database
      * @return all list Volunteer
      */
     public List showVolunteer() {
