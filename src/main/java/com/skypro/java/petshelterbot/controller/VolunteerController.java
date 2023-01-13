@@ -42,7 +42,7 @@ public class VolunteerController {
                     description = "created volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
 
             ),
@@ -51,7 +51,7 @@ public class VolunteerController {
                     description = "wrong parameter volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
 
             )
@@ -71,7 +71,7 @@ public class VolunteerController {
                     description = "update volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
             ),
             @ApiResponse(
@@ -79,7 +79,7 @@ public class VolunteerController {
                     description = "wrong parameter volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
 
             )
@@ -104,7 +104,7 @@ public class VolunteerController {
                     description = "deleted volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
 
             ),
@@ -113,7 +113,7 @@ public class VolunteerController {
                     description = "wrong parameter volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
 
             )
@@ -135,7 +135,7 @@ public class VolunteerController {
                     description = "read volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
             ),
             @ApiResponse(
@@ -143,7 +143,7 @@ public class VolunteerController {
                     description = "wrong parameter volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer[].class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
 
             )
