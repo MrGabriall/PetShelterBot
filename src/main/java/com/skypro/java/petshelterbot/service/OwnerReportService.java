@@ -1,6 +1,5 @@
 package com.skypro.java.petshelterbot.service;
 
-
 import com.skypro.java.petshelterbot.entity.Owner;
 import com.skypro.java.petshelterbot.entity.Pet;
 import com.skypro.java.petshelterbot.entity.Photo;
@@ -13,14 +12,16 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
 import java.time.LocalDateTime;
 import java.util.Collection;
-
 import static com.skypro.java.petshelterbot.message.BotOutMessages.EXAMPLE_CORRECT_REPORT_MESSAGE;
 import static com.skypro.java.petshelterbot.message.BotOutMessages.INCORRECT_REPORT_MESSAGE;
 
-
+/**
+ * This class is responsible for receiving and processing the report from the owner
+ *
+ * @author nadillustrator
+ */
 @Service
 public class OwnerReportService {
 
@@ -29,7 +30,6 @@ public class OwnerReportService {
     private final ReportRepository reportRepository;
     private final OwnerRepository ownerRepository;
     private final PetRepository petRepository;
-
 
     public OwnerReportService(MessageService messageService,
                               PhotoRepository photoRepository,
@@ -43,6 +43,7 @@ public class OwnerReportService {
         this.petRepository = petRepository;
     }
 
+    //TODO нужно переписать логику метода, чтобы отчет приходил поэтапно
     public SendMessage saveReport(Update update) {
         SendMessage answer = null;
         String fileId = update.getMessage().getPhoto().stream().findFirst().orElseThrow().getFileId();
@@ -51,10 +52,12 @@ public class OwnerReportService {
         System.out.println(photos.toString());
 
         String caption = update.getMessage().getCaption();
-        String[] allStrings = caption.split("\n", 3);//todo обработать ArrayIndexOutOfBoundsException
+        String[] allStrings = caption.split("\n", 3);
         if (allStrings.length != 3) {
-            return messageService.sendMessage(update.getMessage().getChatId(), INCORRECT_REPORT_MESSAGE + EXAMPLE_CORRECT_REPORT_MESSAGE);
-//            throw new ArrayIndexOutOfBoundsException("The report from the userId " + update.getMessage().getChatId() + " does not match the form");
+            return messageService.sendMessage(update.getMessage().getChatId(),
+                    INCORRECT_REPORT_MESSAGE + EXAMPLE_CORRECT_REPORT_MESSAGE);
+//            throw new ArrayIndexOutOfBoundsException("The report from the userId " +
+//            update.getMessage().getChatId() + " does not match the form");
         }
 
         Owner owner = ownerRepository.getOwnerByChatId(update.getMessage().getChatId());
