@@ -31,7 +31,6 @@ public class VolunteerService {
     /**
      * method create volunteer in database
      * {@link org.springframework.data.jpa.repository.JpaRepository#save(Object)}
-     *
      * @param volunteer - volunteer
      * @return new obj volunteer
      */
