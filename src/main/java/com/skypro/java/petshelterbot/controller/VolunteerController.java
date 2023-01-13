@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * class REST API volunteer controller
+ * REST API class Volunteer controller
+ *
  * @author KiriukhinD
  */
 @RestController
@@ -25,7 +26,6 @@ public class VolunteerController {
 
     /**
      * constructor new obj search volunteerRepository
-     *
      * @param volunteerService -  new volunteerservice
      * @see Volunteer#Volunteer()
      */
@@ -34,8 +34,8 @@ public class VolunteerController {
     }
 
     /**
-     * @return new obj volunteer
      * @postmapping - controller
+     * @return new obj volunteer
      */
     @Operation(
             summary = "create volunteer",
