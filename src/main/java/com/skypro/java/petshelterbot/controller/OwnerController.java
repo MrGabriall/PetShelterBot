@@ -109,7 +109,7 @@ public class OwnerController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "search for all owner",
+                            description = "search for all owners",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = Owner[].class)

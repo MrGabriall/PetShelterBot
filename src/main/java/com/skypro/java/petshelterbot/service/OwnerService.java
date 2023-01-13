@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Class Owner allows you to work with properties
+ * Class Owner allows you to work with properties.
  * @author gardenwow
  */
 @Service
