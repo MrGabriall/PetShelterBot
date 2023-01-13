@@ -2,6 +2,7 @@ package com.skypro.java.petshelterbot.controller;
 
 import com.skypro.java.petshelterbot.entity.Volunteer;
 import com.skypro.java.petshelterbot.service.VolunteerService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,7 +15,6 @@ import java.util.List;
 
 /**
  * class REST API volunteer controller
- *
  * @author KiriukhinD
  */
 @RestController
@@ -44,8 +44,21 @@ public class VolunteerController {
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = Volunteer[].class)
                     )
+
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "wrong parameter volunteer",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = Volunteer[].class)
+                    )
+
             )
+
+
     })
+
 
     @PostMapping("/create")
     public Volunteer create(@RequestBody Volunteer volunteer) {
@@ -60,6 +73,15 @@ public class VolunteerController {
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = Volunteer[].class)
                     )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "wrong parameter volunteer",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = Volunteer[].class)
+                    )
+
             )
     })
     /**
@@ -84,11 +106,21 @@ public class VolunteerController {
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = Volunteer[].class)
                     )
+
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "wrong parameter volunteer",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = Volunteer[].class)
+                    )
+
             )
     })
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable long id) {
+    public void delete(@Parameter(description = "Enter {id} volunteer  for delete", example = "1234566") @PathVariable long id) {
         volunteerService.delete(id);
 
     }
@@ -105,11 +137,20 @@ public class VolunteerController {
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = Volunteer[].class)
                     )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "wrong parameter volunteer",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = Volunteer[].class)
+                    )
+
             )
     })
 
     @GetMapping("/read/{id}")
-    public Volunteer read(@PathVariable long id) {
+    public Volunteer read(@Parameter(description = "Enter {id} volunteer for read ", example = "123456") @PathVariable long id) {
         return volunteerService.read(id);
 
     }
@@ -127,6 +168,15 @@ public class VolunteerController {
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = Volunteer[].class)
                     )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "wrong parameter volunteer",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = Volunteer[].class)
+                    )
+
             )
     })
     @GetMapping("/showVolunteer")
