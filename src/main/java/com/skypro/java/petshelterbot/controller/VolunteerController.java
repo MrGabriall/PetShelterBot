@@ -2,12 +2,12 @@ package com.skypro.java.petshelterbot.controller;
 
 import com.skypro.java.petshelterbot.entity.Volunteer;
 import com.skypro.java.petshelterbot.service.VolunteerService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,17 +37,19 @@ public class VolunteerController {
      * @return new obj volunteer
      * @postmapping - controller
      */
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "created volunteer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer.class)
-                    )
+    @Operation(
+            summary = "create volunteer",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "created volunteer",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
 
-            ),
-            @ApiResponse(
+                    ),
+                    @ApiResponse(
                     responseCode = "500",
                     description = "wrong parameter volunteer",
                     content = @Content(
@@ -58,7 +60,7 @@ public class VolunteerController {
             )
 
 
-    })
+            })
 
 
     @PostMapping("/create")
@@ -66,17 +68,19 @@ public class VolunteerController {
         return volunteerService.create(volunteer);
     }
 
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "update volunteer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "500",
+    @Operation(
+            summary = "update volunteer",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "update volunteer",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
                     description = "wrong parameter volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -99,29 +103,31 @@ public class VolunteerController {
 
     }
 
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "deleted volunteer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer.class)
-                    )
+    @Operation(
+            summary = "delete volunteer",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "deleted volunteer",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
 
-            ),
-            @ApiResponse(
+                    ),
+                    @ApiResponse(
                     responseCode = "500",
-                    description = "wrong parameter volunteer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer.class)
-                    )
+                            description = "wrong parameter volunteer",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
 
-            )
-    })
+                    )
+            })
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@Parameter(description = "Enter {id} volunteer  for delete", example = "1234566") @PathVariable long id) {
+    public void delete(@Parameter(description = "Enter {id} volunteer  for delete", example = "1") @PathVariable long id) {
         volunteerService.delete(id);
 
     }
@@ -130,28 +136,29 @@ public class VolunteerController {
      * @return id - obj volunteer
      * @getmapping - controller
      */
-    @ApiResponses({
-            @ApiResponse(
+    @Operation(
+            summary = "read volunteer",
+            responses = {@ApiResponse(
                     responseCode = "200",
-                    description = "read volunteer",
+                    description = "search volunteer",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = Volunteer.class)
                     )
             ),
-            @ApiResponse(
-                    responseCode = "500",
-                    description = "wrong parameter volunteer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Volunteer.class)
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter volunteer",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
                     )
 
-            )
-    })
+            })
 
     @GetMapping("/read/{id}")
-    public Volunteer read(@Parameter(description = "Enter {id} volunteer for read ", example = "123456") @PathVariable long id) {
+    public Volunteer read(@Parameter(description = "Enter {id} volunteer for read ", example = "1") @PathVariable long id) {
         return volunteerService.read(id);
 
     }
@@ -161,17 +168,19 @@ public class VolunteerController {
      * @getmapping - controller
      */
 
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "All volunteeer",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
+    @Operation(
+            summary = "show list volunteer",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "All volunteeer",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
 
-                    )
-            ),
-            @ApiResponse(
+                            )
+                    ),
+                    @ApiResponse(
                     responseCode = "500",
                     description = "wrong parameter volunteer",
                     content = @Content(
