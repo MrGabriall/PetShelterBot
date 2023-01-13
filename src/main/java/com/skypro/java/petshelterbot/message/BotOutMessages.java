@@ -100,7 +100,7 @@ public class BotOutMessages {
     public static final String PET_MANAGEMENT_CAUTION_ON_REPORT = "Дорогой усыновитель, мы заметили, что ты заполняешь отчет не так подробно, как необходимо. Пожалуйста, подойди ответственнее "
                                     + "к этому занятию. В противном случае волонтеры приюта будут обязаны самолично проверять условия содержания собаки";
     public static final String PET_MANAGEMENT_FINAL = "Вы успешно прошли  испытательный срок, Поздравляем Вас!!!!! теперь на Вас большая ответственность не подведите.";
-    public static final String PET_MANAGEMENT_DOP_TIME = " Вам назначен дополнительный испытательный срок " + "столько дней" + " " + "вам назначено.";
+    public static final String PET_MANAGEMENT_DOP_TIME = " Вам назначен дополнительный испытательный срок ";
     public static final String PET_MANAGEMENT_DID_NOT_COPE = " Вы не справились извините,сделайте выводы и подумайте над поведением.";
     // NEW_USER_MESSAGE_VOLUNTEER позвать волонтёра
 
