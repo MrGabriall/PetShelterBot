@@ -1,5 +1,9 @@
 package com.skypro.java.petshelterbot.message;
-
+/**
+ * class  bot out message
+ *
+ * @author KiriukhinD
+ */
 public class BotOutMessages {
     //Консультация с новым пользователем
     public static final String NEW_USER_HELLO = "У тебя есть уникальная возможность совершить добрый поступок,"
