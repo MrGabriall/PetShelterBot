@@ -8,11 +8,13 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.skypro.java.petshelterbot.command.BotCommands.*;
+import static com.skypro.java.petshelterbot.message.BotCommands.*;
 import static com.skypro.java.petshelterbot.message.BotOutMessages.NEW_USER_HELLO;
 
 /**
  * Describes methods to processing messages
+ *
+ * @author evnag
  */
 
 @Service
@@ -20,6 +22,7 @@ public class MessageService {
 
     /**
      * Send Welcome message
+     *
      * @param chatId value from update
      * @param name   userName value from update
      * @return SendMessage w/ Start keyboard
@@ -31,7 +34,8 @@ public class MessageService {
 
     /**
      * Send any message
-     * @param chatId chatId value from update
+     *
+     * @param chatId        chatId value from update
      * @param messageToSend message from BotMessages
      * @return SendMessage
      */
@@ -44,22 +48,23 @@ public class MessageService {
 
     /**
      * Send any message w/ reply markup keyboard
-     * @param chatId chatId value from update
-     * @param messageToSend message from BotMessages
+     *
+     * @param chatId         chatId value from update
+     * @param messageToSend  message from BotMessages
      * @param keyboardMarkup keyboardMarkup selected keyboard
      * @return SendMessage
      */
     public SendMessage sendReplyMessage(long chatId, String messageToSend, ReplyKeyboardMarkup keyboardMarkup) {
         SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
+        message.setChatId(chatId);
         message.setText(messageToSend);
         message.setReplyMarkup(keyboardMarkup);
-
         return message;
     }
 
     /**
      * Generates a reply keyboard from String varargs
+     *
      * @param buttons String values with text for menu buttons, @NotNull
      * @return ReplyKeyboardMarkup - menu keyboard
      */

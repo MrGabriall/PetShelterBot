@@ -1,5 +1,7 @@
 package com.skypro.java.petshelterbot.entity;
 
+import com.skypro.java.petshelterbot.bot.BotState;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -13,9 +15,12 @@ public class UserState {
     private Long id;
     @Column(name = "chat_id")
     private Long chatId;
-    private String state;
 
-    public UserState(Long chatId, String state) {
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(30)", name = "state")
+    private BotState state;
+
+    public UserState(Long chatId, BotState state) {
         this.chatId = chatId;
         this.state = state;
     }
@@ -39,19 +44,20 @@ public class UserState {
         this.chatId = chatId;
     }
 
-    public String getState() {
+    public BotState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(BotState state) {
         this.state = state;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserState userState)) return false;
-        return Objects.equals(id, userState.id) && Objects.equals(chatId, userState.chatId) && Objects.equals(state, userState.state);
+        if (o == null || getClass() != o.getClass()) return false;
+        UserState userState = (UserState) o;
+        return Objects.equals(id, userState.id) && Objects.equals(chatId, userState.chatId) && state == userState.state;
     }
 
     @Override

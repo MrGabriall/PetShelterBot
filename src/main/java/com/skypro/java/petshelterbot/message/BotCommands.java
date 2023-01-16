@@ -1,11 +1,10 @@
-package com.skypro.java.petshelterbot.command;
+package com.skypro.java.petshelterbot.message;
 
-/*
-The class describes the commands that the bot can process
+/**
+ * Defines the commands that the bot can process
  */
 
 public class BotCommands {
-
 
     public static final String START = "/start";
     public static final String SELECT_OPTION = "Выберите пункт меню";
