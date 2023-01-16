@@ -35,7 +35,14 @@ public class UserStateService {
      */
     public void setBotState(Long chatId, BotState botState) {
         UserState userState = userStateRepository.findByChatId(chatId);
-        userState.setState(botState);
-        userStateRepository.save(userState);
+        if(userState == null) {
+            UserState newUserState = new UserState(chatId, botState);
+            userStateRepository.save(newUserState);
+        } else {
+            userState.setState(botState);
+            userStateRepository.save(userState);
+        }
     }
+
+
 }
