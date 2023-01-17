@@ -6,6 +6,7 @@ package com.skypro.java.petshelterbot.bot;
 
 public enum BotState {
     START_STATE,
+    OWNER_STATE,
     INFO_STATE,
     HOW_TO_ADOPT_STATE,
 

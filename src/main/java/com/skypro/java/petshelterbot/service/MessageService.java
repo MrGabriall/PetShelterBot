@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.skypro.java.petshelterbot.message.BotCommands.*;
-import static com.skypro.java.petshelterbot.message.BotOutMessages.NEW_USER_HELLO;
+import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
 
 /**
  * Describes methods to processing messages
@@ -21,15 +21,26 @@ import static com.skypro.java.petshelterbot.message.BotOutMessages.NEW_USER_HELL
 public class MessageService {
 
     /**
-     * Send Welcome message
+     * Send Welcome message+reply markup keyboard for default user
      *
      * @param chatId value from update
      * @param name   userName value from update
-     * @return SendMessage w/ Start keyboard
+     * @return SendMessage w/ keyboard
      */
-    public SendMessage startCommandReceived(long chatId, String name) {
+    public SendMessage startCommandFromDefault(long chatId, String name) {
         String messageToSend = "Привет, " + name + "! " + NEW_USER_HELLO;
-        return sendReplyMessage(chatId, messageToSend, generateMenuKeyBoard(INFO, HOW_TO_ADOPT, CALL_VOLUNTEER, SEND_REPORT));
+        return sendReplyMessage(chatId, messageToSend, generateMenuKeyBoard(INFO, HOW_TO_ADOPT, SEND_CONTACTS, CALL_VOLUNTEER));
+    }
+    /**
+     * Send Welcome message+reply markup keyboard for owner
+     *
+     * @param chatId value from update
+     * @param name   userName value from update
+     * @return SendMessage w/ keyboard
+     */
+    public SendMessage startCommandFromOwner(long chatId, String name) {
+        String messageToSend = "Привет, " + name + "! " + PET_MANAGEMENT_FILL_IN_REPORT;
+        return sendReplyMessage(chatId, messageToSend, generateMenuKeyBoard(INFO, HOW_TO_ADOPT, SEND_REPORT, CALL_VOLUNTEER));
     }
 
     /**
@@ -85,7 +96,7 @@ public class MessageService {
 
         menuKeyBoard.setKeyboard(keyboardRows);
         menuKeyBoard.setResizeKeyboard(true);
-        menuKeyBoard.setSelective(true);
+        menuKeyBoard.setSelective(false);
         return menuKeyBoard;
     }
 

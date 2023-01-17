@@ -57,7 +57,6 @@ public class HowToAdoptStateHandler implements InputMessageHandler {
                                     DOG_HANDLERS_TIPS,
                                     DOG_HANDLERS_LIST,
                                     WHY_REJECTED,
-                                    SEND_CONTACTS,
                                     CALL_VOLUNTEER,
                                     TO_MAIN_MENU
                             ));

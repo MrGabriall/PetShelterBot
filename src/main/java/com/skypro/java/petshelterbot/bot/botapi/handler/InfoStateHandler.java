@@ -52,7 +52,6 @@ public class InfoStateHandler implements InputMessageHandler {
                             ABOUT_SHELTER,
                             SHELTER_ADDRESS,
                             SAFETY_MEASURES,
-                            SEND_CONTACTS,
                             CALL_VOLUNTEER,
                             TO_MAIN_MENU
                     ));

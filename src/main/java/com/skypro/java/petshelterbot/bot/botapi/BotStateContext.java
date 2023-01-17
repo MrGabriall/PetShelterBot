@@ -64,7 +64,8 @@ public class BotStateContext {
      */
     private boolean isReportFillingState(BotState state) {
         return switch (state) {
-            case SEND_DIET_STATE,
+            case OWNER_STATE,
+                    SEND_DIET_STATE,
                     SEND_HEALTH_STATE,
                     SEND_BEHAVIOR_STATE,
                     SEND_PHOTO_STATE,

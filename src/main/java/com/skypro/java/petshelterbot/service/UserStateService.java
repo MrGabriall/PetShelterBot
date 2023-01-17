@@ -35,7 +35,7 @@ public class UserStateService {
      */
     public void setBotState(Long chatId, BotState botState) {
         UserState userState = userStateRepository.findByChatId(chatId);
-        if(userState == null) {
+        if(userState == null) { //TODO: вынести проверку+создание новой сущности в отдельный метод
             UserState newUserState = new UserState(chatId, botState);
             userStateRepository.save(newUserState);
         } else {
@@ -43,6 +43,5 @@ public class UserStateService {
             userStateRepository.save(userState);
         }
     }
-
 
 }
