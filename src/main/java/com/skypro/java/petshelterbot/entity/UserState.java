@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
  * Defines entities to store specific states for each user by chatId
- * TODO: Must be replaced with In-memory cache
+ * TODO: Should be replaced with In-memory cache?!
  */
 
 @Entity
