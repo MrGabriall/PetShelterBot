@@ -18,7 +18,7 @@ import java.util.Map;
 @Component
 public class BotStateContext {
     /**
-     * Stores a specific handler by key-state
+     * Stores a specific handlers by key-states
      */
     private final Map<BotState, InputMessageHandler> messageHandlers = new HashMap<>();
 
@@ -51,9 +51,17 @@ public class BotStateContext {
             return messageHandlers.get(BotState.INFO_STATE);
         } else if (isHowToAdoptState(state)) {
             return messageHandlers.get(BotState.HOW_TO_ADOPT_STATE);
+        } else if (isChooseShelterState(state)) {
+            return messageHandlers.get(BotState.CHOOSE_SHELTER_STATE);
+        } else if (isCallVolunteerState(state)) {
+            return messageHandlers.get(BotState.CALL_VOLUNTEER_STATE);
         }
 
         return messageHandlers.get(state);
+    }
+
+    private boolean isCallVolunteerState(BotState state) {
+        return state == BotState.CALL_VOLUNTEER_STATE;
     }
 
     /**
@@ -76,7 +84,7 @@ public class BotStateContext {
     }
 
     /**
-     * Checks the state
+     * Checks the INFO_STATE state
      *
      * @param state current state
      * @return boolean
@@ -86,12 +94,27 @@ public class BotStateContext {
     }
 
     /**
-     * Checks the state
+     * Checks the HOW_TO_ADOPT_STATE state
      *
      * @param state current state
      * @return boolean
      */
     private boolean isHowToAdoptState(BotState state) {
         return state == BotState.HOW_TO_ADOPT_STATE;
+    }
+
+    /**
+     * Checks the CHOOSE_SHELTER_STATE state
+     *
+     * @param state current state
+     * @return boolean
+     */
+    private boolean isChooseShelterState(BotState state) {
+        return switch (state) {
+            case CHOOSE_SHELTER_STATE,
+                    HOW_TO_ADOPT_DOG_STATE,
+                    HOW_TO_ADOPT_CAT_STATE-> true;
+            default -> false;
+        };
     }
 }

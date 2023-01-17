@@ -76,6 +76,9 @@ public class HowToAdoptStateHandler implements InputMessageHandler {
                     messageToUser = messageService.sendMessage(chatId, POTENTIAL_ANIMAL_OWNER_RECOMMENDATIONS_ON_CYNOLOGIST);
             case WHY_REJECTED ->
                     messageToUser = messageService.sendMessage(chatId, POTENTIAL_ANIMAL_OWNER_RENOUNCEMENT);
+
+            case SEND_CONTACTS -> messageToUser = messageService.sendMessage(chatId, "\uD83D\uDEE0 Button is under maintenance");
+            case "Test Button" -> messageToUser = messageService.sendMessage(chatId, "Test text for for CAT SHELTER");
             default -> messageToUser = messageService.sendMessage(chatId, UNKNOWN_COMMAND);
         }
 

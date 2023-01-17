@@ -27,9 +27,13 @@ public class MessageService {
      * @param name   userName value from update
      * @return SendMessage w/ keyboard
      */
+    //TODO: перенести в соответствующий хэндлер
     public SendMessage startCommandFromDefault(long chatId, String name) {
-        String messageToSend = "Привет, " + name + "! " + NEW_USER_HELLO;
-        return sendReplyMessage(chatId, messageToSend, generateMenuKeyBoard(INFO, HOW_TO_ADOPT, SEND_CONTACTS, CALL_VOLUNTEER));
+        String messageToSend = "Привет, " + name + "! " + "Выбери приют!!";
+        return sendReplyMessage(
+                chatId,
+                messageToSend,
+                generateMenuKeyBoard("\uD83D\uDE3A CAT SHELTER", "\uD83D\uDC36 DOG SHELTER", INFO));
     }
     /**
      * Send Welcome message+reply markup keyboard for owner
@@ -38,6 +42,7 @@ public class MessageService {
      * @param name   userName value from update
      * @return SendMessage w/ keyboard
      */
+    //TODO: перенести в соответствующий хэндлер
     public SendMessage startCommandFromOwner(long chatId, String name) {
         String messageToSend = "Привет, " + name + "! " + PET_MANAGEMENT_FILL_IN_REPORT;
         return sendReplyMessage(chatId, messageToSend, generateMenuKeyBoard(INFO, HOW_TO_ADOPT, SEND_REPORT, CALL_VOLUNTEER));
@@ -96,8 +101,10 @@ public class MessageService {
 
         menuKeyBoard.setKeyboard(keyboardRows);
         menuKeyBoard.setResizeKeyboard(true);
-        menuKeyBoard.setSelective(false);
+        menuKeyBoard.setSelective(true);
+        menuKeyBoard.setInputFieldPlaceholder("ВЫБЕРИ ПУНКТ ИЗ МЕНЮ))");
         return menuKeyBoard;
     }
+
 
 }

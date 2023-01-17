@@ -43,6 +43,7 @@ public class OwnerReportService {
         this.petRepository = petRepository;
     }
 
+    // TODO: Что делаем с этим методом?
     //TODO нужно переписать логику метода, чтобы отчет приходил поэтапно
     public SendMessage saveReport(Update update) {
         SendMessage answer = null;
@@ -75,7 +76,7 @@ public class OwnerReportService {
         report.setPhoto(photoRepository.getPhotoById(photo.getId()));
         reportRepository.save(report);
 
-        System.out.println(report.toString());
+        System.out.println(report);
         return answer;
     }
 }

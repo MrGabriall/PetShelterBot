@@ -59,12 +59,14 @@ public class DefaultMessageHandler implements InputMessageHandler {
      * @return {@link SendMessage}
      */
     private SendMessage processInputMessage(Message message) {
+        //TODO: Вынести проверку isOwner в BotStateContext?!
         long chatId = message.getChatId();
         String userName = message.getChat().getUserName();
         if (isOwner(message)) {
             userStateService.setBotState(chatId, BotState.OWNER_STATE);
             return messageService.startCommandFromOwner(chatId, userName);
         }
+        userStateService.setBotState(chatId, BotState.CHOOSE_SHELTER_STATE);
         return messageService.startCommandFromDefault(chatId, userName);
     }
 
