@@ -20,6 +20,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import java.time.LocalDate;
+/**
+ * @author EosReign
+ * Class ServiceTest PetServiceTest.
+ * CRUD - Create, Read, Update, Delete(IDK why i check this, if i dont have a test Repository)
+ */
 
 @ExtendWith(MockitoExtension.class)
 public class PetServiceTest {
@@ -53,14 +58,17 @@ public class PetServiceTest {
     public void updatePetPositive() {
         LocalDate date = LocalDate.of(2023, 12, 6); // sheesh, what a class...
         Pet pet1 = new Pet("doggy", date);
-
+        Mockito.when(petRepository.save(pet1)).thenReturn(pet1);
+        assertEquals(petService.updatePet(pet1), pet1);
     }
-
+/*
     @Test
-    public void deletePet() {
+    public void deletePetPositive() {
 
     }
-
+    //for checking this method i need have DB
+    //Honestly. For this all methods i need have DB for True checking methods
+*/
 
 
 
