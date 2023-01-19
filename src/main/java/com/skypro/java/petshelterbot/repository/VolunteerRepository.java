@@ -1,5 +1,6 @@
 package com.skypro.java.petshelterbot.repository;
 
+import com.skypro.java.petshelterbot.entity.Pet;
 import com.skypro.java.petshelterbot.entity.Volunteer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,5 +22,7 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
      */
     @Query(value = "select * from volunteer  ", nativeQuery = true)
     List<Volunteer> showVolunteer();
+
+    Volunteer getVolunteerById(Long id);
 
 }

@@ -10,7 +10,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 import org.mockito.InjectMocks;
@@ -34,41 +35,43 @@ public class PetServiceTest {
     @InjectMocks
     private PetService petService;
 
-    @BeforeEach
-
-    @AfterEach
-
     @Test
-    public void createPetPositive() {
+    public void createPositive() {
         LocalDate date = LocalDate.of(2023, 12, 6); // sheesh, what a class...
         Pet pet1 = new Pet("doggy", date);
         Mockito.when(petRepository.save(pet1)).thenReturn(pet1);
-        assertEquals(petService.createPet(pet1), pet1);
+        assertEquals(petService.create(pet1), pet1);
+        assertNotNull(petService.create(pet1));
     }
 
     @Test
-    public void getByIdPositive() {
+    public void readPositive() {
         LocalDate date = LocalDate.of(2023, 12, 6); // sheesh, what a class...
         Pet pet1 = new Pet("doggy", date);
         Mockito.when(petRepository.getPetById(1L)).thenReturn(pet1);
-        assertEquals(petService.getById(1L), pet1);
+        assertEquals(petService.read(1L), pet1);
+        assertNotNull(petService.read(1L));
     }
 
     @Test
-    public void updatePetPositive() {
+    public void updatePositive() {
         LocalDate date = LocalDate.of(2023, 12, 6); // sheesh, what a class...
         Pet pet1 = new Pet("doggy", date);
         Mockito.when(petRepository.save(pet1)).thenReturn(pet1);
-        assertEquals(petService.updatePet(pet1), pet1);
+        assertEquals(petService.update(pet1), pet1);
+        assertNotNull(petService.update(pet1));
     }
 /*
     @Test
-    public void deletePetPositive() {
-
+    public void deletePositive() {
+        LocalDate date = LocalDate.of(2023, 12, 6); // sheesh, what a class...
+        Pet pet1 = new Pet("doggy", date);
+        assertDoesNotThrow(petService.delete(1L));
     }
-    //for checking this method i need have DB
-    //Honestly. For this all methods i need have DB for True checking methods
-*/
+    //for checking this method i need return something.
+ */
+
+
 
 
 
