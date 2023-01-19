@@ -2,9 +2,16 @@ package com.skypro.java.petshelterbot.controller;
 
 import com.skypro.java.petshelterbot.entity.Owner;
 import com.skypro.java.petshelterbot.entity.Report;
+import com.skypro.java.petshelterbot.entity.Volunteer;
 import com.skypro.java.petshelterbot.service.ReportService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
@@ -28,6 +35,30 @@ public class ReportController {
      * @param reportId
      * @return Report
      */
+    @Operation(
+            summary = "returns a report by idd",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "returns a report by id",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter returns a report by id",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @GetMapping("/getReport/{id}")  // GET http:localhost:8080/report
     public ResponseEntity<Report> getReport(@PathVariable Long reportId) {
         Report report = reportService.getReport(reportId);
@@ -43,6 +74,30 @@ public class ReportController {
      * @param ownerId
      * @return Owner
      */
+    @Operation(
+            summary = "notifies the owner of the dog has passed the trial period",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "notifies the owner of the dog has passed the trial period",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter notifies the owner of the dog has passed the trial period",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @GetMapping("/approveOwner")
     public ResponseEntity<Owner> approveOwner(@RequestParam(required = false) Long ownerId) {
         Owner answer = reportService.approveOwner(ownerId);
@@ -58,6 +113,30 @@ public class ReportController {
      * @param ownerId
      * @return Owner
      */
+    @Operation(
+            summary = "notifies the owner of the dog has not passed the trial period",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "notifies the owner of the dog has not passed the trial period",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter  notifies the owner of the dog has not passed the trial period",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @GetMapping("/denyOwner")
     public ResponseEntity<Owner> denyOwner(@RequestParam(required = false) Long ownerId) {
         Owner answer = reportService.denyOwner(ownerId);
@@ -73,6 +152,30 @@ public class ReportController {
      * @param reportId
      * @return Report
      */
+    @Operation(
+            summary = "marks the report as correctly completed",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "marks the report as correctly completed",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter  marks the report as correctly completed",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @PutMapping("/markReportAsCorrect")
     public ResponseEntity<Report> markReportAsCorrectById(@RequestParam(required = false) Long reportId) {
         Report report = reportService.markReportAsCorrectById(reportId);
@@ -88,6 +191,30 @@ public class ReportController {
      * @param reportId
      * @return Report
      */
+    @Operation(
+            summary = "marks the report as incorrectly completed",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "marks the report as incorrectly completed",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter  marks the report as incorrectly completed",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @PutMapping("/markReportsAsIncorrect")
     public ResponseEntity<Report> markReportsAsIncorrectById(@RequestParam(required = false) Long reportId) {
         Report report = reportService.markReportsAsIncorrectById(reportId);
@@ -104,6 +231,30 @@ public class ReportController {
      * @param numberOfDays
      * @return Owner
      */
+    @Operation(
+            summary = "adds a specified number of days to the trial period for a specific owner",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "adds a specified number of days to the trial period for a specific owner",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter  adds a specified number of days to the trial period for a specific owner",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @PutMapping("/addNumberOfReportDays")
     public ResponseEntity<Owner> addNumberOfReportDaysByOwnerId(@RequestParam(required = false) Long ownerId,
                                                                 @RequestParam(required = false) Integer numberOfDays) {
@@ -120,6 +271,30 @@ public class ReportController {
      * @param reportId
      * @return List<Report>
      */
+    @Operation(
+            summary = "returns ALL reports for a specific owner by ID",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "returns ALL reports for a specific owner by ID",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter  ALL reports for a specific owner by ID",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @GetMapping("/getAllReportsByOwnerId")
     public ResponseEntity<List<Report>> getAllReportsByOwnerId(@RequestParam(required = false) Long reportId) {
         List<Report> reports = reportService.getAllReportsByOwnerId(reportId);
@@ -136,6 +311,30 @@ public class ReportController {
      * @param lastName
      * @return List<Report>
      */
+    @Operation(
+            summary = "returns ALL unchecked reports for a specific owner by ID",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "ALL reports for a specific owner by name and surname",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter name and surname ",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @GetMapping("/getAllReportsByOwnerName")
     public ResponseEntity<List<Report>> getAllReportsByOwnerName(@RequestParam(required = false) String firstName,
                                                                  @RequestParam(required = false) String lastName) {
@@ -152,6 +351,30 @@ public class ReportController {
      * @param reportId
      * @return List<Report>
      */
+    @Operation(
+            summary = "returns ALL unchecked reports for a specific owner by ID",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "returns ALL unchecked reports for a specific owner by ID",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter all unchecked reports",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @GetMapping("/getAllUncheckedReportsByOwnerId")
     public ResponseEntity<List<Report>> getAllUncheckedReportsByOwnerId(@RequestParam(required = false) Long reportId) {
         List<Report> reports = reportService.getAllUncheckedReportsByOwnerId(reportId);
@@ -168,6 +391,30 @@ public class ReportController {
      * @param lastName
      * @return List<Report>
      */
+    @Operation(
+            summary = "returns ALL unchecked reports for a specific owner by name and surname",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "returns ALL unchecked reports for a specific owner by name and surname",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter all unchecked reports",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @GetMapping("/getAllUncheckedReportsByOwnerName")
     public ResponseEntity<List<Report>> getAllUncheckedReportsByOwnerName(@RequestParam(required = false) String firstName,
                                                                           @RequestParam(required = false) String lastName) {
@@ -181,6 +428,30 @@ public class ReportController {
     /**
      * This method returns all reports from the database
      */
+    @Operation(
+            summary = "returns all reports",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "returns all reports",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "wrong parameter all reports",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+
+                    )
+
+
+            })
     @GetMapping("/getAllUncheckedReports")
     public ResponseEntity<List<Report>> getAllUncheckedReports() {
         List<Report> reports = reportService.getAllUncheckedReports();
