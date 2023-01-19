@@ -45,7 +45,7 @@ public class OwnerService {
 
     public Owner read(long id) {
         logger.info("method [read]");
-        return ownerRepository.findById(id).get();
+        return ownerRepository.getOwnerById(id);
     }
 
     /**

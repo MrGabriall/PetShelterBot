@@ -24,7 +24,8 @@ import java.time.LocalDate;
 /**
  * @author EosReign
  * Class ServiceTest PetServiceTest.
- * CRUD - Create, Read, Update, Delete(IDK why i check this, if i dont have a test Repository)
+ * CRUD - Create, Read, Update, Delete
+ * Comment: Method Delete (IDK why i check this, if i dont have a test Repository)
  */
 
 @ExtendWith(MockitoExtension.class)
