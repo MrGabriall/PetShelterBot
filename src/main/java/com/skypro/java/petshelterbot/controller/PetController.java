@@ -43,7 +43,7 @@ public class PetController {
             })
     @PostMapping(path = "/createPet")
     public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
-        Pet newPet = petService.createPet(pet);
+        Pet newPet = petService.create(pet);
         if (newPet == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -64,7 +64,7 @@ public class PetController {
     @GetMapping(path = "/getPet")
     public ResponseEntity<Pet> readPet(@Parameter(description = "Write Pet ID", example = "2")
                                        @RequestParam("id") Long id) {
-        Pet newPet = petService.getById(id);
+        Pet newPet = petService.read(id);
         if (newPet == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -82,7 +82,7 @@ public class PetController {
     )
     @PutMapping(path = "/updatePet")
     public ResponseEntity<Pet> updatePet(@RequestBody Pet pet) {
-        Pet newPet = petService.updatePet(pet);
+        Pet newPet = petService.update(pet);
         if (newPet == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -103,7 +103,7 @@ public class PetController {
     @DeleteMapping(path = "/deletePet")
     public ResponseEntity deletePet(@Parameter(description = "Write Pet ID for deleting", example = "2")
                                     @PathVariable Long id) {
-        petService.deletePet(id);
+        petService.delete(id);
         return ResponseEntity.ok().build();
     }
 }
