@@ -1,8 +1,7 @@
-package ServiceTests;
+package com.skypro.java.petshelterbot.service;
 
 import com.skypro.java.petshelterbot.entity.Volunteer;
 import com.skypro.java.petshelterbot.repository.VolunteerRepository;
-import com.skypro.java.petshelterbot.service.VolunteerService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

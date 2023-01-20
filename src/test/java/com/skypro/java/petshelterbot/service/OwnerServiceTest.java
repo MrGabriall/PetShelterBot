@@ -1,24 +1,18 @@
-package ServiceTests;
+package com.skypro.java.petshelterbot.service;
 
 import com.skypro.java.petshelterbot.entity.Owner;
 import com.skypro.java.petshelterbot.entity.Pet;
 import com.skypro.java.petshelterbot.entity.Volunteer;
 import com.skypro.java.petshelterbot.repository.OwnerRepository;
-import com.skypro.java.petshelterbot.repository.PetRepository;
-import com.skypro.java.petshelterbot.service.OwnerService;
-import com.skypro.java.petshelterbot.service.PetService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

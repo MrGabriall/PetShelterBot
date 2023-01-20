@@ -1,6 +1,5 @@
 package com.skypro.java.petshelterbot.repository;
 
-import com.skypro.java.petshelterbot.entity.Pet;
 import com.skypro.java.petshelterbot.entity.Volunteer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
