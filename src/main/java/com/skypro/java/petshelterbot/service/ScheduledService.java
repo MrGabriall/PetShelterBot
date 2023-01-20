@@ -1,6 +1,5 @@
 package com.skypro.java.petshelterbot.service;
 
-import com.skypro.java.petshelterbot.bot.TelegramBot;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +8,6 @@ import java.util.List;
 
 @Service
 public class ScheduledService {
-
-    private final TelegramBot telegramBot;
     private final ReportService reportService;
 
     private static final String oneDayMessageWarning = "Дорогой усыновитель, мы заметили, " +
@@ -19,8 +16,7 @@ public class ScheduledService {
             "В противном случае, волонтеры приюта будут " +
             "обязаны самолично проверять условия содержания животного";
 
-    public ScheduledService(TelegramBot telegramBot, ReportService reportService) {
-        this.telegramBot = telegramBot;
+    public ScheduledService(ReportService reportService) {
         this.reportService = reportService;
     }
 
