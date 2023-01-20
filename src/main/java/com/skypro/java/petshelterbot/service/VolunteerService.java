@@ -47,7 +47,7 @@ public class VolunteerService {
      */
     public Volunteer read(long id) {
         logger.info("method [read]");
-        return volunteerRepository.findById(id).get();
+        return volunteerRepository.getVolunteerById(id);
     }
 
     /**

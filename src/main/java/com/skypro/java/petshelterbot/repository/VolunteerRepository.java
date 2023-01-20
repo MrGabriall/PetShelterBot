@@ -22,4 +22,6 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
     @Query(value = "select * from volunteer  ", nativeQuery = true)
     List<Volunteer> showVolunteer();
 
+    Volunteer getVolunteerById(Long id);
+
 }

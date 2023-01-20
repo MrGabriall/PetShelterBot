@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
-Owner getOwnerByChatId(Long id);
+    Owner getOwnerByChatId(Long id);
+    Owner getOwnerById(Long id);
 
 }

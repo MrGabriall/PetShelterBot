@@ -1,5 +1,6 @@
 package com.skypro.java.petshelterbot.repository;
 
+import com.skypro.java.petshelterbot.entity.Pet;
 import com.skypro.java.petshelterbot.entity.Report;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +10,7 @@ import java.util.List;
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
+    Report getReportById(Long id);
     List<Report> findAllByOwnerId(Long id);
     List<Report> findAllByOwnerFirstNameAndOwnerLastName(String firstName, String lastName);
     @Query(value = "select * from report r where r.owner_id = ?1 and r.is_correct IS NULL", nativeQuery = true)

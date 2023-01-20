@@ -1,65 +1,86 @@
 package com.skypro.java.petshelterbot.service;
 
 import com.skypro.java.petshelterbot.bot.TelegramBot;
-import com.skypro.java.petshelterbot.entity.Owner;
-import com.skypro.java.petshelterbot.entity.Report;
+import com.skypro.java.petshelterbot.entity.*;
 import com.skypro.java.petshelterbot.repository.OwnerRepository;
 import com.skypro.java.petshelterbot.repository.ReportRepository;
-import org.springframework.stereotype.Service;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+
 import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * This class is responsible for handling requests coming from the ReportController from the side of the volunteer.
- *
- * @author nadillustrator
+ * @author EosReign
  */
-@Service
-public class ReportService {
 
-    private final ReportRepository reportRepository;
-    private final OwnerRepository ownerRepository;
-    private final TelegramBot telegramBot;
+@ExtendWith(MockitoExtension.class)
+public class ReportServiceTest {
 
-    public ReportService(ReportRepository reportRepository,
-                         OwnerRepository ownerRepository,
-                         TelegramBot telegramBot) {
-        this.reportRepository = reportRepository;
-        this.ownerRepository = ownerRepository;
-        this.telegramBot = telegramBot;
+    @Mock
+    private ReportRepository reportRepository;
+
+    @Mock
+    private OwnerRepository ownerRepository;
+
+    @Mock
+    private TelegramBot telegramBot;
+
+    @Mock
+    private SendMessage sendMessage;
+
+    @InjectMocks
+    private ReportService reportService;
+
+    @Test
+    public void getReportPositive() {
+        Photo photo1 = new Photo();
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                                                  LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+        Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
+                    "Состояние здоровье: удовлетворительное",
+                     "Отсутствие поведенческих изменений", photo1, true);
+
+        Mockito.when(reportRepository.getReportById(0L)).thenReturn(report1);
+        assertEquals(reportService.getReport(0L), report1);
+        assertNotNull(reportService.getReport(0L));
     }
 
-    /**
-     * This method returns a report by reportId
-     *
-     * @param reportId
-     * @return Report
-     */
-    public Report getReport(Long reportId) {
-        try {
-            return reportRepository.getReportById(reportId);
-        } catch (Exception e) {
-            return null;
-        }
+    @Test
+    public void getReportNegative() {
+        Mockito.when(reportRepository.getReportById(0L)).thenReturn(null);
+        assertNull(reportService.getReport(0L));
     }
 
-    /**
-     * This method sends a message to the user about the successful completion of the trial period using TelegramBot
-     *
-     * @param ownerId
-     * @return Owner
-     */
-    public Owner approveOwner(Long ownerId) {
-        try {
-            Owner owner = ownerRepository.findById(ownerId).get();
-            Long chatId = owner.getChatId();
-            SendMessage sendMessage = new SendMessage(chatId.toString(), PET_MANAGEMENT_FINAL);
-            telegramBot.execute(sendMessage);
-            return owner;
-        } catch (Exception e) {
-            return null;
-        }
+    @Test
+    public void approveOwnerPositive() {
+        Volunteer volunteer1 = new Volunteer(0L, "Main", "Man");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353", 20, volunteer1, pet1);
+        Mockito.when(ownerRepository.getOwnerById(0L)).thenReturn(owner1);
+        assertEquals(reportService.approveOwner(0L), owner1);
+        assertNotNull(reportService.approveOwner(0L));
+    }
+
+    @Test
+    public void approveOwnerNegative() {
+        Mockito.when(ownerRepository.getOwnerById(0L)).thenReturn(null);
+        assertNull(reportService.getReport(0L));
     }
 
     /**
@@ -198,4 +219,5 @@ public class ReportService {
     public List<Report> getAllUncheckedReports() {
         return reportRepository.findAll();
     }
+
 }
