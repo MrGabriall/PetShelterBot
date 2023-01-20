@@ -7,6 +7,7 @@ import com.skypro.java.petshelterbot.repository.OwnerRepository;
 import com.skypro.java.petshelterbot.repository.ReportRepository;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -242,5 +243,21 @@ public class ReportService {
         return ownerRepository.findAllByNumberOfReportDaysNotNull().stream()
                 .map(Owner::getChatId)
                 .toList();
+    }
+
+    /**
+     * This method send notification message to owners who forgot send report yesterday
+     * @param id
+     * @param text
+     */
+    void sendMessage(Long id, String text){
+        SendMessage message = new SendMessage();
+        message.setChatId(id);
+        message.setText(text);
+        try {
+            telegramBot.execute(message);
+        } catch (TelegramApiException e) {
+            //logger
+        }
     }
 }
