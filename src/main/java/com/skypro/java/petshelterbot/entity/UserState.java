@@ -5,6 +5,11 @@ import com.skypro.java.petshelterbot.bot.BotState;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Defines entities to store specific states for each user by chatId
+ * TODO: Should be replaced with In-memory cache?!
+ */
+
 @Entity
 @Table(name = "user_state")
 public class UserState {

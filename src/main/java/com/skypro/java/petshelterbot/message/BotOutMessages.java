@@ -88,11 +88,11 @@ public class BotOutMessages {
     // NEW_USER_MESSAGE_VOLUNTEER позвать волонтёра
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Ведение питомца
-    public static final String PET_MANAGEMENT_FILL_IN_REPORT = " Заполните  форму ежедневного отчета.\n" + "/report";
+    public static final String PET_MANAGEMENT_FILL_IN_REPORT = " Заполните  форму ежедневного отчета";
 
     public static final String INCORRECT_REPORT_MESSAGE = "Вы прислали некорректно заполненный отчет. Форма заполнения отчета:";
     public static final String EXAMPLE_CORRECT_REPORT_MESSAGE = """
-            Пожалуйста, пришлите фото питомца и ответы на следующие вопросы в одном сообщении: 
+            Пожалуйста, пришлите фото питомца и ответы на следующие вопросы в одном сообщении:
             1. Опишите рацион питомца?
             2. Опишите как чувствует себя питомец и как привыкает к новому месту?
             3. Опишите изменение в поведении: отказ от старых привычек, приобретение новых?
@@ -104,5 +104,7 @@ public class BotOutMessages {
     public static final String PET_MANAGEMENT_DID_NOT_COPE = " Вы не справились извините,сделайте выводы и подумайте над поведением.";
     // NEW_USER_MESSAGE_VOLUNTEER позвать волонтёра
 
+    public static final String HOW_TO_ADOPT_DOG = " Собаки";
+    public static final String HOW_TO_ADOPT_CAT = " КОТЫ";
 
 }
