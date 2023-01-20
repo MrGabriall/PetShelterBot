@@ -1,5 +1,6 @@
 package com.skypro.java.petshelterbot.repository;
 
+import com.skypro.java.petshelterbot.entity.Pet;
 import com.skypro.java.petshelterbot.entity.Report;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +12,7 @@ import java.util.List;
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
+    Report getReportById(Long id);
     List<Report> findAllByOwnerId(Long id);
 
     Report findReportByOwnerIdAndIncomingReportTime_Date(Long ownerId, LocalDate Date);
