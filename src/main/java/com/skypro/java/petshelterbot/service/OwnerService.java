@@ -9,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Class Owner allows you to work with properties.
+ *
  * @author gardenwow
  */
 @Service
@@ -27,6 +27,7 @@ public class OwnerService {
 
     /**
      * Create owner the repository method is used {@link JpaRepository#save(Object)}
+     *
      * @param owner by json
      * @return object owner
      * @author gardenwow
@@ -36,8 +37,10 @@ public class OwnerService {
         logger.info("method [create]");
         return ownerRepository.save(owner);
     }
+
     /**
      * Create owner the repository method is used {@link JpaRepository#findById(Object)}
+     *
      * @param id
      * @return object owner
      * @author gardenwow
@@ -50,6 +53,7 @@ public class OwnerService {
 
     /**
      * Update owner the repository method is used {@link JpaRepository#save(Object)}
+     *
      * @param owner
      * @return object owner
      * @author gardenwow
@@ -61,6 +65,7 @@ public class OwnerService {
 
     /**
      * Update owner the repository method is used {@link JpaRepository#delete(Object)}
+     *
      * @param id
      * @return object owner
      * @author gardenwow
@@ -73,6 +78,7 @@ public class OwnerService {
 
     /**
      * Update owner the repository method is used {@link JpaRepository#findAll()}
+     *
      * @return Collection Owner
      * @author gardenwow
      */

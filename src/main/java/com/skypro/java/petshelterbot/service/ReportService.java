@@ -7,7 +7,11 @@ import com.skypro.java.petshelterbot.repository.OwnerRepository;
 import com.skypro.java.petshelterbot.repository.ReportRepository;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
 import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
 
 /**
@@ -197,5 +201,46 @@ public class ReportService {
      */
     public List<Report> getAllUncheckedReports() {
         return reportRepository.findAll();
+    }
+
+
+    /**
+     * This method returns list of ids that did not send a daily report
+     *
+     * @return List<Long>
+     */
+    List<Long> reportsChecker(int daysAgo) {
+        List<Long> ids = findAllIdsWithTrial();
+        List<Long> warningIds = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now().minusDays(daysAgo);
+        for (Long id : ids) {
+            if (findReportByOwnerIdAndDate(id, currentDate)) {
+                warningIds.add(id);
+            }
+        }
+        return warningIds;
+    }
+
+    /**
+     * This method check yesterday report has arrived
+     *
+     * @param ownerId
+     * @param date
+     * @return boolean
+     */
+    private boolean findReportByOwnerIdAndDate(Long ownerId, LocalDate date) {
+        Report report = reportRepository.findReportByOwnerIdAndIncomingReportTime_Date(ownerId, date);
+        return report == null;
+    }
+
+    /**
+     * This method find all ids who have trial period
+     *
+     * @return List<Long>
+     */
+    private List<Long> findAllIdsWithTrial() {
+        return ownerRepository.findAllByNumberOfReportDaysNotNull().stream()
+                .map(Owner::getChatId)
+                .toList();
     }
 }
