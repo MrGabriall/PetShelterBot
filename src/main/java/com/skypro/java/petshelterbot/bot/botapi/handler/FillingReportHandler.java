@@ -22,6 +22,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
+import static com.skypro.java.petshelterbot.message.BotCommands.*;
+
 /**
  * Handler for filling_report state
  *
@@ -122,9 +124,10 @@ public class FillingReportHandler implements InputMessageHandler {
             reportRepository.save(report);
 
             userStateService.setBotState(chatId, BotState.START_STATE);
-//            messageToUser = messageService.sendMessage(chatId, String.format("%s %s", "Данные отчета", report));
-            messageToUser = messageService.sendMessage(chatId,"Отчет отправлен");
-            //TODO: что выводить после отправки репорта? Клавиатура?
+            messageToUser = messageService.sendReplyMessage(
+                    chatId,
+                    "Отчет отправлен",
+                    messageService.generateMenuKeyBoard(CALL_VOLUNTEER, TO_MAIN_MENU));
         }
         return messageToUser;
     }

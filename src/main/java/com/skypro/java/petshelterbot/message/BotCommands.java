@@ -10,7 +10,7 @@ public class BotCommands {
     public static final String SELECT_OPTION = "Выберите пункт меню";
     public static final String UNKNOWN_COMMAND = "Неизвестная комманда";
 
-    public static final String INFO = "Узнать информацию о приюте";
+    public static final String INFO = "ℹ Узнать информацию о приюте";
     public static final String HOW_TO_ADOPT = "Как взять животное из приюта";
     public static final String CALL_VOLUNTEER = "Позвать волонтера";
     public static final String SEND_REPORT = "Отправить отчет о питомце";

@@ -57,10 +57,11 @@ public class UpdateService {
 
         switch (commandText) {
             case START, TO_MAIN_MENU -> botState = BotState.START_STATE;
-            case INFO -> botState = BotState.INFO_STATE;
-            case HOW_TO_ADOPT -> botState = BotState.HOW_TO_ADOPT_STATE;
+            case INFO, ABOUT_SHELTER, SHELTER_ADDRESS, SAFETY_MEASURES -> botState = BotState.INFO_STATE;
+            case HOW_TO_ADOPT, SEND_CONTACTS -> botState = BotState.HOW_TO_ADOPT_STATE;// SEND_CONTACTS временно обрабатывается тут
             case SEND_REPORT -> botState = BotState.FILLING_REPORT;
-            case SEND_CONTACTS -> botState = BotState.SEND_CONTACTS_STATE;
+
+//            case SEND_CONTACTS -> botState = BotState.SEND_CONTACTS_STATE;
             case CALL_VOLUNTEER -> botState = BotState.CALL_VOLUNTEER_STATE;
             default -> botState = userStateService.getUserState(message).getState();
         }
