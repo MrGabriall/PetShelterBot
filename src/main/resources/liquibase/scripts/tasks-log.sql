@@ -61,32 +61,33 @@ create table report
 
 -- changeSet nadillustrator:7
 -- PETS
+-- PETS
 insert into pet(name, date_of_adoption)
-values ('Fly', '2023-01-08 21:30:00.000000');
+values ('Fly', '2023-01-08');
 
 insert into pet(name, date_of_adoption)
-values ('Good boy', '2023-01-03 21:30:00.000000');
+values ('Good boy', '2023-01-03');
 
 insert into pet(name, date_of_adoption)
-values ('Nike', '2023-01-05 21:30:00.000000');
+values ('Nike', '2023-01-05');
 
 insert into pet(name, date_of_adoption)
-values ('Gray', '2022-12-08 21:30:00.000000');
+values ('Gray', '2022-12-08');
 
 insert into pet(name, date_of_adoption)
-values ('Fil', '2020-01-04 21:30:00.000000');
+values ('Fil', '2020-01-04');
 
 insert into pet(name, date_of_adoption)
-values ('Crazy', '2023-01-11 21:30:00.000000');
+values ('Crazy', '2023-01-11');
 
 insert into pet(name, date_of_adoption)
-values ('Boom', '2023-01-10 21:30:00.000000');
+values ('Boom', '2023-01-10');
 
 insert into pet(name, date_of_adoption)
-values ('Pit', '2023-01-11 21:30:00.000000');
+values ('Pit', '2023-01-11');
 
 insert into pet(name, date_of_adoption)
-values ('Claus', '2023-01-03 21:30:00.000000');
+values ('Claus', '2023-01-03');
 
 -- VOLUNTEERS
 insert into volunteer(chat_id, last_name, first_name)
@@ -124,3 +125,17 @@ values (185364898, 'Samorai', 'Valeriy', +7123456-78-98, 30, 1, 7);
 
 insert into owner(chat_id, last_name, first_name, phone_number, number_of_report_days, volunteer_id, pet_id)
 values (185364834, 'Filatov', 'Michael', +7123456-78-23, 30, 2, 8);
+
+--PHOTO
+insert into photo(file_id)
+values ('AgACAgIAAxkBAAICymPNfjkt9EfISo29SM9unz58K5KPAAJzwTEbb145Suo0FSEq0RMUAQADAgADeQADLQQ');
+
+insert into photo(file_id)
+values ('AgACAgIAAxkBAAIC1mPNfqevJjDfohS688t4-ilXBqW8AAKqxDEbxvg4Sqb68TWUxI-jAQADAgADeQADLQQ');
+
+--REPORT
+insert into report(incoming_report_date, pet_id, owner_id, pet_diet, health_and_condition, behavioral_changes, photo_id)
+values ('2023-01-21', 1, 1, 'Eat', 'Walk', 'Ok', 1);
+
+insert into report(incoming_report_date, pet_id, owner_id, pet_diet, health_and_condition, behavioral_changes, photo_id)
+values ('2023-01-22', 1, 1, 'Eat', 'Walk', 'Ok', 2);

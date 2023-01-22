@@ -5,12 +5,12 @@ import com.skypro.java.petshelterbot.entity.Owner;
 import com.skypro.java.petshelterbot.entity.Report;
 import com.skypro.java.petshelterbot.repository.OwnerRepository;
 import com.skypro.java.petshelterbot.repository.ReportRepository;
+import org.apache.el.stream.Stream;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +28,15 @@ public class ReportService {
     private final OwnerRepository ownerRepository;
     private final TelegramBot telegramBot;
 
+    private final PhotoSaverService photoSaverService;
+
     public ReportService(ReportRepository reportRepository,
                          OwnerRepository ownerRepository,
-                         TelegramBot telegramBot) {
+                         TelegramBot telegramBot, PhotoSaverService photoSaverService) {
         this.reportRepository = reportRepository;
         this.ownerRepository = ownerRepository;
         this.telegramBot = telegramBot;
+        this.photoSaverService = photoSaverService;
     }
 
     /**
@@ -143,12 +146,15 @@ public class ReportService {
     /**
      * This method returns ALL reports for a specific owner by ID
      *
-     * @param reportId
+     * @param ownerId
      * @return List<Report>
      */
-    public List<Report> getAllReportsByOwnerId(Long reportId) {
+    //TODO проверить имена всех переменных в параметрах на соответствие (в этом была ошибка)
+    public List<Report> getAllReportsByOwnerId(Long ownerId) {
         try {
-            return reportRepository.findAllByOwnerId(reportId);
+            reportRepository.findAllByOwnerId(ownerId).stream().forEach(r->photoSaverService.readPhotoFromTelegram(r.getPhoto().getId()));
+            return reportRepository.findAllByOwnerId(ownerId);
+
         } catch (Exception e) {
             return null;
         }
@@ -192,6 +198,7 @@ public class ReportService {
      */
     public List<Report> getAllUncheckedReportsByOwnerName(String firstName, String lastName) {
         try {
+
             return reportRepository.findAllByOwnerFirstNameAndOwnerLastNameAndCorrectIsNull(firstName, lastName);
         } catch (Exception e) {
             return null;
