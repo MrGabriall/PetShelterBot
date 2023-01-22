@@ -17,6 +17,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -118,7 +119,7 @@ public class FillingReportHandler implements InputMessageHandler {
             report.setPhoto(handlePhotoForReport(message));
             report.setPet(pet);
             report.setOwner(owner);
-            report.setIncomingReportTime(LocalDateTime.now());
+            report.setIncomingReportDate(LocalDate.now());
 
             //TODO: isCorrect()??
             reportRepository.save(report);

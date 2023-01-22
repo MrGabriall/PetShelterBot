@@ -13,8 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
@@ -48,11 +46,10 @@ public class ReportServiceTest {
         Photo photo1 = new Photo();
         Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
-                                                  LocalTime.of(23, 43, 25, 0));
+        LocalDate date = LocalDate.of(2022, 5, 23);
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
                 20, volunteer1, pet1);
-        Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
+        Report report1 = new Report(date, pet1, owner1, "Сухой корм",
                     "Состояние здоровье: удовлетворительное",
                      "Отсутствие поведенческих изменений", photo1, true);
 

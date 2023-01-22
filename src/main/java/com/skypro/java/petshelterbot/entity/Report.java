@@ -1,6 +1,7 @@
 package com.skypro.java.petshelterbot.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -14,8 +15,8 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "incoming_report_time")
-    private LocalDateTime incomingReportTime;
+    @Column(name = "incoming_report_date")
+    private LocalDate incomingReportDate;
     @OneToOne
     @JoinColumn(name = "pet_id")
     private Pet pet;
@@ -35,9 +36,9 @@ public class Report {
     private Boolean isCorrect;
 
 
-    public Report(LocalDateTime incomingReportTime, Pet pet, Owner owner, String petDiet,
+    public Report(LocalDate incomingReportDate, Pet pet, Owner owner, String petDiet,
                   String healthAndCondition, String behavioralChanges, Photo photo, Boolean isCorrect) {
-        this.incomingReportTime = incomingReportTime;
+        this.incomingReportDate = incomingReportDate;
         this.pet = pet;
         this.owner = owner;
         this.petDiet = petDiet;
@@ -74,12 +75,12 @@ public class Report {
         this.id = id;
     }
 
-    public LocalDateTime getIncomingReportTime() {
-        return incomingReportTime;
+    public LocalDate getIncomingReportDate() {
+        return incomingReportDate;
     }
 
-    public void setIncomingReportTime(LocalDateTime incomingReportTime) {
-        this.incomingReportTime = incomingReportTime;
+    public void setIncomingReportDate(LocalDate incomingReportDate) {
+        this.incomingReportDate = incomingReportDate;
     }
 
     public String getPetDiet() {
@@ -126,19 +127,19 @@ public class Report {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Report report)) return false;
-        return Objects.equals(id, report.id) && Objects.equals(incomingReportTime, report.incomingReportTime) && Objects.equals(pet, report.pet) && Objects.equals(owner, report.owner) && Objects.equals(petDiet, report.petDiet) && Objects.equals(healthAndCondition, report.healthAndCondition) && Objects.equals(behavioralChanges, report.behavioralChanges) && Objects.equals(photo, report.photo) && Objects.equals(isCorrect, report.isCorrect);
+        return Objects.equals(id, report.id) && Objects.equals(incomingReportDate, report.incomingReportDate) && Objects.equals(pet, report.pet) && Objects.equals(owner, report.owner) && Objects.equals(petDiet, report.petDiet) && Objects.equals(healthAndCondition, report.healthAndCondition) && Objects.equals(behavioralChanges, report.behavioralChanges) && Objects.equals(photo, report.photo) && Objects.equals(isCorrect, report.isCorrect);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, incomingReportTime, pet, owner, petDiet, healthAndCondition, behavioralChanges, photo, isCorrect);
+        return Objects.hash(id, incomingReportDate, pet, owner, petDiet, healthAndCondition, behavioralChanges, photo, isCorrect);
     }
 
     @Override
     public String toString() {
         return "Report{" +
                 "id=" + id +
-                ", incomingReportTime=" + incomingReportTime +
+                ", incomingReportDate=" + incomingReportDate +
                 ", pet=" + pet +
                 ", owner=" + owner +
                 ", petDiet='" + petDiet + '\'' +
