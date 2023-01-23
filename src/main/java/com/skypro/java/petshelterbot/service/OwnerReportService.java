@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import static com.skypro.java.petshelterbot.message.BotOutMessages.EXAMPLE_CORRECT_REPORT_MESSAGE;
@@ -43,6 +45,7 @@ public class OwnerReportService {
         this.petRepository = petRepository;
     }
 
+    // TODO: Что делаем с этим методом?
     //TODO нужно переписать логику метода, чтобы отчет приходил поэтапно
     public SendMessage saveReport(Update update) {
         SendMessage answer = null;
@@ -66,7 +69,7 @@ public class OwnerReportService {
 
 
         Report report = new Report();
-        report.setIncomingReportTime(LocalDateTime.now());
+        report.setIncomingReportDate(LocalDate.now());
         report.setPet(pet);
         report.setOwner(owner);
         report.setPetDiet(allStrings[0]);
@@ -75,7 +78,7 @@ public class OwnerReportService {
         report.setPhoto(photoRepository.getPhotoById(photo.getId()));
         reportRepository.save(report);
 
-        System.out.println(report.toString());
+        System.out.println(report);
         return answer;
     }
 }

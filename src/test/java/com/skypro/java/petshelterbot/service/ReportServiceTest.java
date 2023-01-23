@@ -1,5 +1,6 @@
 package com.skypro.java.petshelterbot.service;
 
+import com.skypro.java.petshelterbot.bot.TelegramBot;
 import com.skypro.java.petshelterbot.entity.*;
 import com.skypro.java.petshelterbot.repository.OwnerRepository;
 import com.skypro.java.petshelterbot.repository.ReportRepository;
@@ -17,7 +18,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -47,8 +47,7 @@ public class ReportServiceTest {
         Photo photo1 = new Photo();
         Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
-                                                  LocalTime.of(23, 43, 25, 0));
+        LocalDate dateTime = LocalDate.of(2022, 5, 23);
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
                 20, volunteer1, pet1);
         Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
@@ -117,8 +116,7 @@ public class ReportServiceTest {
         Photo photo1 = new Photo();
         Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
-                LocalTime.of(23, 43, 25, 0));
+        LocalDate dateTime = LocalDate.of(2022, 5, 23);
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
                 20, volunteer1, pet1);
         Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
@@ -145,8 +143,7 @@ public class ReportServiceTest {
         Photo photo1 = new Photo();
         Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
-                LocalTime.of(23, 43, 25, 0));
+        LocalDate dateTime = LocalDate.of(2022, 5, 23);
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
                 20, volunteer1, pet1);
         Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
@@ -201,8 +198,7 @@ public class ReportServiceTest {
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
         Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
         Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
-                LocalTime.of(23, 43, 25, 0));
+        LocalDate dateTime = LocalDate.of(2022, 5, 23);
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
                 20, volunteer1, pet1);
         Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
@@ -235,8 +231,7 @@ public class ReportServiceTest {
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
         Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
         Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
-                LocalTime.of(23, 43, 25, 0));
+        LocalDate dateTime = LocalDate.of(2022, 5, 23);
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
                 20, volunteer1, pet1);
         Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
@@ -267,8 +262,7 @@ public class ReportServiceTest {
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
         Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
         Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
-                LocalTime.of(23, 43, 25, 0));
+        LocalDate dateTime = LocalDate.of(2022, 5, 23);
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
                 20, volunteer1, pet1);
         Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
@@ -300,8 +294,7 @@ public class ReportServiceTest {
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
         Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
         Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
-                LocalTime.of(23, 43, 25, 0));
+        LocalDate dateTime = LocalDate.of(2022, 5, 23);
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
                 20, volunteer1, pet1);
         Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
@@ -331,8 +324,7 @@ public class ReportServiceTest {
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
         Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
         Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
-                                                  LocalTime.of(23, 43, 25, 0));
+        LocalDate dateTime = LocalDate.of(2022, 5, 23);
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
                 20, volunteer1, pet1);
         Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",

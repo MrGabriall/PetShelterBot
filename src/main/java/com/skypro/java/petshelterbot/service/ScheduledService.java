@@ -1,18 +1,13 @@
 package com.skypro.java.petshelterbot.service;
 
-import com.skypro.java.petshelterbot.bot.TelegramBot;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ScheduledService {
-
-    private final TelegramBot telegramBot;
     private final ReportService reportService;
 
     private static final String oneDayMessageWarning = "Дорогой усыновитель, мы заметили, " +
@@ -20,14 +15,14 @@ public class ScheduledService {
             "Пожалуйста, подойди ответственнее к этому занятию. " +
             "В противном случае, волонтеры приюта будут " +
             "обязаны самолично проверять условия содержания животного";
-    public ScheduledService(TelegramBot telegramBot, ReportService reportService) {
-        this.telegramBot = telegramBot;
+
+    public ScheduledService(ReportService reportService) {
         this.reportService = reportService;
     }
 
     /**
      * This method everyday check in the database the IDs of owners who doesn't send report yesterday and two days before.
-     * And this method send notifications to owners using {@link ScheduledService#sendMessage(Long)}
+     * And this method send notifications to owners using {@link ReportService#sendMessage(Long, String)}
      * And push list owners to volunteer using {}
      */
     @Scheduled(cron = "0 0 8 ? * * *")
@@ -39,7 +34,7 @@ public class ScheduledService {
         warningList.retainAll(yesterdayIdsList);
 
         yesterdayIdsList.removeAll(warningList);
-        yesterdayIdsList.forEach(this::sendMessage);
+        yesterdayIdsList.forEach(id -> reportService.sendMessage(id, oneDayMessageWarning));
 
         //@TODO
         //Make push warning list to volunteers
@@ -50,20 +45,5 @@ public class ScheduledService {
         /*  @TODO
             Написать реализацию и добавить декремент поля в бд
          */
-    }
-
-    /**
-     * This method send notification message to owners who forgot send report yesterday
-     * @param id
-     */
-    private void sendMessage(Long id){
-        SendMessage message = new SendMessage();
-        message.setChatId(id);
-        message.setText(oneDayMessageWarning);
-        try {
-            telegramBot.execute(message);
-        } catch (TelegramApiException e) {
-            //logger
-        }
     }
 }

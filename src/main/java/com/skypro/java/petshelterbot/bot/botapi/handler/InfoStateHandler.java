@@ -36,7 +36,7 @@ public class InfoStateHandler implements InputMessageHandler {
     }
 
     /**
-     * Processes the text from INFO menu
+     * Processes the text messages from INFO menu
      *
      * @param message from update
      * @return {@link SendMessage}
@@ -52,14 +52,12 @@ public class InfoStateHandler implements InputMessageHandler {
                             ABOUT_SHELTER,
                             SHELTER_ADDRESS,
                             SAFETY_MEASURES,
-                            SEND_CONTACTS,
                             CALL_VOLUNTEER,
                             TO_MAIN_MENU
                     ));
             case ABOUT_SHELTER -> messageToUser = messageService.sendMessage(chatId, NEW_USER_INFO_START);
             case SHELTER_ADDRESS -> messageToUser = messageService.sendMessage(chatId, NEW_USER_INFO_SHELTER);
             case SAFETY_MEASURES -> messageToUser = messageService.sendMessage(chatId, NEW_USER_INFO_REGULATIONS);
-
             default -> messageToUser = messageService.sendMessage(chatId, UNKNOWN_COMMAND);
         }
         return messageToUser;
