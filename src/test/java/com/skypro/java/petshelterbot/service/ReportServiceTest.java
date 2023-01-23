@@ -15,10 +15,12 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -72,152 +74,286 @@ public class ReportServiceTest {
         Volunteer volunteer1 = new Volunteer(0L, "Main", "Man");
         Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
         Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353", 20, volunteer1, pet1);
+
         Mockito.when(ownerRepository.getOwnerById(0L)).thenReturn(owner1);
         assertEquals(reportService.approveOwner(0L), owner1);
         assertNotNull(reportService.approveOwner(0L));
     }
 
+
     @Test
     public void approveOwnerNegative() {
         Mockito.when(ownerRepository.getOwnerById(0L)).thenReturn(null);
-        assertNull(reportService.getReport(0L));
+        assertNull(reportService.approveOwner(0L));
     }
 
     /**
      * This method sends a message to the user about the unsuccessful completion of the trial period using TelegramBot
      *
-     * @param ownerId
-     * @return Owner
+     * parameter ownerId
+     * return Owner
      */
-    public Owner denyOwner(Long ownerId) {
-        try {
-            Owner owner = ownerRepository.findById(ownerId).get();
-            Long chatId = owner.getChatId();
-            SendMessage sendMessage = new SendMessage(chatId.toString(), PET_MANAGEMENT_DID_NOT_COPE);
-            telegramBot.execute(sendMessage);
-            return owner;
-        } catch (Exception e) {
-            return null;
-        }
+    @Test
+    public void denyOwner() {
+        Photo photo1 = new Photo();
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+
+        Mockito.when(ownerRepository.getOwnerById(0L)).thenReturn(owner1);
+        assertEquals(reportService.denyOwner(0L), owner1);
+        assertNotNull(reportService.denyOwner(0L));
+
     }
 
     /**
      * This method marks the report as correctly completed putting a boolean true in a field isCorrect
      *
-     * @param reportId
-     * @return Report
+     * parameter reportId
+     * return Report
      */
-    public Report markReportAsCorrectById(Long reportId) {
-        try {
-            Report report = reportRepository.findById(reportId).get();
-            report.setCorrect(true);
-            return reportRepository.save(report);
-        } catch (Exception e) {
-            return null;
-        }
+    @Test
+    public void markReportAsCorrectById() {
+        Photo photo1 = new Photo();
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+        Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
+                "Состояние здоровье: удовлетворительное",
+                "Отсутствие поведенческих изменений", photo1, null);
+        Report report1Correct = new Report(dateTime, pet1, owner1, "Сухой корм",
+                "Состояние здоровье: удовлетворительное",
+                "Отсутствие поведенческих изменений", photo1, true);
+
+        Mockito.when(reportRepository.getReportById(report1.getId())).thenReturn(report1);
+        Mockito.when(reportRepository.save(report1Correct)).thenReturn(report1Correct);
+        assertEquals(report1Correct, reportService.markReportAsCorrectById(report1.getId()));
+        assertNotNull(reportService.markReportAsCorrectById(report1.getId()));
     }
 
     /**
      * This method marks the report as incorrectly completed putting a boolean false in a field isCorrect
      *
-     * @param reportId
-     * @return Report
+     * param reportId
+     * return Report
      */
-    public Report markReportsAsIncorrectById(Long reportId) {
-        try {
-            Report report = reportRepository.findById(reportId).get();
-            report.setCorrect(false);
-            return reportRepository.save(report);
-        } catch (Exception e) {
-            return null;
-        }
+    @Test
+    public void markReportsAsIncorrectById() {
+        Photo photo1 = new Photo();
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+        Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
+                "Состояние здоровье: удовлетворительное",
+                "Отсутствие поведенческих изменений", photo1, null);
+        Report report1Uncorrect = new Report(dateTime, pet1, owner1, "Сухой корм",
+                "Состояние здоровье: удовлетворительное",
+                "Отсутствие поведенческих изменений", photo1, false);
+
+        Mockito.when(reportRepository.getReportById(0L)).thenReturn(report1);
+        Mockito.when(reportRepository.save(report1Uncorrect)).thenReturn(report1Uncorrect);
+        assertEquals(report1Uncorrect, reportService.markReportsAsIncorrectById(0L));
+        assertNotNull(reportService.markReportsAsIncorrectById(0L));
+
     }
 
     /**
      * This method increases the number of days of the probationary period for the owner and
      * sends him a message about the prolongation of the probationary period using TelegramBot
      *
-     * @param ownerId
-     * @param numberOfDays
-     * @return Owner
+     * param ownerId
+     * param numberOfDays
+     * return Owner
      */
-    public Owner addNumberOfReportDaysByOwnerId(Long ownerId, Integer numberOfDays) {
-        try {
-            Owner owner = ownerRepository.findById(ownerId).get();
-            Long chatId = owner.getChatId();
-            owner.setNumberOfReportDays(numberOfDays);
-            SendMessage sendMessage = new SendMessage(chatId.toString(),
-                    PET_MANAGEMENT_DOP_TIME + numberOfDays + " дней.");
-            telegramBot.execute(sendMessage);
-            return ownerRepository.save(owner);
-        } catch (Exception e) {
-            return null;
-        }
-    }
+    @Test
+    public void addNumberOfReportDaysByOwnerId() {
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+        Owner owner1New = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                30, volunteer1, pet1);
 
+
+        Mockito.when(ownerRepository.getOwnerById(0L)).thenReturn(owner1);
+        Mockito.when(ownerRepository.save(owner1New)).thenReturn(owner1New);
+        assertEquals(owner1New, reportService.addNumberOfReportDaysByOwnerId(0L, 30));
+        assertNotNull(reportService.addNumberOfReportDaysByOwnerId(0L, 30));
+
+    }
     /**
      * This method returns ALL reports for a specific owner by ID
      *
-     * @param reportId
-     * @return List<Report>
+     * param ownerId
+     * return List<Report>
      */
-    public List<Report> getAllReportsByOwnerId(Long reportId) {
-        try {
-            return reportRepository.findAllByOwnerId(reportId);
-        } catch (Exception e) {
-            return null;
-        }
+    @Test
+    public void getAllReportsByOwnerId() {
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
+        Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+        Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
+                "Состояние здоровье: удовлетворительное",
+                "Отсутствие поведенческих изменений", null, true);
+        Report report2 = new Report(dateTime, pet2, owner1, "Сухой корм",
+                "Состояние здоровье: Восхитительное",
+                "Радуется как не в себя", null, true);
+        Report report3 = new Report(dateTime, pet3, owner1, "Сухой корм",
+                "Состояние здоровье: Плачевное",
+                "Угнетенное состояние здоровья", null, true);
+        List<Report> arrReports = new ArrayList<>();
+
+        Mockito.when(reportRepository.findAllByOwnerId(0L)).thenReturn(arrReports);
+        assertEquals(arrReports, reportService.getAllReportsByOwnerId(0L));
+        assertNotNull(reportService.getAllReportsByOwnerId(0L));
+
     }
 
     /**
      * This method returns ALL reports for a specific owner by name and surname
      *
-     * @param firstName
-     * @param lastName
-     * @return List<Report>
+     * param firstName
+     * param lastName
+     * return List<Report>
      */
-    public List<Report> getAllReportsByOwnerName(String firstName, String lastName) {
-        try {
-            return reportRepository.findAllByOwnerFirstNameAndOwnerLastName(firstName, lastName);
-        } catch (Exception e) {
-            return null;
-        }
+    @Test
+    public void getAllReportsByOwnerName() {
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
+        Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+        Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
+                "Состояние здоровье: удовлетворительное",
+                "Отсутствие поведенческих изменений", null, true);
+        Report report2 = new Report(dateTime, pet2, owner1, "Сухой корм",
+                "Состояние здоровье: Восхитительное",
+                "Радуется как не в себя", null, true);
+        Report report3 = new Report(dateTime, pet3, owner1, "Сухой корм",
+                "Состояние здоровье: Плачевное",
+                "Угнетенное состояние здоровья", null, true);
+        List<Report> arrReports = new ArrayList<>();
+
+        Mockito.when(reportRepository.findAllByOwnerFirstNameAndOwnerLastName("sheesh", "comrade")).thenReturn(arrReports);
+        assertEquals(arrReports, reportService.getAllReportsByOwnerName("sheesh", "comrade"));
+        assertNotNull(reportService.getAllReportsByOwnerName("sheesh", "comrade"));
     }
 
     /**
      * This method returns ALL unchecked reports for a specific owner by ID
      *
-     * @param reportId
-     * @return List<Report>
+     * param ownerId
+     * return List<Report>
      */
-    public List<Report> getAllUncheckedReportsByOwnerId(Long reportId) {
-        try {
-            return reportRepository.findAllByOwnerIdAndCorrectIsNull(reportId);
-        } catch (Exception e) {
-            return null;
-        }
+    @Test
+    public void getAllUncheckedReportsByOwnerId() {
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
+        Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+        Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
+                "Состояние здоровье: удовлетворительное",
+                "Отсутствие поведенческих изменений", null, true);
+        Report report2 = new Report(dateTime, pet2, owner1, "Сухой корм",
+                "Состояние здоровье: Восхитительное",
+                "Радуется как не в себя", null, true);
+        Report report3 = new Report(dateTime, pet3, owner1, "Сухой корм",
+                "Состояние здоровье: Плачевное",
+                "Угнетенное состояние здоровья", null, true);
+        List<Report> arrReports = new ArrayList<>();
+
+        Mockito.when(reportRepository.findAllByOwnerIdAndCorrectIsNull(0L)).thenReturn(arrReports);
+        assertEquals(arrReports, reportService.getAllUncheckedReportsByOwnerId(0L));
+        assertNotNull(reportService.getAllUncheckedReportsByOwnerId(0L));
     }
 
     /**
      * This method returns ALL unchecked reports for a specific owner by name and surname
      *
-     * @param firstName
-     * @param lastName
-     * @return List<Report>
+     * param firstName
+     * param lastName
+     * return List<Report>
      */
-    public List<Report> getAllUncheckedReportsByOwnerName(String firstName, String lastName) {
-        try {
-            return reportRepository.findAllByOwnerFirstNameAndOwnerLastNameAndCorrectIsNull(firstName, lastName);
-        } catch (Exception e) {
-            return null;
-        }
+    @Test
+    public void getAllUncheckedReportsByOwnerName() {
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
+        Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+        Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
+                "Состояние здоровье: удовлетворительное",
+                "Отсутствие поведенческих изменений", null, null);
+        Report report2 = new Report(dateTime, pet2, owner1, "Сухой корм",
+                "Состояние здоровье: Восхитительное",
+                "Радуется как не в себя", null, null);
+        Report report3 = new Report(dateTime, pet3, owner1, "Сухой корм",
+                "Состояние здоровье: Плачевное",
+                "Угнетенное состояние здоровья", null, null);
+        List<Report> arrReports = new ArrayList<>();
+
+        Mockito.when(reportRepository.findAllByOwnerFirstNameAndOwnerLastNameAndCorrectIsNull("sheesh", "comrade")).thenReturn(arrReports);
+        assertEquals(arrReports, reportService.getAllUncheckedReportsByOwnerName("sheesh", "comrade"));
+        assertNotNull(reportService.getAllUncheckedReportsByOwnerName("sheesh", "comrade"));
     }
 
     /**
      * This method returns all reports from the database
+     *
+     * return List<Report>
      */
-    public List<Report> getAllUncheckedReports() {
-        return reportRepository.findAll();
-    }
+    @Test
+    public void getAllUncheckedReports() {
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
+        Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2022, 5, 23),
+                                                  LocalTime.of(23, 43, 25, 0));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353",
+                20, volunteer1, pet1);
+        Report report1 = new Report(dateTime, pet1, owner1, "Сухой корм",
+                "Состояние здоровье: удовлетворительное",
+                "Отсутствие поведенческих изменений", null, null);
+        Report report2 = new Report(dateTime, pet2, owner1, "Сухой корм",
+                "Состояние здоровье: Восхитительное",
+                "Радуется как не в себя", null, null);
+        Report report3 = new Report(dateTime, pet3, owner1, "Сухой корм",
+                "Состояние здоровье: Плачевное",
+                "Угнетенное состояние здоровья", null, true);
+        List<Report> arrReports = new ArrayList<>();
+        arrReports.add(report1);
+        arrReports.add(report2);
+        arrReports.add(report3);
 
+        Mockito.when(reportRepository.findAllByIsCorrectIsNull()).thenReturn(arrReports);
+        assertEquals(arrReports, reportService.getAllUncheckedReports());
+        assertNotNull(reportService.getAllUncheckedReports());
+    }
 }

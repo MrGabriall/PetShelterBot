@@ -14,6 +14,7 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 
     Report getReportById(Long id);
     List<Report> findAllByOwnerId(Long id);
+    List<Report> findAllByIsCorrectIsNull();
 
     Report findReportByOwnerIdAndIncomingReportTime_Date(Long ownerId, LocalDate Date);
     List<Report> findAllByOwnerFirstNameAndOwnerLastName(String firstName, String lastName);
