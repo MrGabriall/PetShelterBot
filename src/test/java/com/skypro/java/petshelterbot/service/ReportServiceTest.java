@@ -1,6 +1,5 @@
 package com.skypro.java.petshelterbot.service;
 
-import com.skypro.java.petshelterbot.bot.TelegramBot;
 import com.skypro.java.petshelterbot.entity.*;
 import com.skypro.java.petshelterbot.repository.OwnerRepository;
 import com.skypro.java.petshelterbot.repository.ReportRepository;
@@ -18,9 +17,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -355,5 +352,73 @@ public class ReportServiceTest {
         Mockito.when(reportRepository.findAllByIsCorrectIsNull()).thenReturn(arrReports);
         assertEquals(arrReports, reportService.getAllUncheckedReports());
         assertNotNull(reportService.getAllUncheckedReports());
+    }
+
+    /**
+     * This method returns list of ids that did not send a daily report
+     *
+     * param int daysAgo
+     * @return List<Long>
+     */
+    //TODO доделать
+    @Test
+    public void reportsChecker() {
+        /*
+        List<Long> ids = findAllIdsWithTrial();
+        List<Long> warningIds = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now().minusDays(daysAgo);
+        for (Long id : ids) {
+            if (findReportByOwnerIdAndDate(id, currentDate)) {
+                warningIds.add(id);
+            }
+        }
+        return warningIds;
+
+         */
+    }
+
+    /**
+     * This method check yesterday report has arrived
+     *
+     * param Long ownerId
+     * param LocalDate date
+     * @return boolean
+     */
+    @Test
+    private void findReportByOwnerIdAndDate() {
+        /*
+        Report report = reportRepository.findReportByOwnerIdAndIncomingReportTime_Date(ownerId, date);
+        return report == null;
+
+         */
+    }
+
+    /**
+     * This method find all ids who have trial period
+     *
+     * @return List<Long>
+     */
+    @Test
+    private void findAllIdsWithTrial() {
+        List<Owner> arrOwners = new ArrayList<Owner>(3);
+        List<Long> arrChatId = new ArrayList<>(3);
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Pet pet1 = new Pet("doggy", LocalDate.of(2023, 12, 31));
+        Pet pet2 = new Pet("cat", LocalDate.of(2022, 5, 23));
+        Pet pet3 = new Pet("snake", LocalDate.of(2022, 8, 5));
+        Owner owner1 = new Owner(0L, "sheesh", "comrade", "+79245342353", 20, volunteer1, pet1);
+        Owner owner2 = new Owner(1L, "sheesh", "comrade", "+79245342353", 10, volunteer1, pet2);
+        Owner owner3 = new Owner(2L, "sheesh", "comrade", "+79245342353", 30, volunteer1, pet3);
+        arrOwners.add(owner1);
+        arrOwners.add(owner2);
+        arrOwners.add(owner3);
+        arrChatId.add(0L);
+        arrChatId.add(1L);
+        arrChatId.add(2L);
+
+        Mockito.when(ownerRepository.findAllByNumberOfReportDaysNotNull()).thenReturn(arrOwners);
+        //assertEquals(arrChatId, reportService.findAllIdsWithTrial());
+        //assertNotNull(reportService.findAllIdsWithTrial());
+
     }
 }

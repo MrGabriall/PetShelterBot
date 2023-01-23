@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -63,14 +64,24 @@ public class OwnerServiceTest {
         assertEquals(ownerService.update(owner1), owner1);
         assertNotNull(ownerService.update(owner1));
     }
-/*
+
+    /**
+     * Update owner the repository method is used {@link JpaRepository#delete(Object)}
+     *
+     * param id
+     * @return object owner
+     * @author gardenwow
+     */
     @Test
-    public ResponseEntity<Owner> delete(long id) {
+    public void delete() {
+        /*
         ownerRepository.deleteById(id);
         return ResponseEntity.ok().build();
+
+         */
     }
 
- */
+
 
     @Test
     public void readAll() {
