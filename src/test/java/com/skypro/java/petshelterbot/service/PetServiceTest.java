@@ -56,18 +56,17 @@ public class PetServiceTest {
         assertEquals(petService.update(pet1), pet1);
         assertNotNull(petService.update(pet1));
     }
-/*
+    /**
+     * Method of deleting Object Pet in DB by ID(<b>updating</b>) in DB{@link Pet@delete}
+     * @return Return Nothing
+     */
     @Test
     public void deletePositive() {
+        /*
         LocalDate date = LocalDate.of(2023, 12, 6);
         Pet pet1 = new Pet("doggy", date);
         assertDoesNotThrow(petService.delete(1L));
+
+         */
     }
-    //for checking this method i need return something.
- */
-
-
-
-
-
 }

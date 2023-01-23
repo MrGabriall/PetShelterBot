@@ -50,15 +50,25 @@ public class VolunteerServiceTest {
         assertEquals(volunteerService.update(volunteer1), volunteer1);
         assertNotNull(volunteerService.update(volunteer1));
     }
-/*
+
+    /**
+     * method delete volunteer from database
+     * {@link org.springframework.data.jpa.repository.JpaRepository#deleteById(Object)}
+     * param id - volunteer
+     * @return void
+     */
+    //TODO каким-то образом проверить
     @Test
-    public void delete(long id) {
+    public void delete() {
+        /*
         Volunteer volunteer1 = new Volunteer(1L, "Man", "MANN");
         Mockito.when(volunteerRepository.deleteById(1L)).thenReturn(HttpStatus(OK));
         assertEquals(volunteerService.delete(1L), HttpStatus(OK));
 
+         */
+
     }
- */
+
     @Test
     public void showVolunteer() {
         List<Volunteer> arr = new ArrayList<Volunteer> (4);

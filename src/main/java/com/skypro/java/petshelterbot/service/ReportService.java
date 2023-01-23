@@ -58,7 +58,7 @@ public class ReportService {
      */
     public Owner approveOwner(Long ownerId) {
         try {
-            Owner owner = ownerRepository.findById(ownerId).get();
+            Owner owner = ownerRepository.getOwnerById(ownerId);
             Long chatId = owner.getChatId();
             SendMessage sendMessage = new SendMessage(chatId.toString(), PET_MANAGEMENT_FINAL);
             telegramBot.execute(sendMessage);
@@ -76,7 +76,7 @@ public class ReportService {
      */
     public Owner denyOwner(Long ownerId) {
         try {
-            Owner owner = ownerRepository.findById(ownerId).get();
+            Owner owner = ownerRepository.getOwnerById(ownerId);
             Long chatId = owner.getChatId();
             SendMessage sendMessage = new SendMessage(chatId.toString(), PET_MANAGEMENT_DID_NOT_COPE);
             telegramBot.execute(sendMessage);
@@ -94,7 +94,7 @@ public class ReportService {
      */
     public Report markReportAsCorrectById(Long reportId) {
         try {
-            Report report = reportRepository.findById(reportId).get();
+            Report report = reportRepository.getReportById(reportId);
             report.setCorrect(true);
             return reportRepository.save(report);
         } catch (Exception e) {
@@ -110,7 +110,7 @@ public class ReportService {
      */
     public Report markReportsAsIncorrectById(Long reportId) {
         try {
-            Report report = reportRepository.findById(reportId).get();
+            Report report = reportRepository.getReportById(reportId);
             report.setCorrect(false);
             return reportRepository.save(report);
         } catch (Exception e) {
@@ -128,7 +128,7 @@ public class ReportService {
      */
     public Owner addNumberOfReportDaysByOwnerId(Long ownerId, Integer numberOfDays) {
         try {
-            Owner owner = ownerRepository.findById(ownerId).get();
+            Owner owner = ownerRepository.getOwnerById(ownerId);
             Long chatId = owner.getChatId();
             owner.setNumberOfReportDays(numberOfDays);
             SendMessage sendMessage = new SendMessage(chatId.toString(),
@@ -143,12 +143,12 @@ public class ReportService {
     /**
      * This method returns ALL reports for a specific owner by ID
      *
-     * @param reportId
+     * @param ownerId
      * @return List<Report>
      */
-    public List<Report> getAllReportsByOwnerId(Long reportId) {
+    public List<Report> getAllReportsByOwnerId(Long ownerId) {
         try {
-            return reportRepository.findAllByOwnerId(reportId);
+            return reportRepository.findAllByOwnerId(ownerId);
         } catch (Exception e) {
             return null;
         }
@@ -172,12 +172,12 @@ public class ReportService {
     /**
      * This method returns ALL unchecked reports for a specific owner by ID
      *
-     * @param reportId
+     * @param ownerId
      * @return List<Report>
      */
-    public List<Report> getAllUncheckedReportsByOwnerId(Long reportId) {
+    public List<Report> getAllUncheckedReportsByOwnerId(Long ownerId) {
         try {
-            return reportRepository.findAllByOwnerIdAndCorrectIsNull(reportId);
+            return reportRepository.findAllByOwnerIdAndCorrectIsNull(ownerId);
         } catch (Exception e) {
             return null;
         }
@@ -202,7 +202,7 @@ public class ReportService {
      * This method returns all reports from the database
      */
     public List<Report> getAllUncheckedReports() {
-        return reportRepository.findAll();
+        return reportRepository.findAllByIsCorrectIsNull();
     }
 
 
