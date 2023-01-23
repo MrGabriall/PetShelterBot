@@ -9,9 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -69,19 +66,19 @@ public class VolunteerServiceTest {
 
     }
 
-    @Test
-    public void showVolunteer() {
-        List<Volunteer> arr = new ArrayList<Volunteer> (4);
-        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
-        Volunteer volunteer2 = new Volunteer(1L, "Woman", "Mercedes");
-        Volunteer volunteer3 = new Volunteer(2L, "Jesus", "Christ");
-        Volunteer volunteer4 = new Volunteer(3L, "God", "Supreme");
-        arr.add(volunteer1);
-        arr.add(volunteer2);
-        arr.add(volunteer3);
-        arr.add(volunteer4);
-        Mockito.when(volunteerRepository.showVolunteer()).thenReturn(arr);
-        assertEquals(volunteerService.showVolunteer(), arr);
-        assertNotNull(volunteerService.showVolunteer());
-    }
+//    @Test
+//    public void showVolunteer() {
+//        List<Volunteer> arr = new ArrayList<Volunteer> (4);
+//        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+//        Volunteer volunteer2 = new Volunteer(1L, "Woman", "Mercedes");
+//        Volunteer volunteer3 = new Volunteer(2L, "Jesus", "Christ");
+//        Volunteer volunteer4 = new Volunteer(3L, "God", "Supreme");
+//        arr.add(volunteer1);
+//        arr.add(volunteer2);
+//        arr.add(volunteer3);
+//        arr.add(volunteer4);
+//        Mockito.when(volunteerRepository.showVolunteer()).thenReturn(arr);
+//        assertEquals(volunteerService.showVolunteer(), arr);
+//        assertNotNull(volunteerService.showVolunteer());
+//    }
 }

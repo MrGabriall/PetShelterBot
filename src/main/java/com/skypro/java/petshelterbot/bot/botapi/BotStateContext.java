@@ -55,13 +55,41 @@ public class BotStateContext {
             return messageHandlers.get(BotState.CHOOSE_SHELTER_STATE);
         } else if (isCallVolunteerState(state)) {
             return messageHandlers.get(BotState.CALL_VOLUNTEER_STATE);
+        } else if (isSendContactState(state)) {
+            return messageHandlers.get(BotState.SEND_CONTACTS_STATE);
         }
+//        else if (isVolunteerState(state)) {
+//            return messageHandlers.get(BotState.CALL_VOLUNTEER_STATE);
+//        }
 
         return messageHandlers.get(state);
     }
 
+    /**
+     * Checks the state
+     *
+     * @param state current state
+     * @return boolean
+     */
+//    private boolean isVolunteerState(BotState state) {
+//        return switch (state) {
+//            case VOLUNTEER_STATE -> true;
+//            default -> false;
+//        };
+//    }
+    /**
+     * Checks the state
+     *
+     * @param state current state
+     * @return boolean
+     */
     private boolean isCallVolunteerState(BotState state) {
-        return state == BotState.CALL_VOLUNTEER_STATE;
+        return switch (state) {
+            case CALL_VOLUNTEER_STATE,
+                    CHAT_TO_VOLUNTEER_STATE,
+                    VOLUNTEER_STATE -> true;
+            default -> false;
+        };
     }
 
     /**
@@ -113,7 +141,22 @@ public class BotStateContext {
         return switch (state) {
             case CHOOSE_SHELTER_STATE,
                     HOW_TO_ADOPT_DOG_STATE,
-                    HOW_TO_ADOPT_CAT_STATE-> true;
+                    HOW_TO_ADOPT_CAT_STATE -> true;
+            default -> false;
+        };
+    }
+
+    /**
+     * Checks the state
+     *
+     * @param state current state
+     * @return boolean
+     */
+    private boolean isSendContactState(BotState state) {
+        return switch (state) {
+        case SEND_CONTACTS_STATE,
+                FILLING_CONTACTS_STATE,
+                CONTACTS_SENT_STATE -> true;
             default -> false;
         };
     }
