@@ -13,7 +13,9 @@ import static com.skypro.java.petshelterbot.message.BotCommands.*;
 import static com.skypro.java.petshelterbot.message.BotCommands.CALL_VOLUNTEER;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+/**
+ * @author evnag
+ */
 public class MessageServiceTest {
     private final MessageService messageService = new MessageService();
 

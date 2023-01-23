@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 /**
  * Defines methods for processing user states
+ *
  * @author evnag
  */
 
@@ -21,6 +22,7 @@ public class UserStateService {
 
     /**
      * Returns an entity from the database by chat id
+     *
      * @param message value from the update
      * @return UserState
      */
@@ -30,12 +32,13 @@ public class UserStateService {
 
     /**
      * Sets the state for the userState by id
-     * @param chatId unique chat id
+     *
+     * @param chatId   unique chat id
      * @param botState state to be set
      */
     public void setBotState(Long chatId, BotState botState) {
         UserState userState = userStateRepository.findByChatId(chatId);
-        if(userState == null) { //TODO: вынести проверку+создание новой сущности в отдельный метод
+        if (userState == null) { //TODO: вынести проверку+создание новой сущности в отдельный метод
             UserState newUserState = new UserState(chatId, botState);
             userStateRepository.save(newUserState);
         } else {

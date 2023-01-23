@@ -6,6 +6,7 @@ import com.skypro.java.petshelterbot.entity.UserState;
 import com.skypro.java.petshelterbot.service.MessageService;
 import com.skypro.java.petshelterbot.service.OwnerService;
 import com.skypro.java.petshelterbot.service.UserStateService;
+import com.skypro.java.petshelterbot.service.VolunteerService;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -22,11 +23,13 @@ public class DefaultMessageHandler implements InputMessageHandler {
     private final MessageService messageService;
     private final UserStateService userStateService;
     private final OwnerService ownerService;
+    private final VolunteerService volunteerService;
 
-    public DefaultMessageHandler(MessageService messageService, UserStateService userStateService, OwnerService ownerService) {
+    public DefaultMessageHandler(MessageService messageService, UserStateService userStateService, OwnerService ownerService, VolunteerService volunteerService) {
         this.messageService = messageService;
         this.userStateService = userStateService;
         this.ownerService = ownerService;
+        this.volunteerService = volunteerService;
     }
 
 
@@ -65,6 +68,9 @@ public class DefaultMessageHandler implements InputMessageHandler {
         if (isOwner(message)) {
             userStateService.setBotState(chatId, BotState.OWNER_STATE);
             return messageService.startCommandFromOwner(chatId, userName);
+        } else if (isVolunteer(message)) {
+            userStateService.setBotState(chatId, BotState.VOLUNTEER_STATE);
+            return messageService.sendMessage(chatId, "Я пользователь мне нужна помощь");//TODO: что приходит волонтеру?
         }
         userStateService.setBotState(chatId, BotState.CHOOSE_SHELTER_STATE);
         return messageService.startCommandFromDefault(chatId, userName);
@@ -80,5 +86,11 @@ public class DefaultMessageHandler implements InputMessageHandler {
         UserState userState = userStateService.getUserState(message);
         return ownerService.readAll().stream()
                 .anyMatch(o -> o.getChatId().equals(userState.getChatId()));
+    }
+
+    private boolean isVolunteer(Message message) {
+        UserState userState = userStateService.getUserState(message);
+        return volunteerService.getAll().stream()
+                .anyMatch(v -> v.getChatId().equals(userState.getChatId()));
     }
 }

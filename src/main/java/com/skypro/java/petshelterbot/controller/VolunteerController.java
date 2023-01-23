@@ -4,15 +4,12 @@ import com.skypro.java.petshelterbot.entity.Volunteer;
 import com.skypro.java.petshelterbot.service.VolunteerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * REST API class Volunteer controller
@@ -169,33 +166,33 @@ public class VolunteerController {
      * @getmapping - controller
      */
 
-    @Operation(
-            summary = "show list volunteer",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "all volunteer",
-                            content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
-
-                            )
-                    ),
-                    @ApiResponse(
-                            responseCode = "500",
-                            description = "wrong parameter volunteer",
-                            content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
-                            )
-
-                    )
-            })
-    @GetMapping("/showVolunteer")
-    public List showVolunteer() {
-        return volunteerService.showVolunteer();
-
-    }
+//    @Operation(
+//            summary = "show list volunteer",
+//            responses = {
+//                    @ApiResponse(
+//                            responseCode = "200",
+//                            description = "all volunteer",
+//                            content = @Content(
+//                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+//                                    array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
+//
+//                            )
+//                    ),
+//                    @ApiResponse(
+//                            responseCode = "500",
+//                            description = "wrong parameter volunteer",
+//                            content = @Content(
+//                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+//                                    array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
+//                            )
+//
+//                    )
+//            })
+//    @GetMapping("/showVolunteer")
+//    public List showVolunteer() {
+//        return volunteerService.showVolunteer();
+//
+//    }
 
 
 }

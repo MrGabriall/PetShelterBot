@@ -73,16 +73,24 @@ public class VolunteerService {
         return ResponseEntity.ok().build();
     }
 
+//    /**
+//     * method of getting the field value from database
+//     * {@link VolunteerRepository#showVolunteer()}
+//     * @return all list Volunteer
+//     */
+//    public List showVolunteer() {
+//        return volunteerRepository.showVolunteer();
+//    }
+
     /**
-     * method of getting the field value from database
-     * {@link VolunteerRepository#showVolunteer()}
-     * @return all list Volunteer
+     * Gets all volunteers from db
+     *
+     * {@link VolunteerRepository#getAll()}
+     * @return List<Volunteer>
      */
-    public List showVolunteer() {
-        return volunteerRepository.showVolunteer();
+    public List<Volunteer> getAll() {
+        return volunteerRepository.getAll();
     }
-
-
 }
 
 
