@@ -1,6 +1,7 @@
 -- liquibase formatted sql
 
 -- changeSet nadillustrator:1
+drop table if exists pet cascade;
 create table pet
 (
     id               BIGSERIAL NOT NULL PRIMARY KEY,
@@ -9,6 +10,7 @@ create table pet
 );
 
 -- changeSet nadillustrator:2
+drop table if exists photo cascade;
 create table photo
 (
     id      BIGSERIAL NOT NULL PRIMARY KEY,
@@ -16,6 +18,7 @@ create table photo
 );
 
 -- changeSet nadillustrator:3
+drop table if exists volunteer cascade;
 create table volunteer
 (
     id         BIGSERIAL NOT NULL PRIMARY KEY,
@@ -25,6 +28,7 @@ create table volunteer
 );
 
 -- changeSet nadillustrator:4
+drop table if exists user_state cascade;
 create table user_state
 (
     id      BIGSERIAL NOT NULL PRIMARY KEY,
@@ -33,6 +37,7 @@ create table user_state
 );
 
 -- changeSet nadillustrator:5
+drop table if exists owner cascade;
 create table owner
 (
     id                    BIGSERIAL NOT NULL PRIMARY KEY,
@@ -46,6 +51,7 @@ create table owner
 );
 
 -- changeSet nadillustrator:6
+drop table if exists report cascade;
 create table report
 (
     id                   BIGSERIAL NOT NULL PRIMARY KEY,

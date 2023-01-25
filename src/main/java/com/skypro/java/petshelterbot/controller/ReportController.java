@@ -1,5 +1,6 @@
 package com.skypro.java.petshelterbot.controller;
 
+import com.skypro.java.petshelterbot.dto.ReportDto;
 import com.skypro.java.petshelterbot.entity.Owner;
 import com.skypro.java.petshelterbot.entity.Report;
 import com.skypro.java.petshelterbot.entity.Volunteer;
@@ -33,7 +34,7 @@ public class ReportController {
      * This method returns a report by id
      *
      * @param reportId
-     * @return Report
+     * @return ReportDto
      */
     @Operation(
             summary = "returns a report by idd",
@@ -60,8 +61,8 @@ public class ReportController {
 
             })
     @GetMapping("/getReport/{id}")  // GET http:localhost:8080/report
-    public ResponseEntity<Report> getReport(@PathVariable Long reportId) {
-        Report report = reportService.getReport(reportId);
+    public ResponseEntity<ReportDto> getReport(@PathVariable Long reportId) {
+        ReportDto report = reportService.getReport(reportId);
         if (report == null) {
             return ResponseEntity.notFound().build();
         }
@@ -150,7 +151,7 @@ public class ReportController {
      * This method marks the report as correctly completed
      *
      * @param reportId
-     * @return Report
+     * @return ReportDto
      */
     @Operation(
             summary = "marks the report as correctly completed",
@@ -177,8 +178,8 @@ public class ReportController {
 
             })
     @PutMapping("/markReportAsCorrect")
-    public ResponseEntity<Report> markReportAsCorrectById(@RequestParam(required = false) Long reportId) {
-        Report report = reportService.markReportAsCorrectById(reportId);
+    public ResponseEntity<ReportDto> markReportAsCorrectById(@RequestParam(required = false) Long reportId) {
+        ReportDto report = reportService.markReportAsCorrectById(reportId);
         if (report == null) {
             return ResponseEntity.notFound().build();
         }
@@ -189,7 +190,7 @@ public class ReportController {
      * This method marks the report as incorrectly completed
      *
      * @param reportId
-     * @return Report
+     * @return ReportDto
      */
     @Operation(
             summary = "marks the report as incorrectly completed",
@@ -216,8 +217,8 @@ public class ReportController {
 
             })
     @PutMapping("/markReportsAsIncorrect")
-    public ResponseEntity<Report> markReportsAsIncorrectById(@RequestParam(required = false) Long reportId) {
-        Report report = reportService.markReportsAsIncorrectById(reportId);
+    public ResponseEntity<ReportDto> markReportsAsIncorrectById(@RequestParam(required = false) Long reportId) {
+        ReportDto report = reportService.markReportsAsIncorrectById(reportId);
         if (report == null) {
             return ResponseEntity.notFound().build();
         }
@@ -269,7 +270,7 @@ public class ReportController {
      * This method returns ALL reports for a specific owner by ID
      *
      * @param reportId
-     * @return List<Report>
+     * @return List<ReportDto>
      */
     @Operation(
             summary = "returns ALL reports for a specific owner by ID",
@@ -296,8 +297,8 @@ public class ReportController {
 
             })
     @GetMapping("/getAllReportsByOwnerId")
-    public ResponseEntity<List<Report>> getAllReportsByOwnerId(@RequestParam(required = false) Long reportId) {
-        List<Report> reports = reportService.getAllReportsByOwnerId(reportId);
+    public ResponseEntity<List<ReportDto>> getAllReportsByOwnerId(@RequestParam(required = false) Long reportId) {
+        List<ReportDto> reports = reportService.getAllReportsByOwnerId(reportId);
         if (reports == null) {
             return ResponseEntity.notFound().build();
         }
@@ -309,7 +310,7 @@ public class ReportController {
      *
      * @param firstName
      * @param lastName
-     * @return List<Report>
+     * @return List<ReportDto>
      */
     @Operation(
             summary = "returns ALL unchecked reports for a specific owner by ID",
@@ -336,9 +337,9 @@ public class ReportController {
 
             })
     @GetMapping("/getAllReportsByOwnerName")
-    public ResponseEntity<List<Report>> getAllReportsByOwnerName(@RequestParam(required = false) String firstName,
+    public ResponseEntity<List<ReportDto>> getAllReportsByOwnerName(@RequestParam(required = false) String firstName,
                                                                  @RequestParam(required = false) String lastName) {
-        List<Report> reports = reportService.getAllReportsByOwnerName(firstName, lastName);
+        List<ReportDto> reports = reportService.getAllReportsByOwnerName(firstName, lastName);
         if (reports == null) {
             return ResponseEntity.notFound().build();
         }
@@ -349,7 +350,7 @@ public class ReportController {
      * This method returns ALL unchecked reports for a specific owner by ID
      *
      * @param reportId
-     * @return List<Report>
+     * @return List<ReportDto>
      */
     @Operation(
             summary = "returns ALL unchecked reports for a specific owner by ID",
@@ -376,8 +377,8 @@ public class ReportController {
 
             })
     @GetMapping("/getAllUncheckedReportsByOwnerId")
-    public ResponseEntity<List<Report>> getAllUncheckedReportsByOwnerId(@RequestParam(required = false) Long reportId) {
-        List<Report> reports = reportService.getAllUncheckedReportsByOwnerId(reportId);
+    public ResponseEntity<List<ReportDto>> getAllUncheckedReportsByOwnerId(@RequestParam(required = false) Long reportId) {
+        List<ReportDto> reports = reportService.getAllUncheckedReportsByOwnerId(reportId);
         if (reports == null) {
             return ResponseEntity.notFound().build();
         }
@@ -389,7 +390,7 @@ public class ReportController {
      *
      * @param firstName
      * @param lastName
-     * @return List<Report>
+     * @return List<ReportDto>
      */
     @Operation(
             summary = "returns ALL unchecked reports for a specific owner by name and surname",
@@ -416,9 +417,9 @@ public class ReportController {
 
             })
     @GetMapping("/getAllUncheckedReportsByOwnerName")
-    public ResponseEntity<List<Report>> getAllUncheckedReportsByOwnerName(@RequestParam(required = false) String firstName,
+    public ResponseEntity<List<ReportDto>> getAllUncheckedReportsByOwnerName(@RequestParam(required = false) String firstName,
                                                                           @RequestParam(required = false) String lastName) {
-        List<Report> reports = reportService.getAllUncheckedReportsByOwnerName(firstName, lastName);
+        List<ReportDto> reports = reportService.getAllUncheckedReportsByOwnerName(firstName, lastName);
         if (reports == null) {
             return ResponseEntity.notFound().build();
         }
@@ -453,8 +454,8 @@ public class ReportController {
 
             })
     @GetMapping("/getAllUncheckedReports")
-    public ResponseEntity<List<Report>> getAllUncheckedReports() {
-        List<Report> reports = reportService.getAllUncheckedReports();
+    public ResponseEntity<List<ReportDto>> getAllUncheckedReports() {
+        List<ReportDto> reports = reportService.getAllUncheckedReports();
         return ResponseEntity.ok(reports);
     }
 
