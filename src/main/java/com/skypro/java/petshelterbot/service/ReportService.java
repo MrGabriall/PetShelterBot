@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.skypro.java.petshelterbot.message.BotOutMessages.*;
 
@@ -242,8 +243,21 @@ public class ReportService {
      */
     private List<Long> findAllIdsWithTrial() {
         return ownerRepository.findAllByNumberOfReportDaysNotNull().stream()
-                .map(Owner::getChatId)
+                .map(Owner::getId)
                 .toList();
+    }
+
+    /**
+     * This method find chat ids owners by ids
+     *
+     * @param ids
+     * @return List<Long> chatIds
+     */
+    List<Long> getChatIdsByIds(List<Long> ids){
+        return ids.stream()
+                .map(ownerRepository::getOwnerById)
+                .map(Owner::getChatId)
+                .collect(Collectors.toList());
     }
 
     /**
