@@ -3,10 +3,10 @@ package com.skypro.java.petshelterbot.bot.botapi.handler;
 import com.skypro.java.petshelterbot.bot.BotState;
 import com.skypro.java.petshelterbot.bot.botapi.InputMessageHandler;
 import com.skypro.java.petshelterbot.entity.UserState;
+import com.skypro.java.petshelterbot.repository.OwnerRepository;
+import com.skypro.java.petshelterbot.repository.VolunteerRepository;
 import com.skypro.java.petshelterbot.service.MessageService;
-import com.skypro.java.petshelterbot.service.OwnerService;
 import com.skypro.java.petshelterbot.service.UserStateService;
-import com.skypro.java.petshelterbot.service.VolunteerService;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -22,14 +22,14 @@ public class DefaultMessageHandler implements InputMessageHandler {
 
     private final MessageService messageService;
     private final UserStateService userStateService;
-    private final OwnerService ownerService;
-    private final VolunteerService volunteerService;
+    private final OwnerRepository ownerRepository;
+    private final VolunteerRepository volunteerRepository;
 
-    public DefaultMessageHandler(MessageService messageService, UserStateService userStateService, OwnerService ownerService, VolunteerService volunteerService) {
+    public DefaultMessageHandler(MessageService messageService, UserStateService userStateService, OwnerRepository ownerRepository, VolunteerRepository volunteerRepository) {
         this.messageService = messageService;
         this.userStateService = userStateService;
-        this.ownerService = ownerService;
-        this.volunteerService = volunteerService;
+        this.ownerRepository = ownerRepository;
+        this.volunteerRepository = volunteerRepository;
     }
 
 
@@ -84,13 +84,13 @@ public class DefaultMessageHandler implements InputMessageHandler {
      */
     private boolean isOwner(Message message) {
         UserState userState = userStateService.getUserState(message);
-        return ownerService.readAll().stream()
+        return ownerRepository.findAll().stream()
                 .anyMatch(o -> o.getChatId().equals(userState.getChatId()));
     }
 
     private boolean isVolunteer(Message message) {
         UserState userState = userStateService.getUserState(message);
-        return volunteerService.getAll().stream()
+        return volunteerRepository.getAll().stream()
                 .anyMatch(v -> v.getChatId().equals(userState.getChatId()));
     }
 }
