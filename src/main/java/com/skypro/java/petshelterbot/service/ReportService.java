@@ -247,6 +247,12 @@ public class ReportService {
                 .toList();
     }
 
+    /**
+     * This method find chat ids owners by ids
+     *
+     * @param ids
+     * @return List<Long> chatIds
+     */
     List<Long> getChatIdsByIds(List<Long> ids){
         return ids.stream()
                 .map(ownerRepository::getOwnerById)
