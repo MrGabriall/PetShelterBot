@@ -18,7 +18,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -40,7 +39,6 @@ public class FillingReportHandler implements InputMessageHandler {
     private final PhotoRepository photoRepository;
     private final PetRepository petRepository;
 
-    Report report = new Report();
 
     public FillingReportHandler(UserStateService userStateService,
                                 ReportRepository reportRepository,
@@ -94,7 +92,7 @@ public class FillingReportHandler implements InputMessageHandler {
         Owner owner = ownerRepository.getOwnerByChatId(chatId);
         Pet pet = petRepository.getPetById(owner.getPet().getId());
         BotState botState = userStateService.getUserState(message).getState();
-
+        Report report = checkForReportExists(owner.getId(), LocalDate.now());
 
         if (botState.equals(BotState.SEND_DIET_STATE)) {
             messageToUser = messageService.sendMessage(chatId, "SEND_DIET");
@@ -102,16 +100,19 @@ public class FillingReportHandler implements InputMessageHandler {
         }
         if (botState.equals(BotState.SEND_HEALTH_STATE)) {
             report.setPetDiet(userAnswer);
+            reportRepository.save(report);
             messageToUser = messageService.sendMessage(chatId, "SEND_HEALTH");
             userStateService.setBotState(chatId, BotState.SEND_BEHAVIOR_STATE);
         }
         if (botState.equals(BotState.SEND_BEHAVIOR_STATE)) {
             report.setHealthAndCondition(userAnswer);
+            reportRepository.save(report);
             messageToUser = messageService.sendMessage(chatId, "SEND_BEHAVIOR");
             userStateService.setBotState(chatId, BotState.SEND_PHOTO_STATE);
         }
         if (botState.equals(BotState.SEND_PHOTO_STATE)) {
             report.setBehavioralChanges(userAnswer);
+            reportRepository.save(report);
             messageToUser = messageService.sendMessage(chatId, "SEND_PHOTO");
             userStateService.setBotState(chatId, BotState.REPORT_FILLED_STATE);
         }
@@ -120,8 +121,6 @@ public class FillingReportHandler implements InputMessageHandler {
             report.setPet(pet);
             report.setOwner(owner);
             report.setIncomingReportDate(LocalDate.now());
-
-            //TODO: isCorrect()??
             reportRepository.save(report);
 
             userStateService.setBotState(chatId, BotState.START_STATE);
@@ -131,6 +130,29 @@ public class FillingReportHandler implements InputMessageHandler {
                     messageService.generateMenuKeyBoard(CALL_VOLUNTEER, TO_MAIN_MENU));
         }
         return messageToUser;
+    }
+
+    /**
+     * Checked the existence of a report on a specific date by the owner's ID
+     * *
+     * * @param ownerId owner's ID
+     * * @param date LocalDate - specific date
+     * * @return
+     *
+     * @param ownerId report`s ID
+     * @return If the report is found, returns report . If the report is not found, returns a new report and writes it to the database
+     */
+    private Report checkForReportExists(Long ownerId, LocalDate date) {
+        Report report = reportRepository.findReportByOwnerIdAndIncomingReportTime_Date(ownerId, date);
+        if (report == null) {
+            Report newReport = new Report();
+            newReport.setOwner(ownerRepository.getOwnerById(ownerId));
+            newReport.setIncomingReportDate(LocalDate.now());
+            reportRepository.save(newReport);
+
+            return newReport;
+        }
+        return report;
     }
 
     /**

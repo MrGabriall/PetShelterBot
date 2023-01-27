@@ -69,12 +69,10 @@ public class SendContactStateHandler implements InputMessageHandler {
                     keyboardMarkup
             );
             userStateService.setBotState(chatId, BotState.CONTACTS_SENT_STATE);
-            System.out.println("Отработал1");
             return messageToUser;
         }
         if (botState.equals(BotState.CONTACTS_SENT_STATE)) {
             messageToUser = checkContacts(userAnswer, volunteerChatId, chatId);
-            System.out.println("Отработал2");
             return messageToUser;
         }
         return messageService.sendMessage(
@@ -86,7 +84,7 @@ public class SendContactStateHandler implements InputMessageHandler {
      * Sets states
      * Sends message to volunteer if matcher matches
      * @param message from update
-     * @param volunteerChatId
+     * @param volunteerChatId volunteer`s chat ID
      * @param chatId userChatId
      * @return {@link SendMessage}
      */
@@ -97,11 +95,9 @@ public class SendContactStateHandler implements InputMessageHandler {
         if (matcher.matches()) {
             messageToUser = messageService.sendMessage(volunteerChatId, message);
             userStateService.setBotState(chatId, BotState.START_STATE);
-            System.out.println("Отработал3");
         } else {
             messageToUser = messageService.sendMessage(
-                    chatId, "Введите номер телефона НОРМАЛЬНО!!)");
-            System.out.println("Отработал5");
+                    chatId, "Введите номер телефона в правильном формате!!)");
             userStateService.setBotState(chatId, BotState.CONTACTS_SENT_STATE);
         }
         return messageToUser;
