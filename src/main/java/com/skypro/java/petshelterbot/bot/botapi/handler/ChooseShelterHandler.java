@@ -44,13 +44,14 @@ public class ChooseShelterHandler implements InputMessageHandler {
     private SendMessage processInputMessage(Message message) {
         long chatId = message.getChatId();
         String userAnswer = message.getText();
+        String userName = message.getChat().getUserName();
         SendMessage messageToUser = switch (userAnswer) {
             case "\uD83D\uDE3A CAT SHELTER" -> howToAdoptCatMessage(message);
             case "\uD83D\uDC36 DOG SHELTER" -> howToAdoptDogMessage(message);
-            default -> messageService.sendMessage(chatId, UNKNOWN_COMMAND);
+            default -> messageService.startCommandFromDefault(chatId, userName);
         };
 
-        userStateService.setBotState(chatId, BotState.HOW_TO_ADOPT_STATE);
+        userStateService.setBotState(chatId, BotState.CHOOSE_SHELTER_STATE);
         return messageToUser;
     }
 
