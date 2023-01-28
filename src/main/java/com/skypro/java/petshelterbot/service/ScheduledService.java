@@ -34,7 +34,8 @@ public class ScheduledService {
         warningList.retainAll(yesterdayIdsList);
 
         yesterdayIdsList.removeAll(warningList);
-        yesterdayIdsList.forEach(id -> reportService.sendMessage(id, oneDayMessageWarning));
+        reportService.getChatIdsByIds(yesterdayIdsList)
+                .forEach(id -> reportService.sendMessage(id, oneDayMessageWarning));
 
         //@TODO
         //Make push warning list to volunteers
