@@ -63,6 +63,7 @@ public class CallVolunteerHandler implements InputMessageHandler {
         }
         if (botState.equals(BotState.VOLUNTEER_STATE)) {
             messageToUser = messageService.sendMessage(newUserChatId, message.getText());
+            newUserChatId = 0; //
         }
         if (botState.equals(BotState.START_STATE)) {
             messageToUser = messageService.sendReplyMessage(

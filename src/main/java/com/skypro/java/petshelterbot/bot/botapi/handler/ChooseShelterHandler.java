@@ -95,12 +95,7 @@ public class ChooseShelterHandler implements InputMessageHandler {
                         RULES_BEFORE_ADOPTING,
                         REQUIRED_DOCUMENTS,
                         PET_TRANSPORTATION,
-                        // TODO: add message command constants for the Cat Shelter!!
-                        "Test Button",
-                        //CAT_HOUSE,
-                        //ADULT_DOG_HOUSE,
-                        //DOG_HANDLERS_TIPS,
-                        //DOG_HANDLERS_LIST,
+                        CAT_HOUSE,
                         WHY_REJECTED,
                         SEND_CONTACTS,
                         CALL_VOLUNTEER,

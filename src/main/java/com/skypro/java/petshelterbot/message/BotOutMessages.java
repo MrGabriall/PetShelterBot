@@ -26,16 +26,16 @@ public class BotOutMessages {
 
     //Консультация с потенциальным хозяином животного из приюта
     public static final String POTENTIAL_ANIMAL_OWNER_INFO_HELLO = "Вы находитесь в меню информации про то как стать владельцем питомца";
-    public static final String POTENTIAL_ANIMAL_OWNER_REGULATIONS_ANIMAL = " Правила знакомства с собакой,прежде чем взять питомца из приюта.\n"
+    public static final String POTENTIAL_ANIMAL_OWNER_REGULATIONS_ANIMAL = " Правила знакомства с животным, прежде чем взять питомца из приюта.\n"
                                     + "Вам нужно познакомиться с питомцем и привыкнуть друг к другу "
                                     + "для этого необходимо, каждый день посещать приют." + " и кормить питомца всякими вкусняшками.";
     public static final String POTENTIAL_ANIMAL_OWNER_LIST_THE_DOCUMENTS = """
-            Список документов, необходимых для того, чтобы взять собаку из приюта.
+            Список документов, необходимых для того, чтобы взять животное из приюта.
             1 Паспорт.
             2 Рекомендации от 5 лучших друзей.
             """;
     public static final String POTENTIAL_ANIMAL_OWNER_RECOMMENDATIONS_TRANSPORT = " Рекомендаций по транспортировке животного.\n"
-                                    + "Обязательно питомца нужно вести в клетке или на повадке.";
+                                    + "Обязательно питомца нужно вести в клетке или на поводке.";
     public static final String POTENTIAL_ANIMAL_OWNER_LIST_RECOMMENDATIONS_HOME = """
             Список рекомендаций по обустройству дома для щенка.
             1 поставить миску.
@@ -47,6 +47,11 @@ public class BotOutMessages {
             2 Большая конура.
             3 Много еды.
             """;
+    public static final String RECOMMENDATIONS_FOR_CAT_HOME = """
+            Список рекомендаций по обустройству дома для кошки.
+            1 поставить миску.
+            2 добавить место для сна.
+            3 положить кость.""";
     public static final String POTENTIAL_ANIMAL_OWNER_ADVICE_COMMUNICATION_ANIMAL = """
              Советы кинолога по первичному общению с собакой.
             1 Не смотри собаке в глаза.
@@ -102,9 +107,6 @@ public class BotOutMessages {
     public static final String PET_MANAGEMENT_FINAL = "Вы успешно прошли  испытательный срок, Поздравляем Вас!!!!! теперь на Вас большая ответственность не подведите.";
     public static final String PET_MANAGEMENT_DOP_TIME = " Вам назначен дополнительный испытательный срок ";
     public static final String PET_MANAGEMENT_DID_NOT_COPE = " Вы не справились извините,сделайте выводы и подумайте над поведением.";
-    // NEW_USER_MESSAGE_VOLUNTEER позвать волонтёра
 
-    public static final String HOW_TO_ADOPT_DOG = " Собаки";
-    public static final String HOW_TO_ADOPT_CAT = " КОТЫ";
 
 }
