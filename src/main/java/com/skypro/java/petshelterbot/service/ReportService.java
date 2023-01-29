@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -280,7 +282,7 @@ public class ReportService {
     }
 
     public ReportDto fromReportToReportDto(Report report) {
-        String photoLink = "There will be method getPhotoLink"; //TODO write method for photo
+        String photoLink = photoSaverService.readPhotoFromTelegram(report.getPhoto().getId()); //TODO write method for photo
         return new ReportDto(report.getId(),
                 report.getIncomingReportDate(),
                 report.getPet().getName(),
@@ -288,7 +290,6 @@ public class ReportService {
                 report.getPetDiet(),
                 report.getHealthAndCondition(),
                 report.getBehavioralChanges(),
-
                 photoLink);
     }
 }

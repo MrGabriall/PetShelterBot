@@ -113,7 +113,14 @@ public class Owner {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Owner owner)) return false;
-        return Objects.equals(id, owner.id) && Objects.equals(chatId, owner.chatId) && Objects.equals(lastName, owner.lastName) && Objects.equals(firstName, owner.firstName) && Objects.equals(phoneNumber, owner.phoneNumber) && Objects.equals(numberOfReportDays, owner.numberOfReportDays) && Objects.equals(volunteer, owner.volunteer) && Objects.equals(pet, owner.pet);
+        return Objects.equals(id, owner.id) &&
+                Objects.equals(chatId, owner.chatId) &&
+                Objects.equals(lastName, owner.lastName) &&
+                Objects.equals(firstName, owner.firstName) &&
+                Objects.equals(phoneNumber, owner.phoneNumber) &&
+                Objects.equals(numberOfReportDays, owner.numberOfReportDays) &&
+                Objects.equals(volunteer, owner.volunteer) &&
+                Objects.equals(pet, owner.pet);
     }
 
     @Override
