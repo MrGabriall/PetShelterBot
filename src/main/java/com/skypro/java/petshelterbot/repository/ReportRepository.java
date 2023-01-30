@@ -13,14 +13,19 @@ import java.util.List;
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
     Report getReportById(Long id);
+
     List<Report> findAllByOwnerId(Long id);
+
     List<Report> findAllByIsCorrectIsNull();
 
-    @Query(value = "select * from report r where r.owner_id = ?1 and r.incoming_report_time::date = ?2", nativeQuery = true)
-    Report findReportByOwnerIdAndIncomingReportTime_Date(@Param("ownerId")Long ownerId, @Param("date")LocalDate date);
+    @Query(value = "select * from report r where r.owner_id = ?1 and r.incoming_report_date = ?2", nativeQuery = true)
+    Report findReportByOwnerIdAndIncomingReportTime_Date(@Param("ownerId") Long ownerId, @Param("date") LocalDate date);
+
     List<Report> findAllByOwnerFirstNameAndOwnerLastName(String firstName, String lastName);
+
     @Query(value = "select * from report r where r.owner_id = ?1 and r.is_correct IS NULL", nativeQuery = true)
     List<Report> findAllByOwnerIdAndCorrectIsNull(Long id);
+
     @Query(value = "select * from report " +
             "where owner_id in(select id from owner o " +
             "where o.first_name = ?1 and o.last_name = ?2) and is_correct IS NULL;", nativeQuery = true)

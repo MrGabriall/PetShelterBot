@@ -58,25 +58,10 @@ public class BotStateContext {
         } else if (isSendContactState(state)) {
             return messageHandlers.get(BotState.SEND_CONTACTS_STATE);
         }
-//        else if (isVolunteerState(state)) {
-//            return messageHandlers.get(BotState.CALL_VOLUNTEER_STATE);
-//        }
 
         return messageHandlers.get(state);
     }
 
-    /**
-     * Checks the state
-     *
-     * @param state current state
-     * @return boolean
-     */
-//    private boolean isVolunteerState(BotState state) {
-//        return switch (state) {
-//            case VOLUNTEER_STATE -> true;
-//            default -> false;
-//        };
-//    }
     /**
      * Checks the state
      *

@@ -21,13 +21,14 @@ public class BotCommands {
     public static final String SAFETY_MEASURES = "О технике безопасности";
     public static final String SEND_CONTACTS = "Передать контактные данные";
 
-    public static final String RULES_BEFORE_ADOPTING = "Правила знакомства с собакой";
+    public static final String RULES_BEFORE_ADOPTING = "Правила знакомства с животным";
     public static final String REQUIRED_DOCUMENTS = "Список необходимых документов";
     public static final String PET_TRANSPORTATION = "Рекомендаций по транспортировке животного";
     public static final String PUPPY_HOUSE = "Как обустроить дом для щенка";
     public static final String ADULT_DOG_HOUSE = "Как обустроить дом для взрослой собаки";
     public static final String DOG_HANDLERS_TIPS = "Советы кинолога";
     public static final String DOG_HANDLERS_LIST = "Список профессиональных кинологов";
+    public static final String CAT_HOUSE = "Как обустроить дом для кошки";
     public static final String WHY_REJECTED = "Почему мне отказали?";
 
 }
