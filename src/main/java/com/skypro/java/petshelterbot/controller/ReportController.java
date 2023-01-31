@@ -63,7 +63,7 @@ public class ReportController {
 
 
             })
-    @GetMapping("/getReport/{id}")  // GET http:localhost:8080/report
+    @GetMapping("/getReport/{reportId}")  // GET http:localhost:8080/report
     public ResponseEntity<ReportDto> getReport(@PathVariable Long reportId) {
         ReportDto report = reportService.getReport(reportId);
         if (report == null) {
@@ -272,7 +272,7 @@ public class ReportController {
     /**
      * This method returns ALL reports for a specific owner by ID
      *
-     * @param reportId
+     * @param ownerId
      * @return List<ReportDto>
      */
     @Operation(
@@ -300,8 +300,8 @@ public class ReportController {
 
             })
     @GetMapping("/getAllReportsByOwnerId")
-    public ResponseEntity<List<ReportDto>> getAllReportsByOwnerId(@RequestParam(required = false) Long reportId) {
-        List<ReportDto> reports = reportService.getAllReportsByOwnerId(reportId);
+    public ResponseEntity<List<ReportDto>> getAllReportsByOwnerId(@RequestParam(required = false) Long ownerId) {
+        List<ReportDto> reports = reportService.getAllReportsByOwnerId(ownerId);
         if (reports == null) {
             return ResponseEntity.notFound().build();
         }
@@ -352,7 +352,7 @@ public class ReportController {
     /**
      * This method returns ALL unchecked reports for a specific owner by ID
      *
-     * @param reportId
+     * @param ownerId
      * @return List<ReportDto>
      */
     @Operation(
@@ -380,8 +380,8 @@ public class ReportController {
 
             })
     @GetMapping("/getAllUncheckedReportsByOwnerId")
-    public ResponseEntity<List<ReportDto>> getAllUncheckedReportsByOwnerId(@RequestParam(required = false) Long reportId) {
-        List<ReportDto> reports = reportService.getAllUncheckedReportsByOwnerId(reportId);
+    public ResponseEntity<List<ReportDto>> getAllUncheckedReportsByOwnerId(@RequestParam(required = false) Long ownerId) {
+        List<ReportDto> reports = reportService.getAllUncheckedReportsByOwnerId(ownerId);
         if (reports == null) {
             return ResponseEntity.notFound().build();
         }
