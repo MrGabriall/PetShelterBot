@@ -3,7 +3,6 @@ package com.skypro.java.petshelterbot.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -18,12 +17,15 @@ public class Pet {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
+    @Column(name = "pet_type")
+    private String petType;
     @Column(name = "date_of_adoption")
     private LocalDate dateOfAdoption;
 
 
-    public Pet(String name, LocalDate dateOfAdoption) {
+    public Pet(String name, String petType, LocalDate dateOfAdoption) {
         this.name = name;
+        this.petType = petType;
         this.dateOfAdoption = dateOfAdoption;
     }
 
@@ -46,6 +48,14 @@ public class Pet {
         this.name = name;
     }
 
+    public String getPetType() {
+        return petType;
+    }
+
+    public void setPetType(String petType) {
+        this.petType = petType;
+    }
+
     public LocalDate getDateOfAdoption() {
         return dateOfAdoption;
     }
@@ -57,13 +67,14 @@ public class Pet {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Pet pet)) return false;
-        return Objects.equals(id, pet.id) && Objects.equals(name, pet.name) && Objects.equals(dateOfAdoption, pet.dateOfAdoption);
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return Objects.equals(id, pet.id) && Objects.equals(name, pet.name) && Objects.equals(petType, pet.petType) && Objects.equals(dateOfAdoption, pet.dateOfAdoption);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dateOfAdoption);
+        return Objects.hash(id, name, petType, dateOfAdoption);
     }
 
     @Override
@@ -71,6 +82,7 @@ public class Pet {
         return "Pet{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", petType='" + petType + '\'' +
                 ", dateOfAdoption=" + dateOfAdoption +
                 '}';
     }

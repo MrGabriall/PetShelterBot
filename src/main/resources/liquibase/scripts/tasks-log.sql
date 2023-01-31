@@ -124,3 +124,18 @@ values (185364898, 'Samorai', 'Valeriy', +7123456-78-98, 30, 1, 7);
 
 insert into owner(chat_id, last_name, first_name, phone_number, number_of_report_days, volunteer_id, pet_id)
 values (185364834, 'Filatov', 'Michael', +7123456-78-23, 30, 2, 8);
+
+-- changeSet evnag:8
+ALTER TABLE pet ADD pet_type VARCHAR(255);
+
+-- changeSet evnag:9
+-- Set PET TYPES
+UPDATE pet SET pet_type = 'dog' WHERE id = '1';
+UPDATE pet SET pet_type = 'dog' WHERE id = '2';
+UPDATE pet SET pet_type = 'dog' WHERE id = '3';
+UPDATE pet SET pet_type = 'cat' WHERE id = '4';
+UPDATE pet SET pet_type = 'cat' WHERE id = '5';
+UPDATE pet SET pet_type = 'cat' WHERE id = '6';
+UPDATE pet SET pet_type = 'dog' WHERE id = '7';
+UPDATE pet SET pet_type = 'dog' WHERE id = '8';
+UPDATE pet SET pet_type = 'cat' WHERE id = '9';
