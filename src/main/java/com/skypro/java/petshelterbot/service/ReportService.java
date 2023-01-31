@@ -1,16 +1,18 @@
 package com.skypro.java.petshelterbot.service;
 
 import com.skypro.java.petshelterbot.bot.TelegramBot;
+import com.skypro.java.petshelterbot.dto.ReportDto;
 import com.skypro.java.petshelterbot.entity.Owner;
+import com.skypro.java.petshelterbot.entity.Photo;
 import com.skypro.java.petshelterbot.entity.Report;
 import com.skypro.java.petshelterbot.repository.OwnerRepository;
+import com.skypro.java.petshelterbot.repository.PhotoRepository;
 import com.skypro.java.petshelterbot.repository.ReportRepository;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,24 +30,29 @@ public class ReportService {
     private final ReportRepository reportRepository;
     private final OwnerRepository ownerRepository;
     private final TelegramBot telegramBot;
+    private final PhotoRepository photoRepository;
+    private final PhotoSaverService photoSaverService;
 
     public ReportService(ReportRepository reportRepository,
                          OwnerRepository ownerRepository,
-                         TelegramBot telegramBot) {
+                         TelegramBot telegramBot, PhotoRepository photoRepository, PhotoSaverService photoSaverService) {
         this.reportRepository = reportRepository;
         this.ownerRepository = ownerRepository;
         this.telegramBot = telegramBot;
+        this.photoRepository = photoRepository;
+        this.photoSaverService = photoSaverService;
     }
 
     /**
      * This method returns a report by reportId
      *
      * @param reportId
-     * @return Report
+     * @return ReportDto
      */
-    public Report getReport(Long reportId) {
+    public ReportDto getReport(Long reportId) {
         try {
-            return reportRepository.getReportById(reportId);
+            Report report = reportRepository.getReportById(reportId);
+            return fromReportToReportDto(report);
         } catch (Exception e) {
             return null;
         }
@@ -59,7 +66,7 @@ public class ReportService {
      */
     public Owner approveOwner(Long ownerId) {
         try {
-            Owner owner = ownerRepository.getOwnerById(ownerId);
+            Owner owner = ownerRepository.findById(ownerId).get();
             Long chatId = owner.getChatId();
             SendMessage sendMessage = new SendMessage(chatId.toString(), PET_MANAGEMENT_FINAL);
             telegramBot.execute(sendMessage);
@@ -77,7 +84,7 @@ public class ReportService {
      */
     public Owner denyOwner(Long ownerId) {
         try {
-            Owner owner = ownerRepository.getOwnerById(ownerId);
+            Owner owner = ownerRepository.findById(ownerId).get();
             Long chatId = owner.getChatId();
             SendMessage sendMessage = new SendMessage(chatId.toString(), PET_MANAGEMENT_DID_NOT_COPE);
             telegramBot.execute(sendMessage);
@@ -91,13 +98,13 @@ public class ReportService {
      * This method marks the report as correctly completed putting a boolean true in a field isCorrect
      *
      * @param reportId
-     * @return Report
+     * @return ReportDto
      */
-    public Report markReportAsCorrectById(Long reportId) {
+    public ReportDto markReportAsCorrectById(Long reportId) {
         try {
-            Report report = reportRepository.getReportById(reportId);
+            Report report = reportRepository.findById(reportId).get();
             report.setCorrect(true);
-            return reportRepository.save(report);
+            return fromReportToReportDto(reportRepository.save(report));
         } catch (Exception e) {
             return null;
         }
@@ -107,13 +114,13 @@ public class ReportService {
      * This method marks the report as incorrectly completed putting a boolean false in a field isCorrect
      *
      * @param reportId
-     * @return Report
+     * @return ReportDto
      */
-    public Report markReportsAsIncorrectById(Long reportId) {
+    public ReportDto markReportsAsIncorrectById(Long reportId) {
         try {
-            Report report = reportRepository.getReportById(reportId);
+            Report report = reportRepository.findById(reportId).get();
             report.setCorrect(false);
-            return reportRepository.save(report);
+            return fromReportToReportDto(reportRepository.save(report));
         } catch (Exception e) {
             return null;
         }
@@ -129,7 +136,7 @@ public class ReportService {
      */
     public Owner addNumberOfReportDaysByOwnerId(Long ownerId, Integer numberOfDays) {
         try {
-            Owner owner = ownerRepository.getOwnerById(ownerId);
+            Owner owner = ownerRepository.findById(ownerId).get();
             Long chatId = owner.getChatId();
             owner.setNumberOfReportDays(numberOfDays);
             SendMessage sendMessage = new SendMessage(chatId.toString(),
@@ -145,11 +152,15 @@ public class ReportService {
      * This method returns ALL reports for a specific owner by ID
      *
      * @param ownerId
-     * @return List<Report>
+     * @return List<ReportDto>
      */
-    public List<Report> getAllReportsByOwnerId(Long ownerId) {
+    //TODO проверить имена всех переменных в параметрах на соответствие (в этом была ошибка)
+    public List<ReportDto> getAllReportsByOwnerId(Long ownerId) {
         try {
-            return reportRepository.findAllByOwnerId(ownerId);
+            // reportRepository.findAllByOwnerId(ownerId).forEach(r->photoSaverService.readPhotoFromTelegram(r.getPhoto().getId()));
+            List<Report> reports = reportRepository.findAllByOwnerId(ownerId);
+            return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
+
         } catch (Exception e) {
             return null;
         }
@@ -160,11 +171,12 @@ public class ReportService {
      *
      * @param firstName
      * @param lastName
-     * @return List<Report>
+     * @return List<ReportDto>
      */
-    public List<Report> getAllReportsByOwnerName(String firstName, String lastName) {
+    public List<ReportDto> getAllReportsByOwnerName(String firstName, String lastName) {
         try {
-            return reportRepository.findAllByOwnerFirstNameAndOwnerLastName(firstName, lastName);
+            List<Report> reports = reportRepository.findAllByOwnerFirstNameAndOwnerLastName(firstName, lastName);
+            return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
@@ -173,12 +185,13 @@ public class ReportService {
     /**
      * This method returns ALL unchecked reports for a specific owner by ID
      *
-     * @param ownerId
-     * @return List<Report>
+     * @param reportId
+     * @return List<ReportDto>
      */
-    public List<Report> getAllUncheckedReportsByOwnerId(Long ownerId) {
+    public List<ReportDto> getAllUncheckedReportsByOwnerId(Long reportId) {
         try {
-            return reportRepository.findAllByOwnerIdAndCorrectIsNull(ownerId);
+            List<Report> reports = reportRepository.findAllByOwnerIdAndCorrectIsNull(reportId);
+            return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
@@ -189,11 +202,13 @@ public class ReportService {
      *
      * @param firstName
      * @param lastName
-     * @return List<Report>
+     * @return List<ReportDto>
      */
-    public List<Report> getAllUncheckedReportsByOwnerName(String firstName, String lastName) {
+    public List<ReportDto> getAllUncheckedReportsByOwnerName(String firstName, String lastName) {
         try {
-            return reportRepository.findAllByOwnerFirstNameAndOwnerLastNameAndCorrectIsNull(firstName, lastName);
+            List<Report> reports = reportRepository
+                    .findAllByOwnerFirstNameAndOwnerLastNameAndCorrectIsNull(firstName, lastName);
+            return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
@@ -201,9 +216,12 @@ public class ReportService {
 
     /**
      * This method returns all reports from the database
+     *
+     * @return List<ReportDto>
      */
-    public List<Report> getAllUncheckedReports() {
-        return reportRepository.findAllByIsCorrectIsNull();
+    public List<ReportDto> getAllUncheckedReports() {
+        List<Report> reports = reportRepository.findAll();
+        return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
     }
 
 
@@ -243,29 +261,17 @@ public class ReportService {
      */
     private List<Long> findAllIdsWithTrial() {
         return ownerRepository.findAllByNumberOfReportDaysNotNull().stream()
-                .map(Owner::getId)
+                .map(Owner::getChatId)
                 .toList();
     }
 
     /**
-     * This method find chat ids owners by ids
-     *
-     * @param ids
-     * @return List<Long> chatIds
-     */
-    List<Long> getChatIdsByIds(List<Long> ids){
-        return ids.stream()
-                .map(ownerRepository::getOwnerById)
-                .map(Owner::getChatId)
-                .collect(Collectors.toList());
-    }
-
-    /**
      * This method send notification message to owners who forgot send report yesterday
+     *
      * @param id
      * @param text
      */
-    void sendMessage(Long id, String text){
+    void sendMessage(Long id, String text) {
         SendMessage message = new SendMessage();
         message.setChatId(id);
         message.setText(text);
@@ -274,5 +280,21 @@ public class ReportService {
         } catch (TelegramApiException e) {
             //logger
         }
+    }
+
+    public ReportDto fromReportToReportDto(Report report) {
+        String host = "localhost:8080/";
+
+        Photo photo = photoRepository.findById(report.getPhoto().getId()).orElseThrow();
+        String url = host.concat("report/photos/").concat(photo.getFileId());
+
+        return new ReportDto(report.getId(),
+                report.getIncomingReportDate(),
+                report.getPet().getName(),
+                report.getOwner().getFirstName() + " " + report.getOwner().getLastName(),
+                report.getPetDiet(),
+                report.getHealthAndCondition(),
+                report.getBehavioralChanges(),
+                url);
     }
 }

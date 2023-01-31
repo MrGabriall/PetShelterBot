@@ -1,30 +1,30 @@
 -- PETS
 insert into pet(name, date_of_adoption)
-values ('Fly', '2023-01-08 21:30:00.000000');
+values ('Fly', '2023-01-08');
 
 insert into pet(name, date_of_adoption)
-values ('Good boy', '2023-01-03 21:30:00.000000');
+values ('Good boy', '2023-01-03');
 
 insert into pet(name, date_of_adoption)
-values ('Nike', '2023-01-05 21:30:00.000000');
+values ('Nike', '2023-01-05');
 
 insert into pet(name, date_of_adoption)
-values ('Gray', '2022-12-08 21:30:00.000000');
+values ('Gray', '2022-12-08');
 
 insert into pet(name, date_of_adoption)
-values ('Fil', '2020-01-04 21:30:00.000000');
+values ('Fil', '2020-01-04');
 
 insert into pet(name, date_of_adoption)
-values ('Crazy', '2023-01-11 21:30:00.000000');
+values ('Crazy', '2023-01-11');
 
 insert into pet(name, date_of_adoption)
-values ('Boom', '2023-01-10 21:30:00.000000');
+values ('Boom', '2023-01-10');
 
 insert into pet(name, date_of_adoption)
-values ('Pit', '2023-01-11 21:30:00.000000');
+values ('Pit', '2023-01-11');
 
 insert into pet(name, date_of_adoption)
-values ('Claus', '2023-01-03 21:30:00.000000');
+values ('Claus', '2023-01-03');
 
 -- VOLUNTEERS
 insert into volunteer(chat_id, last_name, first_name)
