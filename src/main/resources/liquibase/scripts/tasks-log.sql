@@ -132,16 +132,17 @@ values (185364898, 'Samorai', 'Valeriy', +7123456-78-98, 30, 1, 7);
 insert into owner(chat_id, last_name, first_name, phone_number, number_of_report_days, volunteer_id, pet_id)
 values (185364834, 'Filatov', 'Michael', +7123456-78-23, 30, 2, 8);
 
---PHOTO
-insert into photo(file_id)
-values ('AgACAgIAAxkBAAICymPNfjkt9EfISo29SM9unz58K5KPAAJzwTEbb145Suo0FSEq0RMUAQADAgADeQADLQQ');
+-- changeSet evnag:8
+ALTER TABLE pet ADD pet_type VARCHAR(255);
 
-insert into photo(file_id)
-values ('AgACAgIAAxkBAAIC1mPNfqevJjDfohS688t4-ilXBqW8AAKqxDEbxvg4Sqb68TWUxI-jAQADAgADeQADLQQ');
-
---REPORT
-insert into report(incoming_report_date, pet_id, owner_id, pet_diet, health_and_condition, behavioral_changes, photo_id)
-values ('2023-01-21', 1, 1, 'Eat', 'Walk', 'Ok', 1);
-
-insert into report(incoming_report_date, pet_id, owner_id, pet_diet, health_and_condition, behavioral_changes, photo_id)
-values ('2023-01-22', 1, 1, 'Eat', 'Walk', 'Ok', 2);
+-- changeSet evnag:9
+-- Set PET TYPES
+UPDATE pet SET pet_type = 'dog' WHERE id = '1';
+UPDATE pet SET pet_type = 'dog' WHERE id = '2';
+UPDATE pet SET pet_type = 'dog' WHERE id = '3';
+UPDATE pet SET pet_type = 'cat' WHERE id = '4';
+UPDATE pet SET pet_type = 'cat' WHERE id = '5';
+UPDATE pet SET pet_type = 'cat' WHERE id = '6';
+UPDATE pet SET pet_type = 'dog' WHERE id = '7';
+UPDATE pet SET pet_type = 'dog' WHERE id = '8';
+UPDATE pet SET pet_type = 'cat' WHERE id = '9';

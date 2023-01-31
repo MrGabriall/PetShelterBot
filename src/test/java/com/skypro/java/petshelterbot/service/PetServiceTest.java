@@ -33,7 +33,7 @@ public class PetServiceTest {
     @Test
     public void createPositive() {
         LocalDate date = LocalDate.of(2023, 12, 6);
-        Pet pet1 = new Pet("doggy", date);
+        Pet pet1 = new Pet("doggy", petType, date);
         Mockito.when(petRepository.save(pet1)).thenReturn(pet1);
         assertEquals(petService.create(pet1), pet1);
         assertNotNull(petService.create(pet1));
@@ -42,7 +42,7 @@ public class PetServiceTest {
     @Test
     public void readPositive() {
         LocalDate date = LocalDate.of(2023, 12, 6);
-        Pet pet1 = new Pet("doggy", date);
+        Pet pet1 = new Pet("doggy", petType, date);
         Mockito.when(petRepository.getPetById(1L)).thenReturn(pet1);
         assertEquals(petService.read(1L), pet1);
         assertNotNull(petService.read(1L));
@@ -51,7 +51,7 @@ public class PetServiceTest {
     @Test
     public void updatePositive() {
         LocalDate date = LocalDate.of(2023, 12, 6);
-        Pet pet1 = new Pet("doggy", date);
+        Pet pet1 = new Pet("doggy", petType, date);
         Mockito.when(petRepository.save(pet1)).thenReturn(pet1);
         assertEquals(petService.update(pet1), pet1);
         assertNotNull(petService.update(pet1));
