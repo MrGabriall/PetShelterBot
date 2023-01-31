@@ -3,16 +3,15 @@ package com.skypro.java.petshelterbot.service;
 import com.skypro.java.petshelterbot.bot.TelegramBot;
 import com.skypro.java.petshelterbot.dto.ReportDto;
 import com.skypro.java.petshelterbot.entity.Owner;
+import com.skypro.java.petshelterbot.entity.Photo;
 import com.skypro.java.petshelterbot.entity.Report;
 import com.skypro.java.petshelterbot.repository.OwnerRepository;
+import com.skypro.java.petshelterbot.repository.PhotoRepository;
 import com.skypro.java.petshelterbot.repository.ReportRepository;
-import org.apache.el.stream.Stream;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,15 +30,16 @@ public class ReportService {
     private final ReportRepository reportRepository;
     private final OwnerRepository ownerRepository;
     private final TelegramBot telegramBot;
-
+    private final PhotoRepository photoRepository;
     private final PhotoSaverService photoSaverService;
 
     public ReportService(ReportRepository reportRepository,
                          OwnerRepository ownerRepository,
-                         TelegramBot telegramBot, PhotoSaverService photoSaverService) {
+                         TelegramBot telegramBot, PhotoRepository photoRepository, PhotoSaverService photoSaverService) {
         this.reportRepository = reportRepository;
         this.ownerRepository = ownerRepository;
         this.telegramBot = telegramBot;
+        this.photoRepository = photoRepository;
         this.photoSaverService = photoSaverService;
     }
 
@@ -159,7 +159,7 @@ public class ReportService {
         try {
             // reportRepository.findAllByOwnerId(ownerId).forEach(r->photoSaverService.readPhotoFromTelegram(r.getPhoto().getId()));
             List<Report> reports = reportRepository.findAllByOwnerId(ownerId);
-            return reports.stream().map(r -> fromReportToReportDto(r)).collect(Collectors.toList());
+            return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
 
         } catch (Exception e) {
             return null;
@@ -176,7 +176,7 @@ public class ReportService {
     public List<ReportDto> getAllReportsByOwnerName(String firstName, String lastName) {
         try {
             List<Report> reports = reportRepository.findAllByOwnerFirstNameAndOwnerLastName(firstName, lastName);
-            return reports.stream().map(r -> fromReportToReportDto(r)).collect(Collectors.toList());
+            return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
@@ -191,7 +191,7 @@ public class ReportService {
     public List<ReportDto> getAllUncheckedReportsByOwnerId(Long reportId) {
         try {
             List<Report> reports = reportRepository.findAllByOwnerIdAndCorrectIsNull(reportId);
-            return reports.stream().map(r -> fromReportToReportDto(r)).collect(Collectors.toList());
+            return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
@@ -208,7 +208,7 @@ public class ReportService {
         try {
             List<Report> reports = reportRepository
                     .findAllByOwnerFirstNameAndOwnerLastNameAndCorrectIsNull(firstName, lastName);
-            return  reports.stream().map(r -> fromReportToReportDto(r)).collect(Collectors.toList());
+            return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
@@ -216,11 +216,12 @@ public class ReportService {
 
     /**
      * This method returns all reports from the database
+     *
      * @return List<ReportDto>
      */
     public List<ReportDto> getAllUncheckedReports() {
         List<Report> reports = reportRepository.findAll();
-        return reports.stream().map(r->fromReportToReportDto(r)).collect(Collectors.toList());
+        return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
     }
 
 
@@ -282,7 +283,11 @@ public class ReportService {
     }
 
     public ReportDto fromReportToReportDto(Report report) {
-        String photoLink = photoSaverService.readPhotoFromTelegram(report.getPhoto().getId()); //TODO write method for photo
+        String host = "localhost:8080/";
+
+        Photo photo = photoRepository.findById(report.getPhoto().getId()).orElseThrow();
+        String url = host.concat("report/photos/").concat(photo.getFileId());
+
         return new ReportDto(report.getId(),
                 report.getIncomingReportDate(),
                 report.getPet().getName(),
@@ -290,6 +295,6 @@ public class ReportService {
                 report.getPetDiet(),
                 report.getHealthAndCondition(),
                 report.getBehavioralChanges(),
-                photoLink);
+                url);
     }
 }

@@ -2,13 +2,14 @@ package com.skypro.java.petshelterbot.controller;
 
 import com.skypro.java.petshelterbot.dto.ReportDto;
 import com.skypro.java.petshelterbot.entity.Owner;
-import com.skypro.java.petshelterbot.entity.Report;
 import com.skypro.java.petshelterbot.entity.Volunteer;
+import com.skypro.java.petshelterbot.service.PhotoSaverService;
 import com.skypro.java.petshelterbot.service.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.data.util.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,11 @@ import java.util.List;
 public class ReportController {
 
     private final ReportService reportService;
+    private final PhotoSaverService photoSaverService;
 
-    public ReportController(ReportService reportService) {
+    public ReportController(ReportService reportService, PhotoSaverService photoSaverService) {
         this.reportService = reportService;
+        this.photoSaverService = photoSaverService;
     }
 
     /**
@@ -338,7 +341,7 @@ public class ReportController {
             })
     @GetMapping("/getAllReportsByOwnerName")
     public ResponseEntity<List<ReportDto>> getAllReportsByOwnerName(@RequestParam(required = false) String firstName,
-                                                                 @RequestParam(required = false) String lastName) {
+                                                                    @RequestParam(required = false) String lastName) {
         List<ReportDto> reports = reportService.getAllReportsByOwnerName(firstName, lastName);
         if (reports == null) {
             return ResponseEntity.notFound().build();
@@ -418,7 +421,7 @@ public class ReportController {
             })
     @GetMapping("/getAllUncheckedReportsByOwnerName")
     public ResponseEntity<List<ReportDto>> getAllUncheckedReportsByOwnerName(@RequestParam(required = false) String firstName,
-                                                                          @RequestParam(required = false) String lastName) {
+                                                                             @RequestParam(required = false) String lastName) {
         List<ReportDto> reports = reportService.getAllUncheckedReportsByOwnerName(firstName, lastName);
         if (reports == null) {
             return ResponseEntity.notFound().build();
@@ -457,6 +460,15 @@ public class ReportController {
     public ResponseEntity<List<ReportDto>> getAllUncheckedReports() {
         List<ReportDto> reports = reportService.getAllUncheckedReports();
         return ResponseEntity.ok(reports);
+    }
+
+    @GetMapping("/photos/{fileId}")
+    public ResponseEntity<byte[]> getPhotoByUniqueId(@PathVariable String fileId) {
+        Pair<byte[], String> pair = photoSaverService.readPhotoFromTelegram(fileId);
+        return ResponseEntity.ok()
+                .contentLength(pair.getFirst().length)
+                .contentType(MediaType.parseMediaType(pair.getSecond()))
+                .body(pair.getFirst());
     }
 
 }
