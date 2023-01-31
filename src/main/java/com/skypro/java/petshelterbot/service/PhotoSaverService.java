@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 
+/**
+ * @author nadillustrator & mrgabriall
+ */
 @Service
 public class PhotoSaverService {
 
@@ -20,6 +23,13 @@ public class PhotoSaverService {
         this.telegramBot = telegramBot;
     }
 
+    /**
+     * This method open stream from telegram
+     * and return pair of byte array and media type photo
+     *
+     * @param fileId photo fileId for telegram
+     * @return Pair<byte [ ], String> byte array photo and string media type
+     */
     public Pair<byte[], String> readPhotoFromTelegram(String fileId) {
         try {
             GetFile getFile = new GetFile();

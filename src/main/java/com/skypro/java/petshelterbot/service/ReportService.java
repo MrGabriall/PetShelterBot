@@ -295,6 +295,12 @@ public class ReportService {
         }
     }
 
+    /**
+     * This method converts the entity report into entity report dto
+     *
+     * @param report entity
+     * @return ReportDto entity after convert from entity report
+     */
     public ReportDto fromReportToReportDto(Report report) {
         String host = "localhost:8080/";
 
