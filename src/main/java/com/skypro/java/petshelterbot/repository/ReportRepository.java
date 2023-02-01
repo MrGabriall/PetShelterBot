@@ -14,6 +14,11 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 
     Report getReportById(Long id);
     List<Report> findAllByOwnerId(Long id);
+    /**
+     * @author EosReign
+     * @method findAllByIsCorrectIsNull();
+     */
+    List<Report> findAllByIsCorrectIsNull();
 
     @Query(value = "select * from report r where r.owner_id = ?1 and r.incoming_report_date = ?2", nativeQuery = true)
     Report findReportByOwnerIdAndIncomingReportTime_Date(@Param("ownerId")Long ownerId, @Param("date")LocalDate date);

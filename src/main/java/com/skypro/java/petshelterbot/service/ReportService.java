@@ -220,7 +220,7 @@ public class ReportService {
      * @return List<ReportDto>
      */
     public List<ReportDto> getAllUncheckedReports() {
-        List<Report> reports = reportRepository.findAll();
+        List<Report> reports = reportRepository.findAllByIsCorrectIsNull();
         return reports.stream().map(this::fromReportToReportDto).collect(Collectors.toList());
     }
 
