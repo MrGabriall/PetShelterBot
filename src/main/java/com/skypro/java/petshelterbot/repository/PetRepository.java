@@ -12,5 +12,4 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     Pet getPetById(Long id);
 
     Collection<Pet> findAllByPetTypeIgnoreCase(String type);
-
 }

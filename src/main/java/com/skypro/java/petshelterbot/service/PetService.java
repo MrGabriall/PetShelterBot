@@ -71,7 +71,6 @@ public class PetService {
      *
      * @return Collectrin Pet by type
      */
-
     public Collection<Pet> findByType(String type) {
         LOGGER.debug("Method delete was invoked");
         return petRepository.findAllByPetTypeIgnoreCase(type);
