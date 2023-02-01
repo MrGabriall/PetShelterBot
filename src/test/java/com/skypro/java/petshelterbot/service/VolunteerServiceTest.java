@@ -9,8 +9,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
  * @author EosReign
@@ -28,57 +30,45 @@ public class VolunteerServiceTest {
     public void createTest() {
         Volunteer volunteer1 = new Volunteer(1L, "Man", "MANN");
         Mockito.when(volunteerRepository.save(volunteer1)).thenReturn(volunteer1);
-        assertEquals(volunteerService.create(volunteer1), volunteer1);
-        assertNotNull(volunteerService.create(volunteer1));
+        assertThat(volunteer1).isEqualTo(volunteerService.create(volunteer1));
+        assertThat(volunteerService.create(volunteer1)).isNotNull();
     }
 
     @Test
     public void readTest() {
         Volunteer volunteer1 = new Volunteer(1L, "Man", "MANN");
         Mockito.when(volunteerRepository.getVolunteerById(1L)).thenReturn(volunteer1);
-        assertEquals(volunteerService.read(1L), volunteer1);
-        assertNotNull(volunteerService.read(1L));
+        assertThat(volunteer1).isEqualTo(volunteerService.read(1L));
+        assertThat(volunteerService.read(1L)).isNotNull();
     }
 
     @Test
     public void updateTest() {
         Volunteer volunteer1 = new Volunteer(1L, "Man", "MANN");
         Mockito.when(volunteerRepository.save(volunteer1)).thenReturn(volunteer1);
-        assertEquals(volunteerService.update(volunteer1), volunteer1);
-        assertNotNull(volunteerService.update(volunteer1));
+        assertThat(volunteer1).isEqualTo(volunteerService.update(volunteer1));
+        assertThat(volunteerService.update(volunteer1)).isNotNull();
     }
 
-    /**
-     * method delete volunteer from database
-     * {@link org.springframework.data.jpa.repository.JpaRepository#deleteById(Object)}
-     * param id - volunteer
-     * @return void
-     */
-    //TODO каким-то образом проверить
     @Test
-    public void delete() {
-        /*
-        Volunteer volunteer1 = new Volunteer(1L, "Man", "MANN");
-        Mockito.when(volunteerRepository.deleteById(1L)).thenReturn(HttpStatus(OK));
-        assertEquals(volunteerService.delete(1L), HttpStatus(OK));
-
-         */
-
+    public void deleteTest() {
+        volunteerService.delete(1L);
+        Mockito.verify(volunteerRepository).deleteById(1L);
     }
 
-//    @Test
-//    public void showVolunteer() {
-//        List<Volunteer> arr = new ArrayList<Volunteer> (4);
-//        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
-//        Volunteer volunteer2 = new Volunteer(1L, "Woman", "Mercedes");
-//        Volunteer volunteer3 = new Volunteer(2L, "Jesus", "Christ");
-//        Volunteer volunteer4 = new Volunteer(3L, "God", "Supreme");
-//        arr.add(volunteer1);
-//        arr.add(volunteer2);
-//        arr.add(volunteer3);
-//        arr.add(volunteer4);
-//        Mockito.when(volunteerRepository.showVolunteer()).thenReturn(arr);
-//        assertEquals(volunteerService.showVolunteer(), arr);
-//        assertNotNull(volunteerService.showVolunteer());
-//    }
+    @Test
+    public void getAllTest() {
+        List<Volunteer> arr = new ArrayList<Volunteer>(4);
+        Volunteer volunteer1 = new Volunteer(0L, "Man", "MANN");
+        Volunteer volunteer2 = new Volunteer(1L, "Woman", "Mercedes");
+        Volunteer volunteer3 = new Volunteer(2L, "Jesus", "Christ");
+        Volunteer volunteer4 = new Volunteer(3L, "God", "Supreme");
+        arr.add(volunteer1);
+        arr.add(volunteer2);
+        arr.add(volunteer3);
+        arr.add(volunteer4);
+        Mockito.when(volunteerRepository.getAll()).thenReturn(arr);
+        assertThat(arr).isEqualTo(volunteerService.getAll());
+        assertThat(volunteerService.getAll()).isNotNull();
+    }
 }
