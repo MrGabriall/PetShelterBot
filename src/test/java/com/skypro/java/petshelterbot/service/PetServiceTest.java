@@ -16,6 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * @author EosReign
  * Class ServiceTest PetServiceTest.
@@ -61,5 +65,20 @@ public class PetServiceTest {
     public void deleteTest() {
         petService.delete(1L);
         Mockito.verify(petRepository).deleteById(1L);
+    }
+
+    @Test
+    public void findByTypeTest() {
+        LocalDate date = LocalDate.of(2023, 12, 6);
+        Pet pet1 = new Pet("Jesus", "cat", date);
+        Pet pet2 = new Pet("Puss", "cat", date);
+        Pet pet3 = new Pet("Lucifer", "cat", date);
+        List<Pet> arrCat = new ArrayList<>();
+        arrCat.add(pet1);
+        arrCat.add(pet2);
+        arrCat.add(pet3);
+
+        Mockito.when(petRepository.findAllByPetTypeIgnoreCase("cat")).thenReturn(arrCat);
+        assertThat(arrCat).isEqualTo(petService.findByType("cat"));
     }
 }

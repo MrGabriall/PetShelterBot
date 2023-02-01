@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 /**
  * @author EosReign
  * Class Service PetService.
@@ -55,6 +57,11 @@ public class PetService {
     public void delete(Long id) {
         LOGGER.debug("Method delete was invoked");
         petRepository.deleteById(id);
+    }
+
+    public Collection<Pet> findByType(String type) {
+        LOGGER.debug("Method delete was invoked");
+        return petRepository.findAllByPetTypeIgnoreCase(type);
     }
 
 }
