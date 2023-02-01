@@ -2,6 +2,7 @@ package com.skypro.java.petshelterbot.controller;
 
 import com.skypro.java.petshelterbot.entity.Owner;
 import com.skypro.java.petshelterbot.entity.Pet;
+import com.skypro.java.petshelterbot.repository.PetRepository;
 import com.skypro.java.petshelterbot.service.PetService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collection;
+
 /**
  * @author EosReign
  * Class Controller PetController
@@ -106,4 +109,24 @@ public class PetController {
         petService.delete(id);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "Search all Pets in type",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Search all type Pet",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Pet.class)
+                            )
+                    )
+            })
+
+    @GetMapping()
+    public ResponseEntity<Collection<Pet>> findType(@Parameter(description = "Write dog or cat",example = "dog")
+                                                    @RequestParam String type) {
+        return ResponseEntity.ok(petService.findByType(type));
+    }
+
+
 }

@@ -462,6 +462,19 @@ public class ReportController {
         return ResponseEntity.ok(reports);
     }
 
+    @Operation(
+            summary = "return photo by fileId",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "return photo",
+                            content = @Content(
+                                    mediaType = MediaType.IMAGE_JPEG_VALUE,
+                                    schema = @Schema(implementation = Volunteer.class)
+                            )
+                    )
+            }
+    )
     @GetMapping("/photos/{fileId}")
     public ResponseEntity<byte[]> getPhotoByUniqueId(@PathVariable String fileId) {
         Pair<byte[], String> pair = photoSaverService.readPhotoFromTelegram(fileId);

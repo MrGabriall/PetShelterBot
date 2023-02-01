@@ -95,39 +95,43 @@ public class FillingReportHandler implements InputMessageHandler {
         Report report = checkForReportExists(owner.getId(), LocalDate.now());
 
         if (botState.equals(BotState.SEND_DIET_STATE)) {
-            messageToUser = messageService.sendMessage(chatId, "SEND_DIET");
+            messageToUser = messageService.sendMessage(chatId, "Введите информацию о диете питомца");
             userStateService.setBotState(chatId, BotState.SEND_HEALTH_STATE);
         }
         if (botState.equals(BotState.SEND_HEALTH_STATE)) {
             report.setPetDiet(userAnswer);
             reportRepository.save(report);
-            messageToUser = messageService.sendMessage(chatId, "SEND_HEALTH");
+            messageToUser = messageService.sendMessage(chatId, "Введите информацию о здоровье питомца");
             userStateService.setBotState(chatId, BotState.SEND_BEHAVIOR_STATE);
         }
         if (botState.equals(BotState.SEND_BEHAVIOR_STATE)) {
             report.setHealthAndCondition(userAnswer);
             reportRepository.save(report);
-            messageToUser = messageService.sendMessage(chatId, "SEND_BEHAVIOR");
+            messageToUser = messageService.sendMessage(chatId, "Введите информацию о поведении питомца");
             userStateService.setBotState(chatId, BotState.SEND_PHOTO_STATE);
         }
         if (botState.equals(BotState.SEND_PHOTO_STATE)) {
             report.setBehavioralChanges(userAnswer);
             reportRepository.save(report);
-            messageToUser = messageService.sendMessage(chatId, "SEND_PHOTO");
+            messageToUser = messageService.sendMessage(chatId, "Отправьте фото питомца");
             userStateService.setBotState(chatId, BotState.REPORT_FILLED_STATE);
         }
         if (botState.equals(BotState.REPORT_FILLED_STATE)) {
-            report.setPhoto(handlePhotoForReport(message));
-            report.setPet(pet);
-            report.setOwner(owner);
-            report.setIncomingReportDate(LocalDate.now());
-            reportRepository.save(report);
+            if (message.hasPhoto()) {
+                report.setPhoto(handlePhotoForReport(message));
+                report.setPet(pet);
+                report.setOwner(owner);
+                report.setIncomingReportDate(LocalDate.now());
+                reportRepository.save(report);
 
-            userStateService.setBotState(chatId, BotState.START_STATE);
-            messageToUser = messageService.sendReplyMessage(
-                    chatId,
-                    "Отчет отправлен",
-                    messageService.generateMenuKeyBoard(CALL_VOLUNTEER, TO_MAIN_MENU));
+                userStateService.setBotState(chatId, BotState.START_STATE);
+                messageToUser = messageService.sendReplyMessage(
+                        chatId,
+                        "Отчет отправлен",
+                        messageService.generateMenuKeyBoard(CALL_VOLUNTEER, TO_MAIN_MENU));
+            } else {
+                messageToUser = new SendMessage(String.valueOf(chatId), "Выберете фото для отправки!");
+            }
         }
         return messageToUser;
     }
