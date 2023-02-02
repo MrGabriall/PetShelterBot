@@ -147,7 +147,7 @@ public class FillingReportHandler implements InputMessageHandler {
      * @return If the report is found, returns report . If the report is not found, returns a new report and writes it to the database
      */
     private Report checkForReportExists(Long ownerId, LocalDate date) {
-        Report report = reportRepository.findReportByOwnerIdAndIncomingReportTime_Date(ownerId, date);
+        Report report = reportRepository.findReportByOwnerIdAndIncomingReportDate(ownerId, date);
         if (report == null) {
             Report newReport = new Report();
             newReport.setOwner(ownerRepository.getOwnerById(ownerId));

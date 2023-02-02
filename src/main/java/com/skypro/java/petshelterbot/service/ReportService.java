@@ -5,6 +5,7 @@ import com.skypro.java.petshelterbot.dto.ReportDto;
 import com.skypro.java.petshelterbot.entity.Owner;
 import com.skypro.java.petshelterbot.entity.Photo;
 import com.skypro.java.petshelterbot.entity.Report;
+import com.skypro.java.petshelterbot.entity.Volunteer;
 import com.skypro.java.petshelterbot.repository.OwnerRepository;
 import com.skypro.java.petshelterbot.repository.PhotoRepository;
 import com.skypro.java.petshelterbot.repository.ReportRepository;
@@ -31,16 +32,16 @@ public class ReportService {
     private final OwnerRepository ownerRepository;
     private final TelegramBot telegramBot;
     private final PhotoRepository photoRepository;
-    private final PhotoSaverService photoSaverService;
+    private final VolunteerService volunteerService;
 
     public ReportService(ReportRepository reportRepository,
                          OwnerRepository ownerRepository,
-                         TelegramBot telegramBot, PhotoRepository photoRepository, PhotoSaverService photoSaverService) {
+                         TelegramBot telegramBot, PhotoRepository photoRepository, VolunteerService volunteerService) {
         this.reportRepository = reportRepository;
         this.ownerRepository = ownerRepository;
         this.telegramBot = telegramBot;
         this.photoRepository = photoRepository;
-        this.photoSaverService = photoSaverService;
+        this.volunteerService = volunteerService;
     }
 
     /**
@@ -248,11 +249,42 @@ public class ReportService {
      * @param ids
      * @return List<Long> chatIds
      */
-    List<Long> getChatIdsByIds(List<Long> ids){
+    List<Long> getOwnerChatIdsByIds(List<Long> ids) {
         return ids.stream()
                 .map(ownerRepository::getOwnerById)
                 .map(Owner::getChatId)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * This method selects the list of owners to be sent to the volunteer
+     *
+     * @param ownerIds List of ownerIds
+     */
+    void pushVolunteersByOwnerIds(List<Long> ownerIds) {
+        List<Volunteer> volunteers = volunteerService.getAll();
+        List<Owner> owners;
+        for (int i = 0; i < volunteers.size(); i++) {
+            owners = new ArrayList<>(ownerIds.stream().map(ownerRepository::getOwnerById).toList());
+            owners.retainAll(ownerRepository.findAllByVolunteerId((long) i + 1));
+            sendWarningListToVolunteer(owners, volunteers.get(i));
+        }
+    }
+
+    /**
+     * This method sends to volunteer information about the owners to contact
+     *
+     * @param warningList List owners
+     * @param volunteer   volunteer to send contacts owners
+     */
+    private void sendWarningListToVolunteer(List<Owner> warningList, Volunteer volunteer) {
+        String text = "Привет, " + volunteer.getFirstName() +
+                "\nВот список владельцев животных с информацией для связи, " +
+                "которых нужно проверить лично в ближайшее время:\n";
+        for (Owner owner : warningList) {
+            text = text.concat("\n" + owner.getPhoneNumber() + "\n" + owner.getFirstName() + " " + owner.getLastName() + "\n");
+        }
+        sendMessage(volunteer.getChatId(), text);
     }
 
     /**
@@ -263,7 +295,7 @@ public class ReportService {
      * @return boolean
      */
     private boolean findReportByOwnerIdAndDate(Long ownerId, LocalDate date) {
-        Report report = reportRepository.findReportByOwnerIdAndIncomingReportTime_Date(ownerId, date);
+        Report report = reportRepository.findReportByOwnerIdAndIncomingReportDate(ownerId, date);
         return report == null;
     }
 
@@ -274,7 +306,7 @@ public class ReportService {
      */
     private List<Long> findAllIdsWithTrial() {
         return ownerRepository.findAllByNumberOfReportDaysNotNull().stream()
-                .map(Owner::getChatId)
+                .map(Owner::getId)
                 .toList();
     }
 
