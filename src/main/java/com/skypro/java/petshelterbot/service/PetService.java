@@ -5,7 +5,10 @@ import com.skypro.java.petshelterbot.repository.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 /**
  * @author EosReign
@@ -25,6 +28,7 @@ public class PetService {
 
     /**
      * Method of insertion Object Pet into DB{@link Pet@create}
+     *
      * @return Return Object Pet
      */
     public Pet create(Pet pet) {
@@ -34,27 +38,42 @@ public class PetService {
 
     /**
      * Method of obtaining Object Pet from DB by ID{@link Pet@read}
+     *
      * @return Return Object Pet
      */
     public Pet read(Long id) {
         LOGGER.debug("Method read was invoked");
         return petRepository.getPetById(id);
     }
+
     /**
      * Method of saving new Object Pet(<b>updating</b>) in DB{@link Pet@update}
+     *
      * @return Return Object Pet
      */
     public Pet update(Pet pet) {
         LOGGER.debug("Method update was invoked");
         return petRepository.save(pet);
     }
+
     /**
      * Method of deleting Object Pet in DB by ID(<b>updating</b>) in DB{@link Pet@delete}
+     *
      * @return Return Nothing
      */
     public void delete(Long id) {
         LOGGER.debug("Method delete was invoked");
         petRepository.deleteById(id);
+    }
+
+    /**
+     * Method of search Object Pet in DB by ID(<b>updating</b>) in DB{@link PetRepository#findAllByPetTypeIgnoreCase(String)}
+     *
+     * @return Collectrin Pet by type
+     */
+    public Collection<Pet> findByType(String type) {
+        LOGGER.debug("Method delete was invoked");
+        return petRepository.findAllByPetTypeIgnoreCase(type);
     }
 
 }
