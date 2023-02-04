@@ -305,7 +305,7 @@ public class ReportService {
      * @return List<Long>
      */
     private List<Long> findAllIdsWithTrial() {
-        return ownerRepository.findAllByNumberOfReportDaysNotNull().stream()
+        return ownerRepository.findAllByNumberOfReportDaysAfter(0).stream()
                 .map(Owner::getId)
                 .toList();
     }

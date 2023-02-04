@@ -1,13 +1,17 @@
 package com.skypro.java.petshelterbot.service;
 
+import com.skypro.java.petshelterbot.repository.OwnerRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class ScheduledService {
     private final ReportService reportService;
+    private final OwnerRepository ownerRepository;
 
     private static final String oneDayMessageWarning = "Дорогой усыновитель, мы заметили, " +
             "что ты заполняешь отчет не так подробно, как необходимо. " +
@@ -15,8 +19,9 @@ public class ScheduledService {
             "В противном случае, волонтеры приюта будут " +
             "обязаны самолично проверять условия содержания животного";
 
-    public ScheduledService(ReportService reportService) {
+    public ScheduledService(ReportService reportService, OwnerRepository ownerRepository) {
         this.reportService = reportService;
+        this.ownerRepository = ownerRepository;
     }
 
     /**
@@ -32,12 +37,12 @@ public class ScheduledService {
         reportService.getOwnerChatIdsByIds(yesterdayIdsList)
                 .forEach(id -> reportService.sendMessage(id, oneDayMessageWarning));
 
+        everydayDecrementTrialPeriod();
         reportService.pushVolunteersByOwnerIds(twoDaysAgoIdsList);
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void everydayDecrementTrialPeriod() {
-        /*  @TODO
-            Написать реализацию и добавить декремент поля в бд
-         */
+        ownerRepository.updateNumberOfReportDays();
     }
 }
