@@ -51,7 +51,7 @@ public class ChooseShelterHandler implements InputMessageHandler {
             default -> messageService.startCommandFromDefault(chatId, userName);
         };
 
-        userStateService.setBotState(chatId, BotState.CHOOSE_SHELTER_STATE);
+        userStateService.setBotState(chatId, BotState.HOW_TO_ADOPT_STATE);
         return messageToUser;
     }
 

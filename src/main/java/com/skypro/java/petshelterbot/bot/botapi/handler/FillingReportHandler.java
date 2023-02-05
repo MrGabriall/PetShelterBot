@@ -20,7 +20,7 @@ import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 import static com.skypro.java.petshelterbot.message.BotCommands.*;
 
@@ -167,11 +167,17 @@ public class FillingReportHandler implements InputMessageHandler {
      */
     private Photo handlePhotoForReport(Message message) {
         List<PhotoSize> photos = message.getPhoto();
-        String fileId = Objects.requireNonNull(photos.stream()
-                .max(Comparator.comparing(PhotoSize::getFileSize))
-                .orElse(null)).getFileId();
-        Photo photo = new Photo(fileId);
-        photoRepository.save(photo);
-        return photo;
+        Photo photo = new Photo();
+
+        Optional<PhotoSize> opt = photos.stream()
+                .max(Comparator.comparing(PhotoSize::getFileSize));
+
+        if (opt.isPresent()) {
+            String fileId = opt.get().getFileId();
+            photo.setFileId(fileId);
+            photoRepository.save(photo);
+            return photo;
+        }
+        return null;
     }
 }

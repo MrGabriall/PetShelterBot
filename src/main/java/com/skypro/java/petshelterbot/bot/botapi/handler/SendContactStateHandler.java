@@ -57,6 +57,7 @@ public class SendContactStateHandler implements InputMessageHandler {
     private SendMessage processUsersMessage(Message message) {
         long chatId = message.getChatId();
         String userAnswer = message.getText();
+        String userName = message.getChat().getUserName();
         SendMessage messageToUser;
         BotState botState = userStateService.getUserState(message).getState();
         long volunteerChatId = volunteerRepository.getVolunteerById(4L).getChatId();
@@ -72,7 +73,7 @@ public class SendContactStateHandler implements InputMessageHandler {
             return messageToUser;
         }
         if (botState.equals(BotState.CONTACTS_SENT_STATE)) {
-            messageToUser = checkContacts(userAnswer, volunteerChatId, chatId);
+            messageToUser = checkContacts(userAnswer, volunteerChatId, chatId, userName);
             return messageToUser;
         }
         return messageService.sendMessage(
@@ -88,12 +89,17 @@ public class SendContactStateHandler implements InputMessageHandler {
      * @param chatId userChatId
      * @return {@link SendMessage}
      */
-    private SendMessage checkContacts(String message, long volunteerChatId, long chatId) {
+    private SendMessage checkContacts(String message, long volunteerChatId, long chatId, String userName) {
         SendMessage messageToUser;
+        String messageToSend = String.format(
+                """
+                        Имя пользователя: %s
+                        Телефон: %s
+                        ID чата: %s""", userName, message, chatId);
 
         Matcher matcher = PATTERN.matcher(message);
         if (matcher.matches()) {
-            messageToUser = messageService.sendMessage(volunteerChatId, message);
+            messageToUser = messageService.sendMessage(volunteerChatId, messageToSend);
             userStateService.setBotState(chatId, BotState.START_STATE);
         } else {
             messageToUser = messageService.sendMessage(
