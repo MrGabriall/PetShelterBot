@@ -236,7 +236,8 @@ public class ReportService {
         List<Long> warningIds = new ArrayList<>();
         LocalDate currentDate = LocalDate.now().minusDays(daysAgo);
         for (Long id : ids) {
-            if (findReportByOwnerIdAndDate(id, currentDate)) {
+            if (findReportByOwnerIdAndDate(id, currentDate) &&
+                    ownerRepository.getOwnerById(id).getNumberOfReportDays() <= 30 - daysAgo) {
                 warningIds.add(id);
             }
         }

@@ -47,7 +47,7 @@ public class CallVolunteerHandler implements InputMessageHandler {
      * @return {@link SendMessage}
      */
     private SendMessage processUsersMessage(Message message) {
-        long volunteerChatId = volunteerRepository.getVolunteerById(4L).getChatId();
+        long volunteerChatId = volunteerRepository.getVolunteerById(1L).getChatId();
         userChatId = message.getChatId();
         SendMessage messageToUser = null;
         BotState botState = userStateService.getUserState(message).getState();

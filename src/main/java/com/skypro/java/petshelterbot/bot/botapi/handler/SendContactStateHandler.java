@@ -60,7 +60,7 @@ public class SendContactStateHandler implements InputMessageHandler {
         String userName = message.getChat().getUserName();
         SendMessage messageToUser;
         BotState botState = userStateService.getUserState(message).getState();
-        long volunteerChatId = volunteerRepository.getVolunteerById(4L).getChatId();
+        long volunteerChatId = volunteerRepository.getVolunteerById(1L).getChatId();
         ReplyKeyboardMarkup keyboardMarkup = messageService.generateMenuKeyBoard(CALL_VOLUNTEER, TO_MAIN_MENU);
         keyboardMarkup.setInputFieldPlaceholder("Вот так вводи номер: +79855310868");
 
